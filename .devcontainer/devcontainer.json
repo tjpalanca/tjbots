@@ -13,9 +13,12 @@
     ],
     "containerUser": "vscode",
     "containerEnv": {
-        "UV_SYSTEM_PYTHON": "1"
+        // {uv} settings
+        "UV_SYSTEM_PYTHON": "1",
+        "UV_LINK_MODE": "copy",
+        "UV_PROJECT_ENVIRONMENT": "/home/vscode/.local/share/virtualenvs/uv"
     },
-    "postCreateCommand": "sudo chown -R vscode:vscode ~/.cache && uv sync",
+    "postCreateCommand": "sudo chown vscode:vscode ~/.cache && uv sync --locked --no-install-project",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -25,7 +28,10 @@
                 "quarto.quarto",
                 "charliermarsh.ruff",
                 "bungcip.better-toml"
-            ]
+            ],
+            "settings": {
+                "files.enableTrash": false
+            }
         }
     }
 }
