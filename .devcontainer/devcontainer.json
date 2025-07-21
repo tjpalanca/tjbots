@@ -1,0 +1,31 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/python:3.12",
+    "features": {
+        "ghcr.io/va-h/devcontainers-features/uv:1": {},
+        "ghcr.io/devcontainers/features/node:1": {}
+    },
+    "mounts": [
+        {
+            "source": "devcontainer-uv-cache",
+            "target": "/home/vscode/.cache/uv",
+            "type": "volume"
+        }
+    ],
+    "containerUser": "vscode",
+    "containerEnv": {
+        "UV_SYSTEM_PYTHON": "1"
+    },
+    "postCreateCommand": "sudo chown -R vscode:vscode ~/.cache && uv sync",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Posit.shiny",
+                "ms-toolsai.jupyter",
+                "GitHub.vscode-pull-request-github",
+                "quarto.quarto",
+                "charliermarsh.ruff",
+                "bungcip.better-toml"
+            ]
+        }
+    }
+}
