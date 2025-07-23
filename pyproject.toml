@@ -5,5 +5,10 @@ description = "TJ's aventures with LLMs"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "anthropic>=0.58.2",
+    "chatlas>=0.9.1",
+    "google-genai>=1.26.0",
+    "openai>=1.97.1",
+    "python-dotenv>=1.1.1",
     "shiny>=1.4.0",
 ]

@@ -30,7 +30,11 @@
                 "tamasfe.even-better-toml"
             ],
             "settings": {
-                "files.enableTrash": false
+                "files.enableTrash": false,
+                "python.interpreters.override": [
+                    "/home/vscode/.local/share/virtualenvs/uv/bin/python"
+                ],
+                "terminal.integrated.defaultProfile.linux": "zsh"
             }
         }
     }
