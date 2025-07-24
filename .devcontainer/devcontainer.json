@@ -2,7 +2,8 @@
     "image": "mcr.microsoft.com/devcontainers/python:3.12",
     "features": {
         "ghcr.io/va-h/devcontainers-features/uv:1": {},
-        "ghcr.io/devcontainers/features/node:1": {}
+        "ghcr.io/devcontainers/features/node:1": {},
+        "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {}
     },
     "mounts": [
         {
