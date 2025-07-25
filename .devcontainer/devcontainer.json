@@ -32,9 +32,7 @@
             ],
             "settings": {
                 "files.enableTrash": false,
-                "python.interpreters.override": [
-                    "/home/vscode/.local/share/virtualenvs/uv/bin/python"
-                ],
+                "python.defaultInterpreterPath": "/home/vscode/.local/share/virtualenvs/uv/bin/python",
                 "terminal.integrated.defaultProfile.linux": "zsh"
             }
         }
