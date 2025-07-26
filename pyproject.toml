@@ -3,6 +3,8 @@ name = "tjbots"
 version = "0.1.0"
 description = "TJ's aventures with LLMs"
 readme = "README.md"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
     "anthropic>=0.58.2",
