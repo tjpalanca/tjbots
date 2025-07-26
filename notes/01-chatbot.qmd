@@ -34,13 +34,25 @@ The sources of these configurations can come from:
 
 - Use the [docker-in-docker devcontainer feature](https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md) to quickly add the ability to build images without allowing access to your own machine's docker host.
 - [Use `uvicorn` as the main docker command](https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/) 
-    - `CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]`
+
+```Dockerfile 
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+```
+
 - We can build off of the production dev container to build the dev image by adding more stuff onto it.
 - I think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was `python-3.12-bookworm`
 - This general pattern allows us to consolidate configuration in the `pyproject.toml` file. It only requires python. 
 
 ```Makefile 
 VERSION := $(shell python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+```
+
+- The base images all run as root, it's best to run as a non-root user:
+
+```Dockerfile
+# Downgrade to non-root user 
+RUN useradd -u 1000 -m appuser
+USER appuser
 ```
 
 ### Handling authentication and authorization 
