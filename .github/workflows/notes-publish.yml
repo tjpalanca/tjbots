@@ -6,7 +6,8 @@ on:
 name: Publish Notes
 
 jobs:
-  build-deploy:
+  notes-publish:
+    name: Publish Notes to GitHub Pages
     runs-on: ubuntu-latest
     permissions:
       contents: write
