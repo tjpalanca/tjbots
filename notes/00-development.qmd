@@ -38,3 +38,4 @@ These are to help with rapid development.
 ### Format on save for quarto documents
 
 * I would like `quarto` to format my markdown in addition to the code blocks.
+* I couldn't find a clean way to do this, unfortunately. 

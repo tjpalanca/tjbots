@@ -14,3 +14,8 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "shiny>=1.4.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/tjpalanca/tjbots"
+Repository = "https://github.com/tjpalanca/tjbots"
+Issues = "https://github.com/tjpalanca/tjbots/issues"
