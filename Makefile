@@ -24,4 +24,6 @@ app-bash: app-build
 	docker run -it $(APP_TAG) /bin/bash
 
 app-push: app-build
-	docker push $(APP_TAG)
+	docker push $(APP_TAG) && \
+	docker tag $(APP_TAG) $(APP_IMG):latest && \
+	docker push $(APP_IMG):latest
