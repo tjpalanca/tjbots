@@ -5,11 +5,6 @@ format:
     html: default
     gfm:
         output-file: "README.md"
-listing: 
-    type: table
-    fields:
-        - title
-        - file-modified
 ---
 
 ## Motivation

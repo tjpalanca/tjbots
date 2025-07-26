@@ -9,6 +9,10 @@ website:
     left:
       - href: index.qmd
         text: Home
+  sidebar:
+    contents:
+      - href: 01-chatbot.qmd
+      - href: 00-development.qmd
 
 format:
   html:
