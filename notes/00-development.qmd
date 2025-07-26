@@ -1,5 +1,6 @@
 ---
-title: Development Notes 
+title: Development
+subtitle: "Miscellaneous development notes" 
 ---
 
 This contains developments

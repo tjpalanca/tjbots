@@ -2,6 +2,9 @@ project:
   type: website
   post-render: 
     - cp _site/README.md ../README.md
+  
+execute: 
+  freeze: true
 
 website:
   title: "TJBots"
