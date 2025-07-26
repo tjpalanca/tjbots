@@ -18,7 +18,9 @@ app-build:
 		-t $(APP_TAG) .
 
 app-run: app-build
-	docker run -it -p 8080:8080 $(APP_TAG)
+	docker run -it \
+		-p 8080:8080 \
+		$(APP_TAG)
 
 app-bash: app-build
 	docker run -it $(APP_TAG) /bin/bash

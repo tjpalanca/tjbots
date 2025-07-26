@@ -12,6 +12,10 @@ ADD uv.lock /app
 WORKDIR /app
 RUN uv sync --locked
 
+# Downgrade to non-root user 
+RUN useradd -u 1000 -m appuser
+USER appuser
+
 # Command 
 EXPOSE 8080
 CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
