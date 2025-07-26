@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dc0cbde83a772c20102d5eb980886ab2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a986a95301e671fce2c6472dffc862a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -125,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./00-development.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Development Notes</span></a>
+ <span class="menu-text">Development</span></a>
   </div>
 </li>
     </ul>
@@ -138,8 +138,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
-  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a>
+  <ul class="collapse">
+  <li><a href="#couldnt-we-just-use-the-existing-apps" id="toc-couldnt-we-just-use-the-existing-apps" class="nav-link" data-scroll-target="#couldnt-we-just-use-the-existing-apps">Couldn’t we just use the existing apps?</a></li>
+  </ul></li>
+  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
+  <ul class="collapse">
+  <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles">Principles</a></li>
+  <li><a href="#creating-a-deployable-docker-container" id="toc-creating-a-deployable-docker-container" class="nav-link" data-scroll-target="#creating-a-deployable-docker-container">Creating a deployable docker container</a></li>
+  <li><a href="#handling-authentication-and-authorization" id="toc-handling-authentication-and-authorization" class="nav-link" data-scroll-target="#handling-authentication-and-authorization">Handling authentication and authorization</a></li>
+  <li><a href="#deploying-the-docker-container" id="toc-deploying-the-docker-container" class="nav-link" data-scroll-target="#deploying-the-docker-container">Deploying the docker container</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -149,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Chatbot</h1>
-<p class="subtitle lead">Setting up a chatbot test harness for daily testing</p>
+<p class="subtitle lead">Setting up a chatbot for day-to-day testing</p>
 </div>
 
 
@@ -180,12 +189,50 @@ ul.task-list li input[type="checkbox"] {
 <li>problems I want to solve</li>
 <li>articles I read about LLMs that give me ideas</li>
 </ul>
+<section id="couldnt-we-just-use-the-existing-apps" class="level3">
+<h3 class="anchored" data-anchor-id="couldnt-we-just-use-the-existing-apps">Couldn’t we just use the existing apps?</h3>
+<ul>
+<li>Most providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.</li>
+<li>Most providers will charge a margin over the raw API cost.</li>
+<li>We cannot experiment with human-AI interfaces because the interfaces are fixed.</li>
+<li>It’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.</li>
+</ul>
+</section>
 </section>
 <section id="deployment" class="level2">
 <h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
-<p>The initial deployment will just be a persistent Docker container on a server, accessible via cloudflare tunnel.</p>
+<section id="principles" class="level3">
+<h3 class="anchored" data-anchor-id="principles">Principles</h3>
+<ul>
+<li>Only add complexity when necessary but don’t create one-way doors.</li>
+</ul>
+</section>
+<section id="creating-a-deployable-docker-container" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-deployable-docker-container">Creating a deployable docker container</h3>
+<ul>
+<li>Use the <a href="https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md">docker-in-docker devcontainer feature</a> to quickly add the ability to build images without allowing access to your own machine’s docker host.</li>
+<li><a href="https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/">Use <code>uvicorn</code> as the main docker command</a>
+<ul>
+<li><code>CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]</code></li>
+</ul></li>
+<li>We can build off of the devcontainer to create the production docker image.</li>
+</ul>
+</section>
+<section id="handling-authentication-and-authorization" class="level3">
+<h3 class="anchored" data-anchor-id="handling-authentication-and-authorization">Handling authentication and authorization</h3>
+</section>
+<section id="deploying-the-docker-container" class="level3">
+<h3 class="anchored" data-anchor-id="deploying-the-docker-container">Deploying the docker container</h3>
+<ul>
+<li>We can <a href="https://containrrr.dev/watchtower/">use watchtower</a> as a lightweight way of updating the docker images as soon as they are updated in the registry.
+<ul>
+<li>This also supports docker compose.</li>
+</ul></li>
+<li>I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

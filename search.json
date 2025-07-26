@@ -1,5 +1,38 @@
 [
   {
+    "objectID": "00-development.html",
+    "href": "00-development.html",
+    "title": "Development",
+    "section": "",
+    "text": "This contains developments",
+    "crumbs": [
+      "Home",
+      "Development"
+    ]
+  },
+  {
+    "objectID": "00-development.html#development",
+    "href": "00-development.html#development",
+    "title": "Development",
+    "section": "Development",
+    "text": "Development\n\nCreating the dev container\nDevcontainer specification\n\nUsed microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\nKeybindings\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
+    "crumbs": [
+      "Home",
+      "Development"
+    ]
+  },
+  {
+    "objectID": "00-development.html#troubleshooting",
+    "href": "00-development.html#troubleshooting",
+    "title": "Development",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nActivating auto-reload\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\nFormat on save for quarto documents\n\nI would like quarto to format my markdown in addition to the code blocks.",
+    "crumbs": [
+      "Home",
+      "Development"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "TJBots",
@@ -18,7 +51,7 @@
     "href": "01-chatbot.html",
     "title": "Chatbot",
     "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
     "crumbs": [
       "Home",
       "Chatbot"
@@ -29,7 +62,7 @@
     "href": "01-chatbot.html#motivation",
     "title": "Chatbot",
     "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
     "crumbs": [
       "Home",
       "Chatbot"
@@ -40,43 +73,10 @@
     "href": "01-chatbot.html#deployment",
     "title": "Chatbot",
     "section": "Deployment",
-    "text": "Deployment\nThe initial deployment will just be a persistent Docker container on a server, accessible via cloudflare tunnel.",
+    "text": "Deployment\n\nPrinciples\n\nOnly add complexity when necessary but don’t create one-way doors.\n\n\n\nCreating a deployable docker container\n\nUse the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command\n\nCMD [\"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\n\nWe can build off of the devcontainer to create the production docker image.\n\n\n\nHandling authentication and authorization\n\n\nDeploying the docker container\n\nWe can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\n\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.",
     "crumbs": [
       "Home",
       "Chatbot"
-    ]
-  },
-  {
-    "objectID": "00-development.html",
-    "href": "00-development.html",
-    "title": "Development Notes",
-    "section": "",
-    "text": "This contains developments",
-    "crumbs": [
-      "Home",
-      "Development Notes"
-    ]
-  },
-  {
-    "objectID": "00-development.html#development",
-    "href": "00-development.html#development",
-    "title": "Development Notes",
-    "section": "Development",
-    "text": "Development\n\nCreating the dev container\nDevcontainer specification\n\nUsed microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\nKeybindings\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
-    "crumbs": [
-      "Home",
-      "Development Notes"
-    ]
-  },
-  {
-    "objectID": "00-development.html#troubleshooting",
-    "href": "00-development.html#troubleshooting",
-    "title": "Development Notes",
-    "section": "Troubleshooting",
-    "text": "Troubleshooting\n\nActivating auto-reload\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\nFormat on save for quarto documents\n\nI would like quarto to format my markdown in addition to the code blocks.",
-    "crumbs": [
-      "Home",
-      "Development Notes"
     ]
   }
 ]
