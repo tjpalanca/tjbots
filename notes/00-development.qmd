@@ -29,9 +29,11 @@ These are to help with rapid development.
 
 ### Activating auto-reload
 
+* Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.
 * We needed to set `remote.autoForwardPortsSource` to `process` and disable the fallback by setting `remote.autoForwardPortsFallback` to `0`, which creates a bunch of spurious ones but also surfaced the autoreload port.
     * Setting `remote.restoreForwardedPorts` to `false` alleviated it by forgetting every time the devcontainer is started.
 * It still does not work well enough, we need to run the app twice, but at least it's good.
 
 ### Format on save for quarto documents
 
+* I would like `quarto` to format my markdown in addition to the code blocks.

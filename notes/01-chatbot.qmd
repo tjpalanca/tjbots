@@ -1,0 +1,18 @@
+---
+title: "Chatbot"
+subtitle: "Setting up a chatbot test harness for daily testing"
+---
+
+## Motivation
+
+I want to create a test harness that allows me to quickly test our various levers, including:
+
+- LLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)
+- System and user prompts
+- Tools (e.g. web search, code execution, memory, etc.)
+- Configuration (e.g. chain-of-thought)
+
+The sources of these configurations can come from:
+
+- problems I want to solve
+- articles I read about LLMs that give me ideas 

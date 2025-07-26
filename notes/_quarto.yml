@@ -1,0 +1,19 @@
+project:
+  type: website
+  post-render: 
+    - cp _site/README.md ../README.md
+
+website:
+  title: "TJBots"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
