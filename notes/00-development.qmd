@@ -1,0 +1,37 @@
+---
+title: Development Notes 
+---
+
+This contains developments
+
+## Development
+
+### Creating the dev container
+
+[Devcontainer specification](../.devcontainer/devcontainer.json)
+
+* Used microsoft's base dev container and some devcontainer features to enable `python` with `uv`, `nodejs`, and `quarto`. This creates a minimal setup for developing Shiny for Python applications.
+* Mounting the `uv` cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.
+
+### Keybindings 
+
+These are to help with rapid development.
+
+```jsonc 
+{
+    "key": "shift+cmd+enter",
+    "command": "shiny.python.runApp",
+    "when": "shellExecutionSupported && editorLangId == 'python'"
+}
+```
+
+## Troubleshooting
+
+### Activating auto-reload
+
+* We needed to set `remote.autoForwardPortsSource` to `process` and disable the fallback by setting `remote.autoForwardPortsFallback` to `0`, which creates a bunch of spurious ones but also surfaced the autoreload port.
+    * Setting `remote.restoreForwardedPorts` to `false` alleviated it by forgetting every time the devcontainer is started.
+* It still does not work well enough, we need to run the app twice, but at least it's good.
+
+### Format on save for quarto documents
+

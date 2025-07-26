@@ -33,7 +33,11 @@
             "settings": {
                 "files.enableTrash": false,
                 "python.defaultInterpreterPath": "/home/vscode/.local/share/virtualenvs/uv/bin/python",
-                "terminal.integrated.defaultProfile.linux": "zsh"
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "remote.autoForwardPorts": true,
+                "remote.autoForwardPortsSource": "process",
+                "remote.autoForwardPortsFallback": 0,
+                "remote.restoreForwardedPorts": false
             }
         }
     }
