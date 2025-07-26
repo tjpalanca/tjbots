@@ -13,7 +13,7 @@ app-build:
 	docker build \
 		-f app/Dockerfile \
 		--label "org.opencontainers.image.source=$(REPO_URL)" \
-		--label "org.opencontainers.image.licenses=$(DESCRIPTION)" \
+		--label "org.opencontainers.image.description=\"$(DESCRIPTION)\"" \
 		--label "org.opencontainers.image.licenses=$(LICENSE)" \
 		-t $(APP_TAG) .
 
