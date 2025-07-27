@@ -14,7 +14,7 @@ APP_IMG=ghcr.io/tjpalanca/tjbots/app
 APP_TAG=$(APP_IMG):$(VERSION)
 
 app-build:
-	docker build \
+	docker buildx build \
 		-f app/Dockerfile \
 		--platform $(PLATFORM) \
 		--label "org.opencontainers.image.source=$(REPO_URL)" \
