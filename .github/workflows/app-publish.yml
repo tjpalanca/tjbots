@@ -10,9 +10,14 @@ on:
 name: Publish Application Image
 
 jobs:
-  notes-publish:
-    name: Publish application to GitHub Container Registry
-    runs-on: ubuntu-22.04-arm64
+  app-publish:
+    name: Publish application image to GitHub Container Registry
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest         
+          - os: ubuntu-22.04-arm      
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -24,5 +29,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push application image
+      - name: Build and push application image (${{ matrix.os }})
         run: make app-push
