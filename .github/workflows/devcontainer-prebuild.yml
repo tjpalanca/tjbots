@@ -10,9 +10,14 @@ name: Pre-build Dev Container
 
 jobs:
   devcontainer-prebuild:
-    - name: Pre-build dev container image
-      uses: devcontainers/ci@v0.3
-      with:
-        imageName: ghcr.io/tjpalanca/tjbots/devcontainer
-        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer
-        push: always
+    name: Pre-build dev container image
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Pre-build dev container image
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ghcr.io/tjpalanca/tjbots/devcontainer
+          cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer
+          push: always
