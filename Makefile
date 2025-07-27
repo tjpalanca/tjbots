@@ -1,3 +1,7 @@
+# Platform 
+
+PLATFORM ?= $(shell docker version --format '{{.Server.Os}}/{{.Server.Arch}}')
+
 # Project
 
 VERSION := $(shell python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
@@ -12,6 +16,7 @@ APP_TAG=$(APP_IMG):$(VERSION)
 app-build:
 	docker build \
 		-f app/Dockerfile \
+		--platform $(PLATFORM) \
 		--label "org.opencontainers.image.source=$(REPO_URL)" \
 		--label "org.opencontainers.image.licenses=$(LICENSE)" \
 		-t $(APP_TAG) .
@@ -28,3 +33,6 @@ app-push: app-build
 	docker push $(APP_TAG) && \
 	docker tag $(APP_TAG) $(APP_IMG):latest && \
 	docker push $(APP_IMG):latest
+
+test: 
+	@echo $(PLATFORM)
