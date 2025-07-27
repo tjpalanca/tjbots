@@ -215,7 +215,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="development">Development</h2>
 <section id="creating-the-dev-container" class="level3">
 <h3 class="anchored" data-anchor-id="creating-the-dev-container">Creating the dev container</h3>
-<p><a href="../.devcontainer/devcontainer.json">Devcontainer specification</a></p>
 <ul>
 <li>Used microsoft’s base dev container and some devcontainer features to enable <code>python</code> with <code>uv</code>, <code>nodejs</code>, and <code>quarto</code>. This creates a minimal setup for developing Shiny for Python applications.</li>
 <li>Mounting the <code>uv</code> cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.</li>
@@ -223,6 +222,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pre-building-the-dev-container" class="level3">
 <h3 class="anchored" data-anchor-id="pre-building-the-dev-container">Pre-building the dev container</h3>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Ultimately this wasn’t useful unless:</p>
+<ol type="a">
+<li>we have lots of projects depending on the same devcontainer spec, or</li>
+<li>we went really custom with our CI and didn’t want to depend on pre-built github actions</li>
+</ol>
+</div>
+</div>
+</div>
 <ul>
 <li>Added a github action to build the devcontainer and publish it for the following purposes:
 <ul>
@@ -233,7 +246,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>To use the devcontainer for executing CI actions consistent with the local development experience
 <ul>
-<li>This is useful, you would prebuild your project specific devcontainer and use that for all future CI actions.</li>
+<li>Adds some overhead in pulling the devcontainer</li>
+<li>Creates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)</li>
+<li>Makes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.</li>
 </ul></li>
 </ul></li>
 </ul>
