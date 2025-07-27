@@ -16,9 +16,13 @@ subtitle: "Miscellaneous development notes"
 
 * Added a github action to build the devcontainer and publish it for the following purposes:
     - To make future devcontainer builds faster
+        - This is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.
+        - In a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like `tjpalanca/devcontainers` instead.
     - To use the devcontainer for executing CI actions consistent with the local development experience
+        - This is useful, you would prebuild your project specific devcontainer and use that for all future CI actions.
 
 ```yaml 
+    # BEFORE: Make sure to login to docker registry
     - name: Pre-build dev container image
       uses: devcontainers/ci@v0.3
       with:
@@ -26,6 +30,8 @@ subtitle: "Miscellaneous development notes"
         cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer
         push: always
 ``` 
+
+There is a separate mechanism to pre-build [Github Codespaces images](https://docs.github.com/en/codespaces/prebuilding-your-codespaces).
 
 ### Keybindings 
 
