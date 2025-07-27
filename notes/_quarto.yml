@@ -1,9 +1,7 @@
 project:
   type: website
-  pre-render:
-    - cp ../README.md _site/README.md
   post-render: 
-    - cp _site/README.md ../README.md
+    - scripts/copy_readme.py
   
 execute: 
   freeze: true
