@@ -294,7 +294,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We can <a href="https://containrrr.dev/watchtower/">use watchtower</a> as a lightweight way of updating the docker images as soon as they are updated in the registry.
 <ul>
 <li>This also supports docker compose.</li>
-</ul></li>
+<li>Worked well. We just needed to specify the <code>container_name</code> in the <code>compose.yml</code> to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">watchtower</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">image</span><span class="kw">:</span><span class="at"> containrrr/watchtower:latest</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> watchtower</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">restart</span><span class="kw">:</span><span class="at"> always</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> /var/run/docker.sock:/var/run/docker.sock</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">command</span><span class="kw">:</span><span class="at"> tjbots-app --interval 30 --cleanup</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li>I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.</li>
 </ul>
 
