@@ -29,7 +29,8 @@
                 "GitHub.vscode-pull-request-github",
                 "quarto.quarto",
                 "charliermarsh.ruff",
-                "tamasfe.even-better-toml"
+                "tamasfe.even-better-toml",
+                "github.vscode-github-actions"
             ],
             "settings": {
                 "files.enableTrash": false,
