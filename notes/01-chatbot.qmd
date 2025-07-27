@@ -69,6 +69,17 @@ The sources of these configurations can come from:
 - I needed to generate both `arm64` and `amd64` versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.
     - One strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.
 
+- Use a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.
+
+    ```Makefile 
+    app-push:
+        docker buildx build \
+            $(APP_BUILD_ARGS) \
+            --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \
+            --cache-from=type=registry,ref=$(APP_IMG):cache \
+            --push . 
+    ```
+
 ### Authentication and authorization
 
 ### Deploying the docker container 
