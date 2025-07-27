@@ -12,28 +12,26 @@ LICENSE := $(shell python3 -c 'import tomllib; print(tomllib.load(open("pyprojec
 
 APP_IMG=ghcr.io/tjpalanca/tjbots/app
 APP_TAG=$(APP_IMG):$(VERSION)
+APP_BUILD_ARGS=\
+	--file app/Dockerfile \
+	--platform $(PLATFORM) \
+	--label "org.opencontainers.image.source=$(REPO_URL)" \
+	--label "org.opencontainers.image.licenses=$(LICENSE)" \
+	--tag $(APP_TAG) \
+	--tag $(APP_IMG):latest
+
+app-push:
+	docker buildx build \
+		$(APP_BUILD_ARGS) \
+		--push . 
 
 app-build:
-	docker buildx build \
-		-f app/Dockerfile \
-		--platform $(PLATFORM) \
-		--label "org.opencontainers.image.source=$(REPO_URL)" \
-		--label "org.opencontainers.image.licenses=$(LICENSE)" \
-		-t $(APP_TAG) . \
-		--load
+	docker build $(APP_BUILD_ARGS) .
 
-app-run: 
+app-run: app-build
 	docker run -it \
 		-p 8080:8080 \
 		$(APP_TAG)
 
 app-bash: app-build
 	docker run -it $(APP_TAG) /bin/bash
-
-app-push: app-build
-	docker push $(APP_TAG) && \
-	docker tag $(APP_TAG) $(APP_IMG):latest && \
-	docker push $(APP_IMG):latest
-
-test: 
-	@echo $(PLATFORM)
