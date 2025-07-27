@@ -75,4 +75,17 @@ The sources of these configurations can come from:
 
 - We can [use watchtower](https://containrrr.dev/watchtower/) as a lightweight way of updating the docker images as soon as they are updated in the registry. 
     - This also supports docker compose.
+    - Worked well. We just needed to specify the `container_name` in the `compose.yml` to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates. 
+
+    ```yaml 
+    services:
+        watchtower:
+            image: containrrr/watchtower:latest
+            container_name: watchtower
+            restart: always
+            volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            command: tjbots-app --interval 30 --cleanup
+    ```
+
 - I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale. 
