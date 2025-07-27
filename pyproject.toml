@@ -1,7 +1,7 @@
 [project]
 name = "tjbots"
 version = "0.1.0"
-description = "TJ's aventures with LLMs"
+description = "TJ's adventures with LLMs"
 readme = "README.md"
 license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]
