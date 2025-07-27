@@ -4,7 +4,7 @@
     "href": "00-development.html",
     "title": "Development",
     "section": "",
-    "text": "This contains developments",
+    "text": "Devcontainer specification\n\nUsed microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\n\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
     "crumbs": [
       "Home",
       "Development"
@@ -14,8 +14,8 @@
     "objectID": "00-development.html#development",
     "href": "00-development.html#development",
     "title": "Development",
-    "section": "Development",
-    "text": "Development\n\nCreating the dev container\nDevcontainer specification\n\nUsed microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\nKeybindings\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
+    "section": "",
+    "text": "Devcontainer specification\n\nUsed microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\n\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
     "crumbs": [
       "Home",
       "Development"
