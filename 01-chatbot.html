@@ -177,11 +177,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#couldnt-we-just-use-the-existing-apps" id="toc-couldnt-we-just-use-the-existing-apps" class="nav-link" data-scroll-target="#couldnt-we-just-use-the-existing-apps">Couldn’t we just use the existing apps?</a></li>
   </ul></li>
+  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
+  <ul class="collapse">
+  <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User interface</a></li>
+  <li><a href="#progressive-web-app-pwa" id="toc-progressive-web-app-pwa" class="nav-link" data-scroll-target="#progressive-web-app-pwa">Progressive Web App (PWA)</a></li>
+  </ul></li>
   <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
   <ul class="collapse">
   <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles">Principles</a></li>
   <li><a href="#creating-a-deployable-docker-container" id="toc-creating-a-deployable-docker-container" class="nav-link" data-scroll-target="#creating-a-deployable-docker-container">Creating a deployable docker container</a></li>
-  <li><a href="#handling-authentication-and-authorization" id="toc-handling-authentication-and-authorization" class="nav-link" data-scroll-target="#handling-authentication-and-authorization">Handling authentication and authorization</a></li>
+  <li><a href="#authentication-and-authorization" id="toc-authentication-and-authorization" class="nav-link" data-scroll-target="#authentication-and-authorization">Authentication and authorization</a></li>
   <li><a href="#deploying-the-docker-container" id="toc-deploying-the-docker-container" class="nav-link" data-scroll-target="#deploying-the-docker-container">Deploying the docker container</a></li>
   </ul></li>
   </ul>
@@ -234,36 +239,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
+<section id="design" class="level2">
+<h2 class="anchored" data-anchor-id="design">Design</h2>
+<section id="user-interface" class="level3">
+<h3 class="anchored" data-anchor-id="user-interface">User interface</h3>
+<ul>
+<li>Mobile first</li>
+</ul>
+</section>
+<section id="progressive-web-app-pwa" class="level3">
+<h3 class="anchored" data-anchor-id="progressive-web-app-pwa">Progressive Web App (PWA)</h3>
+<ul>
+<li>I want it to be able to take advantage of “native” features like notifications and the ability to be added to home screens.</li>
+</ul>
+</section>
+</section>
 <section id="deployment" class="level2">
 <h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
 <section id="principles" class="level3">
 <h3 class="anchored" data-anchor-id="principles">Principles</h3>
 <ul>
 <li>Only add complexity when necessary but don’t create one-way doors.</li>
+<li>Minimise drift between development and production as much as possible.</li>
 </ul>
 </section>
 <section id="creating-a-deployable-docker-container" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-deployable-docker-container">Creating a deployable docker container</h3>
 <ul>
-<li>Use the <a href="https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md">docker-in-docker devcontainer feature</a> to quickly add the ability to build images without allowing access to your own machine’s docker host.</li>
-<li><a href="https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/">Use <code>uvicorn</code> as the main docker command</a></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"uvicorn"</span>, <span class="st">"app:app"</span>, <span class="st">"--host"</span>, <span class="st">"0.0.0.0"</span>, <span class="st">"--port"</span>, <span class="st">"8080"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<li><p>Use the <a href="https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md">docker-in-docker devcontainer feature</a> to quickly add the ability to build images without allowing access to your own machine’s docker host.</p></li>
+<li><p><a href="https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/">Use <code>uvicorn</code> as the main docker command</a>. There’s another configuration using <code>gunicorn</code> but some cursory research made that overkill for just docker runs.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"uv"</span>, <span class="st">"run"</span>, <span class="st">"uvicorn"</span>, <span class="st">"app:app"</span>, <span class="st">"--host"</span>, <span class="st">"0.0.0.0"</span>, <span class="st">"--port"</span>, <span class="st">"8080"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Can we build off of the production dev container to build the dev image by adding more stuff onto it?</p>
 <ul>
-<li>We can build off of the production dev container to build the dev image by adding more stuff onto it.</li>
-<li>I think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was <code>python-3.12-bookworm</code></li>
-<li>This general pattern allows us to consolidate configuration in the <code>pyproject.toml</code> file. It only requires python.</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">VERSION</span> <span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])'</span><span class="ch">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>The base images all run as root, it’s best to run as a non-root user:</li>
-</ul>
+<li><p>I think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was <code>python-3.12-bookworm</code>.</p></li>
+<li><p>This general pattern allows us to consolidate configuration in the <code>pyproject.toml</code> file. It only requires python.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">VERSION</span> <span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])'</span><span class="ch">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+<li><p>The base images all run as root, it’s best to run as a non-root user:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Downgrade to non-root user </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">useradd</span> <span class="at">-u</span> 1000 <span class="at">-m</span> appuser</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">USER</span> appuser</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">USER</span> appuser</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>I needed to generate both <code>arm64</code> and <code>amd64</code> versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.</p>
+<ul>
+<li>One strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.</li>
+</ul></li>
+</ul>
 </section>
-<section id="handling-authentication-and-authorization" class="level3">
-<h3 class="anchored" data-anchor-id="handling-authentication-and-authorization">Handling authentication and authorization</h3>
+<section id="authentication-and-authorization" class="level3">
+<h3 class="anchored" data-anchor-id="authentication-and-authorization">Authentication and authorization</h3>
 </section>
 <section id="deploying-the-docker-container" class="level3">
 <h3 class="anchored" data-anchor-id="deploying-the-docker-container">Deploying the docker container</h3>

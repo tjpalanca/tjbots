@@ -178,6 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#creating-the-dev-container" id="toc-creating-the-dev-container" class="nav-link" data-scroll-target="#creating-the-dev-container">Creating the dev container</a></li>
   <li><a href="#pre-building-the-dev-container" id="toc-pre-building-the-dev-container" class="nav-link" data-scroll-target="#pre-building-the-dev-container">Pre-building the dev container</a></li>
   <li><a href="#keybindings" id="toc-keybindings" class="nav-link" data-scroll-target="#keybindings">Keybindings</a></li>
+  <li><a href="#executing-actions" id="toc-executing-actions" class="nav-link" data-scroll-target="#executing-actions">Executing actions</a></li>
   </ul></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
   <ul class="collapse">
@@ -225,16 +226,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Added a github action to build the devcontainer and publish it for the following purposes:
 <ul>
-<li>To make future devcontainer builds faster</li>
-<li>To use the devcontainer for executing CI actions consistent with the local development experience</li>
+<li>To make future devcontainer builds faster
+<ul>
+<li>This is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.</li>
+<li>In a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like <code>tjpalanca/devcontainers</code> instead.</li>
+</ul></li>
+<li>To use the devcontainer for executing CI actions consistent with the local development experience
+<ul>
+<li>This is useful, you would prebuild your project specific devcontainer and use that for all future CI actions.</li>
+</ul></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Pre-build dev container image</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> devcontainers/ci@v0.3</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">imageName</span><span class="kw">:</span><span class="at"> ghcr.io/tjpalanca/tjbots/devcontainer</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">cacheFrom</span><span class="kw">:</span><span class="at"> ghcr.io/tjpalanca/tjbots/devcontainer</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">push</span><span class="kw">:</span><span class="at"> always</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">    # BEFORE: Make sure to login to docker registry</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Pre-build dev container image</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> devcontainers/ci@v0.3</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">imageName</span><span class="kw">:</span><span class="at"> ghcr.io/tjpalanca/tjbots/devcontainer</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">cacheFrom</span><span class="kw">:</span><span class="at"> ghcr.io/tjpalanca/tjbots/devcontainer</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">push</span><span class="kw">:</span><span class="at"> always</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>There is a separate mechanism to pre-build <a href="https://docs.github.com/en/codespaces/prebuilding-your-codespaces">Github Codespaces images</a>.</li>
+</ul>
 </section>
 <section id="keybindings" class="level3">
 <h3 class="anchored" data-anchor-id="keybindings">Keybindings</h3>
@@ -244,6 +256,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "command": "shiny.python.runApp",
     "when": "shellExecutionSupported &amp;&amp; editorLangId == 'python'"
 }</code></pre>
+</section>
+<section id="executing-actions" class="level3">
+<h3 class="anchored" data-anchor-id="executing-actions">Executing actions</h3>
+<ul>
+<li>I’m used to using a <code>Makefile</code> to describe the build and deployment actions I want to take, but there’s this new project called <a href="https://nektosact.com"><code>act</code></a> that purports to replace this and have the github action as the source of truth for both local and CI deployment.
+<ul>
+<li>I decided against this - it’s a lot of complexity.</li>
+</ul></li>
+</ul>
 </section>
 </section>
 <section id="troubleshooting" class="level2">
