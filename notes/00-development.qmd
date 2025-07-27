@@ -31,7 +31,7 @@ subtitle: "Miscellaneous development notes"
         push: always
 ``` 
 
-There is a separate mechanism to pre-build [Github Codespaces images](https://docs.github.com/en/codespaces/prebuilding-your-codespaces).
+* There is a separate mechanism to pre-build [Github Codespaces images](https://docs.github.com/en/codespaces/prebuilding-your-codespaces).
 
 ### Keybindings 
 
@@ -44,6 +44,11 @@ These are to help with rapid development.
     "when": "shellExecutionSupported && editorLangId == 'python'"
 }
 ```
+
+### Executing actions
+
+* I'm used to using a `Makefile` to describe the build and deployment actions I want to take, but there's this new project called [`act`](https://nektosact.com) that purports to replace this and have the github action as the source of truth for both local and CI deployment.
+    * I decided against this - it's a lot of complexity.
 
 ## Troubleshooting
 
