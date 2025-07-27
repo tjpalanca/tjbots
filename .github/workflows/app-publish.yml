@@ -6,6 +6,7 @@ on:
       - "app/**"
       - "pyproject.toml"
       - "uv.lock"
+      - ".github/workflows/app-publish.yml"
 
 name: Publish Application Image
 
