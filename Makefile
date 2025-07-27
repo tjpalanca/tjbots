@@ -18,11 +18,13 @@ APP_BUILD_ARGS=\
 	--label "org.opencontainers.image.source=$(REPO_URL)" \
 	--label "org.opencontainers.image.licenses=$(LICENSE)" \
 	--tag $(APP_TAG) \
-	--tag $(APP_IMG):latest
+	--tag $(APP_IMG):latest 
 
 app-push:
 	docker buildx build \
 		$(APP_BUILD_ARGS) \
+		--cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \
+		--cache-from=type=registry,ref=$(APP_IMG):cache \
 		--push . 
 
 app-build:
