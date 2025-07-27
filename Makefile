@@ -19,9 +19,10 @@ app-build:
 		--platform $(PLATFORM) \
 		--label "org.opencontainers.image.source=$(REPO_URL)" \
 		--label "org.opencontainers.image.licenses=$(LICENSE)" \
-		-t $(APP_TAG) .
+		-t $(APP_TAG) . \
+		--load
 
-app-run: app-build
+app-run: 
 	docker run -it \
 		-p 8080:8080 \
 		$(APP_TAG)
