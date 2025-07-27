@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".devcontainer/**"
+      - ".github/workflows/devcontainer-prebuild.yml"
+
+name: Pre-build Dev Container 
+
+jobs:
+  devcontainer-prebuild:
+    - name: Pre-build dev container image
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ghcr.io/tjpalanca/tjbots/devcontainer
+        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer
+        push: always

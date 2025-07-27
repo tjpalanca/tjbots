@@ -3,8 +3,6 @@ title: Development
 subtitle: "Miscellaneous development notes" 
 ---
 
-This contains developments
-
 ## Development
 
 ### Creating the dev container
@@ -13,6 +11,21 @@ This contains developments
 
 * Used microsoft's base dev container and some devcontainer features to enable `python` with `uv`, `nodejs`, and `quarto`. This creates a minimal setup for developing Shiny for Python applications.
 * Mounting the `uv` cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.
+
+### Pre-building the dev container 
+
+* Added a github action to build the devcontainer and publish it for the following purposes:
+    - To make future devcontainer builds faster
+    - To use the devcontainer for executing CI actions consistent with the local development experience
+
+```yaml 
+    - name: Pre-build dev container image
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ghcr.io/tjpalanca/tjbots/devcontainer
+        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer
+        push: always
+``` 
 
 ### Keybindings 
 
