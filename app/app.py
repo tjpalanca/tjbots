@@ -2,7 +2,8 @@ from shiny import App, Inputs, Outputs, Session, ui
 
 app_ui = ui.page_sidebar(
     ui.sidebar(open="closed"),
-    ui.chat_ui(id="chat")
+    ui.chat_ui(id="chat"),
+    title="TJBots"
 )
 
 
