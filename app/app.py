@@ -34,5 +34,6 @@ def server(input: Inputs, output: Outputs, session: Session):
 
 app_dir = Path(__file__).parent
 app = App(app_ui, server, static_assets={
-    "/assets": app_dir / "../assets"
+    "/assets": app_dir / "../assets",
+    "/manifest.json": app_dir / "manifest.json"
 })
