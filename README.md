@@ -1,6 +1,8 @@
 # TJBots
 
 
+# TJBots <img src="notes/images/tjbots.png" style="display:block;" align="right" height="138"/>
+
 ## Motivation
 
 To explore the [jagged
