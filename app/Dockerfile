@@ -5,13 +5,15 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Copy project files
 ADD app /app
-ADD assets /app
 ADD pyproject.toml /app
 ADD uv.lock /app
 
 # Install dependencies
 WORKDIR /app
 RUN uv sync --locked
+
+# Copy assets 
+ADD assets /assets
 
 # Downgrade to non-root user 
 RUN useradd -u 1000 -m appuser
