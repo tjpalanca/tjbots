@@ -8,7 +8,7 @@ format:
         output-file: "README.md"
 ---
 ::: {.content-visible when-format="gfm"}
-# TJBots <img src="notes/images/tjbots.svg" style="display:block;" align="right" height="100"/> {.unnumbered .unlisted}
+# TJBots <img src="assets/images/tjbots.svg" style="display:block;" align="right" height="100"/> {.unnumbered .unlisted}
 :::
 
 ## Motivation
