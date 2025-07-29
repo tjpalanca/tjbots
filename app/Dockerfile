@@ -13,7 +13,7 @@ WORKDIR /app
 RUN uv sync --locked
 
 # Copy assets 
-ADD assets /assets
+ADD assets ../assets
 
 # Downgrade to non-root user 
 RUN useradd -u 1000 -m appuser

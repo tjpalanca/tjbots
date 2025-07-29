@@ -33,6 +33,6 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build and push application image
-        run: make app-push
+        run: make app-publish
         env: 
           PLATFORM: linux/amd64,linux/arm64

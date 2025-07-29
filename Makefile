@@ -20,7 +20,7 @@ APP_BUILD_ARGS=\
 	--tag $(APP_TAG) \
 	--tag $(APP_IMG):latest 
 
-app-push:
+app-publish:
 	docker buildx build \
 		$(APP_BUILD_ARGS) \
 		--cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \
@@ -29,6 +29,9 @@ app-push:
 
 app-build:
 	docker build $(APP_BUILD_ARGS) .
+
+app-push: 
+	docker push $(APP_TAG) && docker push $(APP_IMG):latest
 
 app-run: app-build
 	docker run -it \

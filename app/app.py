@@ -10,6 +10,7 @@ load_dotenv()
 app_ui = ui.page_sidebar(
     ui.sidebar(open="closed"),
     ui.chat_ui(id="chat", icon_assistant=ui.img(src="assets/images/tjbots.svg")),
+    ui.head_content(ui.tags.meta(rel="manifest", href="manifest.json")),
     fillable=True,
     fillable_mobile=True
 )
@@ -34,6 +35,6 @@ def server(input: Inputs, output: Outputs, session: Session):
 
 app_dir = Path(__file__).parent
 app = App(app_ui, server, static_assets={
-    "/assets": app_dir / "../assets",
+    "/assets": app_dir.parent / "assets",
     "/manifest.json": app_dir / "manifest.json"
 })
