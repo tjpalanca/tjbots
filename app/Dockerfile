@@ -5,6 +5,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Copy project files
 ADD app /app
+ADD assets /app
 ADD pyproject.toml /app
 ADD uv.lock /app
 
