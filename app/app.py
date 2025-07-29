@@ -10,7 +10,7 @@ load_dotenv()
 app_ui = ui.page_sidebar(
     ui.sidebar(open="closed"),
     ui.chat_ui(id="chat", icon_assistant=ui.img(src="assets/images/tjbots.svg")),
-    ui.head_content(ui.tags.meta(rel="manifest", href="manifest.json")),
+    ui.head_content(ui.tags.link(rel="manifest", href="manifest.json")),
     fillable=True,
     fillable_mobile=True
 )
