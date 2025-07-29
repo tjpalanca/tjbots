@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <!-- Antenna -->
+  <circle cx="120" cy="25" r="15" fill="#000"/>
+  <line x1="120" y1="25" x2="120" y2="60" stroke="#000" stroke-width="10"/>
+  <!-- Head -->
+  <polygon 
+    points="120,60 190,100 190,180 120,220 50,180 50,100"
+    fill="#fff" 
+    stroke="#000" 
+    stroke-width="10" 
+    stroke-linejoin="round"
+  />
+  <!-- Eyes -->
+  <circle cx="90" cy="125" r="15" fill="#000"/>
+  <circle cx="150" cy="125" r="15" fill="#000"/>
+  <!-- Smile -->
+  <path 
+    d="M85,160 Q120,190 155,160"
+    fill="none" 
+    stroke="#000" 
+    stroke-width="10"
+    stroke-linecap="round"
+  />
+</svg>

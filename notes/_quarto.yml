@@ -9,7 +9,7 @@ execute:
 website:
   title: "TJBots"
   navbar:
-    logo: images/tjbots.png
+    logo: images/tjbots.svg
     left:
       - href: index.qmd
         text: Home

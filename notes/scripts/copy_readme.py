@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 if not os.getenv("GITHUB_ACTIONS"):
-    readme = Path("_site/README.md")
-    if readme.is_file():
-        readme.rename("../README.md")
+    src = Path("_site/README.md")
+    dst = Path("README.md")
+    if src.exists():
+        dst.write_bytes(src.read_bytes())
