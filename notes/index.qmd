@@ -7,6 +7,10 @@ format:
         output-file: "README.md"
 ---
 
+::: {.content-visible when-format="gfm"}
+# TJBots <img src="notes/images/tjbots.png" style="display:block;" align="right" height="138"/> {.unnumbered .unlisted}
+:::
+
 ## Motivation
 
 To explore the [jagged frontier](https://www.oneusefulthing.org/p/centaurs-and-cyborgs-on-the-jagged) of the capabilities of LLMs, I think the right approach is to be very experimental - try out new use cases and see how we can tweak the various levers (prompts, models, tools, configurations) to solve the goal. 
