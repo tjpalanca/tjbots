@@ -39,7 +39,11 @@
                 "remote.autoForwardPorts": true,
                 "remote.autoForwardPortsSource": "process",
                 "remote.autoForwardPortsFallback": 0,
-                "remote.restoreForwardedPorts": false
+                "remote.restoreForwardedPorts": false,
+                "python.analysis.typeCheckingMode": "basic",
+                "python.analysis.diagnosticSeverityOverrides": {
+                    "reportUnusedFunction": "none"
+                }
             }
         }
     }
