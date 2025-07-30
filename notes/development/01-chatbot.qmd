@@ -30,11 +30,13 @@ The sources of these configurations can come from:
 
 -   Mobile first
 
-### Progressive Web App (PWA)
+### Progressive Web App
 
--   I want it to be able to take advantage of "native" features like notifications and the ability to be added to home screens.
--   I managed to enable this by creating a `manifest.json` and linking to it with a `<link rel="manifest">` tag.
+-   Enable this by creating a `manifest.json` and linking to it with a `<link rel="manifest">` tag.
 -   Add to home screen on iOS works, but the icon is not displayed.
+    -   We needed to add the `apple-touch-icon` link to a PNG file, as it does not accept SVG files.
+-   The interface should be scrollable when added to the home screen.
+-   The sidebar should display during swipe events.
 
 ## Deployment
 
