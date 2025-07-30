@@ -7,71 +7,77 @@ subtitle: "Setting up a chatbot for day-to-day testing"
 
 I want to create a test harness that allows me to quickly test our various levers, including:
 
-- LLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)
-- System and user prompts
-- Tools (e.g. web search, code execution, memory, etc.)
-- Configuration (e.g. chain-of-thought)
+-   LLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)
+-   System and user prompts
+-   Tools (e.g. web search, code execution, memory, etc.)
+-   Configuration (e.g. chain-of-thought)
 
 The sources of these configurations can come from:
 
-- problems I want to solve
-- articles I read about LLMs that give me ideas 
+-   problems I want to solve
+-   articles I read about LLMs that give me ideas
 
 ### Couldn't we just use the existing apps?
 
-- Most providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models. 
-- Most providers will charge a margin over the raw API cost.
-- We cannot experiment with human-AI interfaces because the interfaces are fixed.
-- It's harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.
+-   Most providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.
+-   Most providers will charge a margin over the raw API cost.
+-   We cannot experiment with human-AI interfaces because the interfaces are fixed.
+-   It's harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.
 
-## Design 
+## Design
 
 ### User interface
 
-- Mobile first
+-   Mobile first
 
-### Progressive Web App (PWA) 
+### Progressive Web App (PWA)
 
-- I want it to be able to take advantage of "native" features like notifications and the ability to be added to home screens.
+-   I want it to be able to take advantage of "native" features like notifications and the ability to be added to home screens.
+-   I managed to enable this by creating a `manifest.json` and linking to it with a `<link rel="manifest">` tag.
+-   Add to home screen on iOS works, but the icon is not displayed.
 
 ## Deployment
 
 ### Principles
 
-- Only add complexity when necessary but don't create one-way doors.
-- Minimise drift between development and production as much as possible.
+-   Only add complexity when necessary but don't create one-way doors.
+-   Minimise drift between development and production as much as possible.
 
-### Creating a deployable docker container 
+### Creating a deployable docker container
 
-- Use the [docker-in-docker devcontainer feature](https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md) to quickly add the ability to build images without allowing access to your own machine's docker host.
-- [Use `uvicorn` as the main docker command](https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/). There's another configuration using `gunicorn` but some cursory research made that overkill for just docker runs.
+-   Use the [docker-in-docker devcontainer feature](https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md) to quickly add the ability to build images without allowing access to your own machine's docker host.
 
-    ```Dockerfile 
+-   [Use `uvicorn` as the main docker command](https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/). There's another configuration using `gunicorn` but some cursory research made that overkill for just docker runs.
+
+    ``` dockerfile
     CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
     ```
 
-- Can we build off of the production dev container to build the dev image by adding more stuff onto it?
-    - I think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was `python-3.12-bookworm`.
-    - This general pattern allows us to consolidate configuration in the `pyproject.toml` file. It only requires python. 
+-   Can we build off of the production dev container to build the dev image by adding more stuff onto it?
 
-        ```Makefile 
+    -   I think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was `python-3.12-bookworm`.
+
+    -   This general pattern allows us to consolidate configuration in the `pyproject.toml` file. It only requires python.
+
+        ``` makefile
         VERSION := $(shell python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
         ```
 
-- The base images all run as root, it's best to run as a non-root user:
+-   The base images all run as root, it's best to run as a non-root user:
 
-    ```Dockerfile
+    ``` dockerfile
     # Downgrade to non-root user 
     RUN useradd -u 1000 -m appuser
     USER appuser
     ```
 
-- I needed to generate both `arm64` and `amd64` versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.
-    - One strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.
+-   I needed to generate both `arm64` and `amd64` versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.
 
-- Use a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.
+    -   One strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.
 
-    ```Makefile 
+-   Use a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.
+
+    ``` makefile
     app-push:
         docker buildx build \
             $(APP_BUILD_ARGS) \
@@ -82,13 +88,14 @@ The sources of these configurations can come from:
 
 ### Authentication and authorization
 
-### Deploying the docker container 
+### Deploying the docker container
 
-- We can [use watchtower](https://containrrr.dev/watchtower/) as a lightweight way of updating the docker images as soon as they are updated in the registry. 
-    - This also supports docker compose.
-    - Worked well. We just needed to specify the `container_name` in the `compose.yml` to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates. 
+-   We can [use watchtower](https://containrrr.dev/watchtower/) as a lightweight way of updating the docker images as soon as they are updated in the registry.
 
-    ```yaml 
+    -   This also supports docker compose.
+    -   Worked well. We just needed to specify the `container_name` in the `compose.yml` to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.
+
+    ``` yaml
     services:
         watchtower:
             image: containrrr/watchtower:latest
@@ -99,4 +106,4 @@ The sources of these configurations can come from:
             command: tjbots-app --interval 30 --cleanup
     ```
 
-- I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale. 
+-   I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.
