@@ -211,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
   <ul class="collapse">
   <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User interface</a></li>
-  <li><a href="#progressive-web-app-pwa" id="toc-progressive-web-app-pwa" class="nav-link" data-scroll-target="#progressive-web-app-pwa">Progressive Web App (PWA)</a></li>
+  <li><a href="#progressive-web-app" id="toc-progressive-web-app" class="nav-link" data-scroll-target="#progressive-web-app">Progressive Web App</a></li>
   </ul></li>
   <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
   <ul class="collapse">
@@ -278,12 +278,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Mobile first</li>
 </ul>
 </section>
-<section id="progressive-web-app-pwa" class="level3">
-<h3 class="anchored" data-anchor-id="progressive-web-app-pwa">Progressive Web App (PWA)</h3>
+<section id="progressive-web-app" class="level3">
+<h3 class="anchored" data-anchor-id="progressive-web-app">Progressive Web App</h3>
 <ul>
-<li>I want it to be able to take advantage of “native” features like notifications and the ability to be added to home screens.</li>
-<li>I managed to enable this by creating a <code>manifest.json</code> and linking to it with a <code>&lt;link rel="manifest"&gt;</code> tag.</li>
-<li>Add to home screen on iOS works, but the icon is not displayed.</li>
+<li>Enable this by creating a <code>manifest.json</code> and linking to it with a <code>&lt;link rel="manifest"&gt;</code> tag.</li>
+<li>Add to home screen on iOS works, but the icon is not displayed.
+<ul>
+<li>We needed to add the <code>apple-touch-icon</code> link to a PNG file, as it does not accept SVG files.</li>
+</ul></li>
+<li>The interface should be scrollable when added to the home screen.</li>
+<li>The sidebar should display during swipe events.</li>
 </ul>
 </section>
 </section>
