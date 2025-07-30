@@ -73,7 +73,7 @@
     "href": "01-chatbot.html#design",
     "title": "Chatbot",
     "section": "Design",
-    "text": "Design\n\nUser interface\n\nMobile first\n\n\n\nProgressive Web App (PWA)\n\nI want it to be able to take advantage of “native” features like notifications and the ability to be added to home screens.",
+    "text": "Design\n\nUser interface\n\nMobile first\n\n\n\nProgressive Web App (PWA)\n\nI want it to be able to take advantage of “native” features like notifications and the ability to be added to home screens.\nI managed to enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.",
     "crumbs": [
       "Home",
       "Chatbot"

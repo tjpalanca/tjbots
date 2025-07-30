@@ -254,6 +254,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="progressive-web-app-pwa">Progressive Web App (PWA)</h3>
 <ul>
 <li>I want it to be able to take advantage of “native” features like notifications and the ability to be added to home screens.</li>
+<li>I managed to enable this by creating a <code>manifest.json</code> and linking to it with a <code>&lt;link rel="manifest"&gt;</code> tag.</li>
+<li>Add to home screen on iOS works, but the icon is not displayed.</li>
 </ul>
 </section>
 </section>
@@ -301,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="deploying-the-docker-container" class="level3">
 <h3 class="anchored" data-anchor-id="deploying-the-docker-container">Deploying the docker container</h3>
 <ul>
-<li>We can <a href="https://containrrr.dev/watchtower/">use watchtower</a> as a lightweight way of updating the docker images as soon as they are updated in the registry.
+<li><p>We can <a href="https://containrrr.dev/watchtower/">use watchtower</a> as a lightweight way of updating the docker images as soon as they are updated in the registry.</p>
 <ul>
 <li>This also supports docker compose.</li>
 <li>Worked well. We just needed to specify the <code>container_name</code> in the <code>compose.yml</code> to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.</li>
@@ -314,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">volumes</span><span class="kw">:</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> /var/run/docker.sock:/var/run/docker.sock</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">command</span><span class="kw">:</span><span class="at"> tjbots-app --interval 30 --cleanup</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li>I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.</li>
+<li><p>I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.</p></li>
 </ul>
 
 
