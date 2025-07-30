@@ -15,8 +15,13 @@ website:
         text: Home
   sidebar:
     contents:
-      - href: 01-chatbot.qmd
-      - href: 00-development.qmd
+      - section: Development
+        contents:
+        - href: 00-general.qmd
+        - href: 01-chatbot.qmd
+      - section: Scenarios 
+        contents:
+        - href: 01-grocerybot.qmd
 
 format:
   html:

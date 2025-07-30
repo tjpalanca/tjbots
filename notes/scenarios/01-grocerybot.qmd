@@ -1,0 +1,16 @@
+---
+title: "GroceryBot"
+sustitle: Making price comparison and adding to cart easier.
+---
+
+## Motivation 
+
+-   Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)
+
+-   Save time, and do so while chatting away with GroceryBot.
+
+## Workflow
+
+-   Specify the item, and ask any questions
+
+-   When you c
