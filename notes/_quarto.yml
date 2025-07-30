@@ -17,14 +17,15 @@ website:
     contents:
       - section: Development
         contents:
-        - href: 00-general.qmd
-        - href: 01-chatbot.qmd
+          - href: development/00-general.qmd
+          - href: development/01-chatbot.qmd
       - section: Scenarios 
         contents:
-        - href: 01-grocerybot.qmd
+          - href: scenarios/01-grocerybot.qmd
 
 format:
   html:
+    license: "CC BY"
     theme:
       - cosmo
       - brand
