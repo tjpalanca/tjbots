@@ -17,6 +17,10 @@ app_ui = ui.page_sidebar(
     ui.head_content(
         ui.tags.link(rel="manifest", href="manifest.json"),
         ui.tags.link(rel="apple-touch-icon", href="assets/images/tjbots.png"),
+        ui.tags.meta(
+            name="viewport",
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
+        ),
     ),
     fillable=True,
     fillable_mobile=True,
