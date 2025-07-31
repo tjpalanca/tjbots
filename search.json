@@ -114,7 +114,7 @@
     "href": "development/01-chatbot.html#design",
     "title": "Chatbot",
     "section": "Design",
-    "text": "Design\n\nUser interface\n\nMobile first\n\n\n\nProgressive Web App\n\nEnable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should be scrollable when added to the home screen.\nThe sidebar should display during swipe events.",
+    "text": "Design\n\nUser interface\n\nMobile first\n\n\n\nProgressive Web App\n\nEnable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.",
     "crumbs": [
       "Home",
       "Development",
