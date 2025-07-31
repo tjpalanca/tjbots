@@ -7,6 +7,8 @@ from shiny import App, Inputs, Outputs, Session, ui
 
 load_dotenv()
 
+app_dir = Path(__file__).parent
+
 tjbots_icon = ui.img(style="background-color: white;", src="assets/images/tjbots.svg")
 app_ui = ui.page_sidebar(
     ui.sidebar(ui.input_dark_mode(), open="closed"),
@@ -15,6 +17,7 @@ app_ui = ui.page_sidebar(
         icon_assistant=tjbots_icon,
     ),
     ui.head_content(
+        ui.include_css(app_dir / "custom.css"),
         ui.tags.link(rel="manifest", href="manifest.json"),
         ui.tags.link(rel="apple-touch-icon", href="assets/images/tjbots.png"),
         ui.tags.meta(
@@ -44,7 +47,6 @@ def server(input: Inputs, output: Outputs, session: Session):
         await chat_ui.append_message_stream(response)
 
 
-app_dir = Path(__file__).parent
 app = App(
     app_ui,
     server,

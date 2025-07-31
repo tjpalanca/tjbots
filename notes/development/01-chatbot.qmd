@@ -35,8 +35,25 @@ The sources of these configurations can come from:
 -   Enable this by creating a `manifest.json` and linking to it with a `<link rel="manifest">` tag.
 -   Add to home screen on iOS works, but the icon is not displayed.
     -   We needed to add the `apple-touch-icon` link to a PNG file, as it does not accept SVG files.
--   The interface should be scrollable when added to the home screen.
--   The sidebar should display during swipe events.
+-   The interface should not be pinch-to-zoomable when added to the home screen.
+    -   Add this meta tag to disable pinch to zoom so it doesn't create problems with the theme.
+        
+        ``` html
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
+        ```
+    - Disabling overscroll worked 
+
+        ```css 
+        html {
+            overscroll-behavior: none;
+        }
+
+        body {
+            overflow-y: scroll;
+        }
+        ```
+- The sidebar should display during swipe events.
+    - I think this requires some custom mobile framework like [Framework7](https://framework7.io) and would likely be an overoptimisation if ever.
 
 ## Deployment
 
