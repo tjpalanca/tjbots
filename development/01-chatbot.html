@@ -375,8 +375,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Some things we can try:</p>
 <ul>
-<li>Shiny Server Open Source to enable connections even without websockets</li>
-<li>ShinyProxy</li>
+<li>Shiny Server Open Source
+<ul>
+<li>it seems that it has reconnect behavior, but will have to see if this is going to be very finicky.</li>
+<li>I’m going to skip on this for now as they only</li>
+</ul></li>
+<li>ShinyProxy
+<ul>
+<li>I can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.</li>
+</ul></li>
 </ul>
 </section>
 </section>
