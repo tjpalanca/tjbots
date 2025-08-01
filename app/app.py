@@ -12,10 +12,7 @@ app_dir = Path(__file__).parent
 tjbots_icon = ui.img(style="background-color: white;", src="assets/images/tjbots.svg")
 app_ui = ui.page_sidebar(
     ui.sidebar(ui.input_dark_mode(), open="closed"),
-    ui.chat_ui(
-        id="chat",
-        icon_assistant=tjbots_icon,
-    ),
+    # Progressive Web App
     ui.head_content(
         ui.include_css(app_dir / "custom.css"),
         ui.tags.link(rel="manifest", href="manifest.json"),
@@ -24,7 +21,18 @@ app_ui = ui.page_sidebar(
             name="viewport",
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
         ),
+        ui.tags.meta(name="mobile-web-app-capable", content="yes"),
+        ui.tags.meta(
+            name="apple-mobile-web-app-status-bar-style", content="black-translucent"
+        ),
     ),
+    # Chat Contents
+    ui.chat_ui(
+        id="chat",
+        icon_assistant=tjbots_icon,
+    ),
+    # Other Settings
+    window_title="TJBots",
     fillable=True,
     fillable_mobile=True,
 )

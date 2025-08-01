@@ -105,8 +105,6 @@ The sources of these configurations can come from:
             --push . 
     ```
 
-### Authentication and authorization
-
 ### Deploying the docker container
 
 -   We can [use watchtower](https://containrrr.dev/watchtower/) as a lightweight way of updating the docker images as soon as they are updated in the registry.
@@ -126,3 +124,24 @@ The sources of these configurations can come from:
     ```
 
 -   I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.
+
+### Solving reconnection issues 
+
+- After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened. 
+
+Some things we can try:
+
+- Shiny Server Open Source to enable connections even without websockets 
+- ShinyProxy
+
+
+
+## Enhancements 
+
+### Adding shortcuts to PWA 
+
+[Docs](https://web.dev/learn/pwa/enhancements#app_shortcuts)
+
+### Add an iOS Splash Screen 
+
+[Docs](https://web.dev/learn/pwa/enhancements#splash_screens)
