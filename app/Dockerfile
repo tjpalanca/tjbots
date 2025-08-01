@@ -1,12 +1,14 @@
 # Build Shiny Server Open Source -----------------------------
-FROM python:3.12-slim-bookworm AS builder
+FROM buildpack-deps:bookworm AS builder
 
 # Linux dependencies
-RUN apt-get update && apt-get install -y xz-utils cmake git-all wget g++
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      build-essential cmake && \
+    rm -rf /var/lib/apt/lists/*
 
 # Clone the repository from GitHub
-RUN git clone https://github.com/rstudio/shiny-server.git
-
+RUN git clone --depth 1 --branch v1.5.23.1030 https://github.com/rstudio/shiny-server.git
 # Install node
 WORKDIR /shiny-server 
 RUN mkdir tmp 
