@@ -9,14 +9,16 @@ load_dotenv()
 
 app_dir = Path(__file__).parent
 
+# icon used for assistant messages
 tjbots_icon = ui.img(style="background-color: white;", src="assets/images/tjbots.svg")
-app_ui = ui.page_sidebar(
-    ui.sidebar(ui.input_dark_mode(), open="closed"),
-    ui.chat_ui(
-        id="chat",
-        icon_assistant=tjbots_icon,
-    ),
-    ui.head_content(
+
+# Application UI using Framework7 styles
+app_ui = ui.tags.html(
+    ui.tags.head(
+        ui.tags.link(
+            rel="stylesheet",
+            href="https://cdn.jsdelivr.net/npm/framework7@8.3.2/framework7-bundle.min.css",
+        ),
         ui.include_css(app_dir / "custom.css"),
         ui.tags.link(rel="manifest", href="manifest.json"),
         ui.tags.link(rel="apple-touch-icon", href="assets/images/tjbots.png"),
@@ -24,9 +26,27 @@ app_ui = ui.page_sidebar(
             name="viewport",
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
         ),
+        ui.tags.script(src="https://cdn.jsdelivr.net/npm/framework7@8.3.2/framework7-bundle.min.js"),
     ),
-    fillable=True,
-    fillable_mobile=True,
+    ui.tags.body(
+        {"class": "framework7-root"},
+        ui.tags.div(
+            {"id": "app"},
+            ui.tags.div(
+                {"class": "view view-main"},
+                ui.tags.div(
+                    {"class": "page"},
+                    ui.tags.div(
+                        {"class": "page-content"},
+                        ui.chat_ui(
+                            id="chat",
+                            icon_assistant=tjbots_icon,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
 )
 
 

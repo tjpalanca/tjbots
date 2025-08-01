@@ -1,7 +1,15 @@
 html {
     overscroll-behavior: none;
+    height: 100%;
 }
 
 body {
     overflow-y: scroll;
+    height: 100%;
+}
+
+.framework7-root #app,
+.framework7-root .view,
+.framework7-root .page {
+    height: 100%;
 }
