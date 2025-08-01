@@ -217,8 +217,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles">Principles</a></li>
   <li><a href="#creating-a-deployable-docker-container" id="toc-creating-a-deployable-docker-container" class="nav-link" data-scroll-target="#creating-a-deployable-docker-container">Creating a deployable docker container</a></li>
-  <li><a href="#authentication-and-authorization" id="toc-authentication-and-authorization" class="nav-link" data-scroll-target="#authentication-and-authorization">Authentication and authorization</a></li>
   <li><a href="#deploying-the-docker-container" id="toc-deploying-the-docker-container" class="nav-link" data-scroll-target="#deploying-the-docker-container">Deploying the docker container</a></li>
+  <li><a href="#solving-reconnection-issues" id="toc-solving-reconnection-issues" class="nav-link" data-scroll-target="#solving-reconnection-issues">Solving reconnection issues</a></li>
+  </ul></li>
+  <li><a href="#enhancements" id="toc-enhancements" class="nav-link" data-scroll-target="#enhancements">Enhancements</a>
+  <ul class="collapse">
+  <li><a href="#adding-shortcuts-to-pwa" id="toc-adding-shortcuts-to-pwa" class="nav-link" data-scroll-target="#adding-shortcuts-to-pwa">Adding shortcuts to PWA</a></li>
+  <li><a href="#add-an-ios-splash-screen" id="toc-add-an-ios-splash-screen" class="nav-link" data-scroll-target="#add-an-ios-splash-screen">Add an iOS Splash Screen</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -344,9 +349,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">        --push . </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
-<section id="authentication-and-authorization" class="level3">
-<h3 class="anchored" data-anchor-id="authentication-and-authorization">Authentication and authorization</h3>
-</section>
 <section id="deploying-the-docker-container" class="level3">
 <h3 class="anchored" data-anchor-id="deploying-the-docker-container">Deploying the docker container</h3>
 <ul>
@@ -365,6 +367,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">command</span><span class="kw">:</span><span class="at"> tjbots-app --interval 30 --cleanup</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.</p></li>
 </ul>
+</section>
+<section id="solving-reconnection-issues" class="level3">
+<h3 class="anchored" data-anchor-id="solving-reconnection-issues">Solving reconnection issues</h3>
+<ul>
+<li>After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.</li>
+</ul>
+<p>Some things we can try:</p>
+<ul>
+<li>Shiny Server Open Source to enable connections even without websockets</li>
+<li>ShinyProxy</li>
+</ul>
+</section>
+</section>
+<section id="enhancements" class="level2">
+<h2 class="anchored" data-anchor-id="enhancements">Enhancements</h2>
+<section id="adding-shortcuts-to-pwa" class="level3">
+<h3 class="anchored" data-anchor-id="adding-shortcuts-to-pwa">Adding shortcuts to PWA</h3>
+<p><a href="https://web.dev/learn/pwa/enhancements#app_shortcuts">Docs</a></p>
+</section>
+<section id="add-an-ios-splash-screen" class="level3">
+<h3 class="anchored" data-anchor-id="add-an-ios-splash-screen">Add an iOS Splash Screen</h3>
+<p><a href="https://web.dev/learn/pwa/enhancements#splash_screens">Docs</a></p>
 
 
 </section>
