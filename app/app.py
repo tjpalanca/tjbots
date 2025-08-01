@@ -27,9 +27,7 @@ app_ui = ui.page_sidebar(
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
         ),
         ui.tags.meta(name="mobile-web-app-capable", content="yes"),
-        ui.tags.meta(
-            name="apple-mobile-web-app-status-bar-style", content="black-translucent"
-        ),
+        ui.tags.meta(name="apple-mobile-web-app-status-bar-style", content="default"),
     ),
     # Chat Contents
     ui.chat_ui(
