@@ -131,8 +131,11 @@ The sources of these configurations can come from:
 
 Some things we can try:
 
-- Shiny Server Open Source to enable connections even without websockets 
+- Shiny Server Open Source
+    - it seems that it has reconnect behavior, but will have to see if this is going to be very finicky.
+    - I'm going to skip on this for now as they only 
 - ShinyProxy
+    - I can't find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.
 
 
 
