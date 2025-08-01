@@ -375,10 +375,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Some things we can try:</p>
 <ul>
+<li>Posit Connect Cloud
+<ul>
+<li>I tried it just to see if I can get the right reconnection behavior - it works. I know that Shiny Server products will work then. I don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.</li>
+</ul></li>
 <li>Shiny Server Open Source
 <ul>
-<li>it seems that it has reconnect behavior, but will have to see if this is going to be very finicky.</li>
-<li>I’m going to skip on this for now as they only</li>
+<li>it seems that it has the needed reconnect behavior.</li>
+<li>there are no pre-build arm64 binaries. I’m going to need to <a href="https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source">build from source</a></li>
 </ul></li>
 <li>ShinyProxy
 <ul>
