@@ -383,6 +383,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>it seems that it has the needed reconnect behavior.</li>
 <li>there are no pre-build arm64 binaries. I’m going to need to <a href="https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source">build from source</a></li>
+<li>I remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. <a href="https://marian-caikovski.medium.com/retrieving-all-request-headers-in-shiny-web-applications-dc07b79c4a7f">There is a hack to modify this behavior</a>.
+<ul>
+<li>The repo and package for this modified shiny server and for <code>arm64</code> is at <a href="https://github.com/tjpalanca/shiny-server">tjpalanca/shiny-server</a>.</li>
+</ul></li>
+<li>For now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.</li>
 </ul></li>
 <li>ShinyProxy
 <ul>
