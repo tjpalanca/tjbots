@@ -1,19 +1,26 @@
-FROM python:3.12-slim-bookworm AS app
+FROM python:3.12-slim-bookworm
+
+# Add {shiny-server}
+ENV PATH="$PATH:/usr/local/shiny-server/bin"
+ENV SHINY_LOG_STDERR=1
+COPY --from=ghcr.io/tjpalanca/shiny-server:latest /usr/local/shiny-server /usr/local/shiny-server
+COPY --from=ghcr.io/tjpalanca/shiny-server:latest /etc/shiny-server /etc/shiny-server
 
 # Add {uv}
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Copy project files
-ADD app /app
-ADD pyproject.toml /app
-ADD uv.lock /app
-
 # Install dependencies
+RUN mkdir /app
 WORKDIR /app
+ADD pyproject.toml .
+ADD uv.lock .
 RUN uv sync --locked
 
-# Copy assets 
+# Copy project files
+ADD app/app.py .
+ADD app/www .
 ADD assets ../assets
+ADD app/shiny-server.conf /etc/shiny-server/shiny-server.conf
 
 # Downgrade to non-root user 
 RUN useradd -u 1000 -m shiny
@@ -21,4 +28,4 @@ USER shiny
 
 # Command 
 EXPOSE 8080
-CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["/usr/local/shiny-server/bin/shiny-server"]
