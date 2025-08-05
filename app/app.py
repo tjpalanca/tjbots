@@ -5,10 +5,10 @@ from chatlas import ChatOpenAI
 from dotenv import load_dotenv
 from shiny import App, Inputs, Outputs, Session, ui
 
-load_dotenv()
-
 app_dir = Path(__file__).parent
 www_dir = app_dir / "www"
+
+load_dotenv(app_dir / ".env")
 
 tjbots_icon = ui.img(style="background-color: white;", src="assets/images/tjbots.svg")
 app_ui = ui.page_sidebar(

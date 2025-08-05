@@ -17,15 +17,15 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 # Install dependencies
 RUN mkdir /app
 WORKDIR /app
-ADD pyproject.toml .
-ADD uv.lock .
+COPY pyproject.toml .
+COPY uv.lock .
 RUN uv sync --locked
 
 # Copy project files
-ADD app/app.py .
-ADD app/www .
-ADD assets ../assets
-ADD app/shiny-server.conf /etc/shiny-server/shiny-server.conf
+COPY app/app.py .
+COPY app/www www
+COPY assets ../assets
+COPY app/shiny-server.conf /etc/shiny-server/shiny-server.conf
 
 # Command 
 USER shiny
