@@ -1,7 +1,7 @@
 {
     "name": "TJBots",
     "short_name": "TJBots",
-    "start_url": "https://tjbots.tjpalanca.dev",
+    "start_url": "https://bots.tjpalanca.com",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#008080",
