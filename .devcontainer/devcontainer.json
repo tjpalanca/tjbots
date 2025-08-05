@@ -20,7 +20,7 @@
         "UV_LINK_MODE": "copy",
         "UV_PROJECT_ENVIRONMENT": "/home/vscode/.local/share/virtualenvs/uv"
     },
-    "postCreateCommand": "sudo chown vscode:vscode ~/.cache && uv sync --locked --no-install-project",
+    "postCreateCommand": "sudo chown vscode:vscode ~/.cache/uv && uv sync --locked --no-install-project",
     "customizations": {
         "vscode": {
             "extensions": [
