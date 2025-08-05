@@ -33,10 +33,14 @@ app-build:
 app-push: 
 	docker push $(APP_TAG) && docker push $(APP_IMG):latest
 
+APP_ENV=\
+	--volume $(PWD)/app/.env:/app/.env
+
 app-run: app-build
-	docker run -it \
+	docker run \
 		-p 8080:8080 \
+		$(APP_ENV) \
 		$(APP_TAG)
 
 app-bash: app-build
-	docker run -it $(APP_TAG) /bin/bash
+	docker run -p 8080:8080 $(APP_ENV) -it $(APP_TAG) /bin/bash
