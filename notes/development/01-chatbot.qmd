@@ -140,9 +140,12 @@ Some things we can try:
     - I remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn't a problem now, but is going to be a problem should I decide to do Auth0 authentication. [There is a hack to modify this behavior](https://marian-caikovski.medium.com/retrieving-all-request-headers-in-shiny-web-applications-dc07b79c4a7f).
         - The repo and package for this modified shiny server and for `arm64` is at [tjpalanca/shiny-server](https://github.com/tjpalanca/shiny-server).
     - For now I'll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.
+    - I eventually gave this a try, but it was not a good experience. The reconnection behavior was not as good as I hoped, and it was a pain to set up. I had to build from source, and the fact that environment variables are not pass through along with headers, requiring source code changes, was a pain.
 
 - ShinyProxy
     - I can't find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.
+    - I tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator. 
+    - The reconnection behavior was OK, there was a problem with the latest chat being resent, which I will try to remedy through application code.
 
 ## Enhancements 
 
