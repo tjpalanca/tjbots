@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a986a95301e671fce2c6472dffc862a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -388,10 +388,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The repo and package for this modified shiny server and for <code>arm64</code> is at <a href="https://github.com/tjpalanca/shiny-server">tjpalanca/shiny-server</a>.</li>
 </ul></li>
 <li>For now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.</li>
+<li>I eventually gave this a try, but it was not a good experience. The reconnection behavior was not as good as I hoped, and it was a pain to set up. I had to build from source, and the fact that environment variables are not pass through along with headers, requiring source code changes, was a pain.</li>
 </ul></li>
 <li>ShinyProxy
 <ul>
 <li>I can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.</li>
+<li>I tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.</li>
+<li>The reconnection behavior was OK, there was a problem with the latest chat being resent, which I will try to remedy through application code.</li>
 </ul></li>
 </ul>
 </section>
