@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a986a95301e671fce2c6472dffc862a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4df3b0c4fafa0f66eafcead0ee6cff11.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -377,7 +377,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Posit Connect Cloud
 <ul>
-<li>I tried it just to see if I can get the right reconnection behavior - it works. I know that Shiny Server products will work then. I don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.</li>
+<li>I tried it just to see if I can get the right reconnection behavior - it works.</li>
+<li>I know that Shiny Server products will work then.</li>
+<li>I don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.</li>
 </ul></li>
 <li>Shiny Server Open Source
 <ul>
@@ -388,13 +390,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The repo and package for this modified shiny server and for <code>arm64</code> is at <a href="https://github.com/tjpalanca/shiny-server">tjpalanca/shiny-server</a>.</li>
 </ul></li>
 <li>For now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.</li>
-<li>I eventually gave this a try, but it was not a good experience. The reconnection behavior was not as good as I hoped, and it was a pain to set up. I had to build from source, and the fact that environment variables are not pass through along with headers, requiring source code changes, was a pain.</li>
+<li>I eventually gave this a try, but it was not a good experience.
+<ul>
+<li>I had to build from source due to the lack of pre-built ARM binaries.</li>
+<li>I had to change the source code to enable headers to be passed through.</li>
+<li>The reconnection behavior wasn’t seamless, it would reinitialize the inputs.</li>
+</ul></li>
+<li><a href="https://github.com/rstudio/shiny/pull/1074/files#diff-15a5dbed6f706799668603a8a0b4d28e0dcb04d870a9ac0afde052d59219a932">PR for enabling reconnections in rstudio/shiny-server</a></li>
 </ul></li>
 <li>ShinyProxy
 <ul>
 <li>I can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.</li>
 <li>I tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.</li>
-<li>The reconnection behavior was OK, there was a problem with the latest chat being resent, which I will try to remedy through application code.</li>
+<li>I did eventually find the reconnection setting.
+<ul>
+<li>It re-sent the inputs, so the <code>@chatui.on_user_submit</code> callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the <code>chatlas</code> object.</li>
+<li>The reconnection behavior only worked when it was on the <code>/app</code> endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.</li>
+</ul></li>
+<li>I can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.</li>
+<li>I have a few options to try:
+<ul>
+<li>Add another layer that rewrites the URL to /app and serves the PWA.
+<ul>
+<li>A problem here is that even manifest.json files served at /app have the iframes</li>
+<li>Might need to use the /app_direct endpoint for the manifest itself.</li>
+<li>ChatGPT says it should work.</li>
+</ul></li>
+</ul></li>
 </ul></li>
 </ul>
 </section>

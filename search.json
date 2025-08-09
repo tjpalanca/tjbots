@@ -1,41 +1,5 @@
 [
   {
-    "objectID": "development/00-general.html",
-    "href": "development/00-general.html",
-    "title": "Development",
-    "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
-    "crumbs": [
-      "Home",
-      "Development",
-      "Development"
-    ]
-  },
-  {
-    "objectID": "development/00-general.html#development",
-    "href": "development/00-general.html#development",
-    "title": "Development",
-    "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
-    "crumbs": [
-      "Home",
-      "Development",
-      "Development"
-    ]
-  },
-  {
-    "objectID": "development/00-general.html#troubleshooting",
-    "href": "development/00-general.html#troubleshooting",
-    "title": "Development",
-    "section": "Troubleshooting",
-    "text": "Troubleshooting\n\nActivating auto-reload\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\nFormat on save for quarto documents\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
-    "crumbs": [
-      "Home",
-      "Development",
-      "Development"
-    ]
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "TJBots",
@@ -48,42 +12,6 @@
     "title": "TJBots",
     "section": "",
     "text": "To explore the jagged frontier of the capabilities of LLMs, I think the right approach is to be very experimental - try out new use cases and see how we can tweak the various levers (prompts, models, tools, configurations) to solve the goal.\nIn order to do that, I think we need to build a test harness for trying out various configurations against different problems, for the following purposes:\n\nto reduce the time from an idea (hey, maybe I can use an LLM to solve it) to implementing it in code where I can hold it and use it in my day-to-day life, and\nif there are problems that are currently unsolvable, be able to take advantage of new research and tools developed to re-visit them in the future.\nmake it easy for me to share my findings with others, so that they can benefit from my work and I can learn from them."
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html",
-    "href": "scenarios/01-grocerybot.html",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#motivation",
-    "href": "scenarios/01-grocerybot.html#motivation",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#workflow",
-    "href": "scenarios/01-grocerybot.html#workflow",
-    "title": "GroceryBot",
-    "section": "Workflow",
-    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
   },
   {
     "objectID": "development/01-chatbot.html",
@@ -126,7 +54,7 @@
     "href": "development/01-chatbot.html#deployment",
     "title": "Chatbot",
     "section": "Deployment",
-    "text": "Deployment\n\nPrinciples\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.\n\n\n\nCreating a deployable docker container\n\nUse the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push . \n\n\n\nDeploying the docker container\n\nWe can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.\n\n\n\nSolving reconnection issues\n\nAfter the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works. I know that Shiny Server products will work then. I don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience. The reconnection behavior was not as good as I hoped, and it was a pain to set up. I had to build from source, and the fact that environment variables are not pass through along with headers, requiring source code changes, was a pain.\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nThe reconnection behavior was OK, there was a problem with the latest chat being resent, which I will try to remedy through application code.",
+    "text": "Deployment\n\nPrinciples\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.\n\n\n\nCreating a deployable docker container\n\nUse the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push . \n\n\n\nDeploying the docker container\n\nWe can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.\n\n\n\nSolving reconnection issues\n\nAfter the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says it should work.",
     "crumbs": [
       "Home",
       "Development",
@@ -143,6 +71,78 @@
       "Home",
       "Development",
       "Chatbot"
+    ]
+  },
+  {
+    "objectID": "development/00-general.html",
+    "href": "development/00-general.html",
+    "title": "Development",
+    "section": "",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
+    "crumbs": [
+      "Home",
+      "Development",
+      "Development"
+    ]
+  },
+  {
+    "objectID": "development/00-general.html#development",
+    "href": "development/00-general.html#development",
+    "title": "Development",
+    "section": "",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
+    "crumbs": [
+      "Home",
+      "Development",
+      "Development"
+    ]
+  },
+  {
+    "objectID": "development/00-general.html#troubleshooting",
+    "href": "development/00-general.html#troubleshooting",
+    "title": "Development",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nActivating auto-reload\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\nFormat on save for quarto documents\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
+    "crumbs": [
+      "Home",
+      "Development",
+      "Development"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html",
+    "href": "scenarios/01-grocerybot.html",
+    "title": "GroceryBot",
+    "section": "",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html#motivation",
+    "href": "scenarios/01-grocerybot.html#motivation",
+    "title": "GroceryBot",
+    "section": "",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html#workflow",
+    "href": "scenarios/01-grocerybot.html#workflow",
+    "title": "GroceryBot",
+    "section": "Workflow",
+    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
     ]
   }
 ]
