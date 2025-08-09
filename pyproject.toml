@@ -11,6 +11,8 @@ dependencies = [
     "chatlas>=0.9.1",
     "google-genai>=1.26.0",
     "openai>=1.97.1",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.10.1",
     "python-dotenv>=1.1.1",
     "shiny>=1.4.0",
 ]

@@ -8,39 +8,42 @@ VERSION := $(shell python3 -c 'import tomllib; print(tomllib.load(open("pyprojec
 REPO_URL := $(shell python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["urls"]["Repository"])')
 LICENSE := $(shell python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["license"])')
 
-# Application
+# Docker
 
-APP_IMG=ghcr.io/tjpalanca/tjbots/app
-APP_TAG=$(APP_IMG):$(VERSION)
-APP_BUILD_ARGS=\
-	--file app/Dockerfile \
+DOCKER_IMG=ghcr.io/tjpalanca/tjbots
+DOCKER_TAG=$(DOCKER_IMG):$(VERSION)
+DOCKER_BUILD_ARGS=\
+	--file Dockerfile \
 	--platform $(PLATFORM) \
 	--label "org.opencontainers.image.source=$(REPO_URL)" \
 	--label "org.opencontainers.image.licenses=$(LICENSE)" \
-	--tag $(APP_TAG) \
-	--tag $(APP_IMG):latest 
+	--tag $(DOCKER_TAG) \
+	--tag $(DOCKER_IMG):latest 
 
-app-publish:
+docker-login:
+	op read "op://Private/Docker GitHub PAT/credential" | \
+	docker login ghcr.io -u tjpalanca --password-stdin
+
+docker-publish:
 	docker buildx build \
-		$(APP_BUILD_ARGS) \
-		--cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \
-		--cache-from=type=registry,ref=$(APP_IMG):cache \
+		$(DOCKER_BUILD_ARGS) \
+		--cache-to=type=registry,ref=$(DOCKER_IMG):cache,mode=max \
+		--cache-from=type=registry,ref=$(DOCKER_IMG):cache \
 		--push . 
 
-app-build:
-	docker build $(APP_BUILD_ARGS) .
+docker-build:
+	docker build $(DOCKER_BUILD_ARGS) .
 
-app-push: 
-	docker push $(APP_TAG) && docker push $(APP_IMG):latest
+docker-push: 
+	docker push $(DOCKER_TAG) && docker push $(DOCKER_IMG):latest
 
-APP_ENV=\
-	--volume $(PWD)/app/.env:/app/.env
-
-app-run: app-build
+docker-run: app-build
 	docker run \
 		-p 8080:8080 \
-		$(APP_ENV) \
-		$(APP_TAG)
+		$(DOCKER_TAG)
 
-app-bash: app-build
-	docker run -p 8080:8080 $(APP_ENV) -it $(APP_TAG) /bin/bash
+docker-bash: app-build
+	docker run -it $(DOCKER_TAG) /bin/bash
+
+docker-bash:
+	docker exec -it $(DOCKER_TAG) /bin/bash
