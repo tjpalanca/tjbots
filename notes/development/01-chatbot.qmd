@@ -159,7 +159,7 @@ Some things we can try:
         - Add another layer that rewrites the URL to /app and serves the PWA.
             - A problem here is that even manifest.json files served at /app have the iframes
             - Might need to use the /app_direct endpoint for the manifest itself.
-            - ChatGPT says it should work.
+            - ChatGPT says having the manifest in a different path should work, only cross-origin has complications.
 
 ## Enhancements 
 
