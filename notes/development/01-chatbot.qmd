@@ -132,7 +132,9 @@ The sources of these configurations can come from:
 Some things we can try:
 
 - Posit Connect Cloud
-    - I tried it just to see if I can get the right reconnection behavior - it works. I know that Shiny Server products will work then. I don't want to use this as it doesn't offer custom domains and does not allow me to place authentication on top of the application.
+    - I tried it just to see if I can get the right reconnection behavior - it works. 
+    - I know that Shiny Server products will work then. 
+    - I don't want to use this as it doesn't offer custom domains and does not allow me to place authentication on top of the application.
 
 - Shiny Server Open Source
     - it seems that it has the needed reconnect behavior.
@@ -153,6 +155,11 @@ Some things we can try:
         - It re-sent the inputs, so the `@chatui.on_user_submit` callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the `chatlas` object.
         - The reconnection behavior only worked when it was on the `/app` endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.
     - I can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.
+    - I have a few options to try:
+        - Add another layer that rewrites the URL to /app and serves the PWA.
+            - A problem here is that even manifest.json files served at /app have the iframes
+            - Might need to use the /app_direct endpoint for the manifest itself.
+            - ChatGPT says it should work.
 
 ## Enhancements 
 
