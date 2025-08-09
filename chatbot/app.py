@@ -7,18 +7,16 @@ from shiny import App, Inputs, Outputs, Session, ui
 app_dir = Path(__file__).parent
 www_dir = app_dir / "www"
 
-tjbots_icon = ui.img(style="background-color: white;", src="assets/images/tjbots.svg")
+tjbots_icon = ui.img(style="background-color: white;", src="images/tjbots.svg")
 app_ui = ui.page_sidebar(
     ui.sidebar(ui.input_dark_mode(), open="closed"),
     # Progressive Web App
     ui.head_content(
         ui.tags.link(rel="stylesheet", href="custom.css"),
         ui.tags.link(rel="manifest", href="manifest.json"),
-        ui.tags.link(rel="icon", type="image/png", href="assets/images/tjbots.png"),
-        ui.tags.link(
-            rel="shortcut icon", type="image/png", href="assets/images/tjbots.png"
-        ),
-        ui.tags.link(rel="apple-touch-icon", href="assets/images/tjbots.png"),
+        ui.tags.link(rel="icon", type="image/png", href="images/tjbots.png"),
+        ui.tags.link(rel="shortcut icon", type="image/png", href="images/tjbots.png"),
+        ui.tags.link(rel="apple-touch-icon", href="images/tjbots.png"),
         ui.tags.meta(
             name="viewport",
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
@@ -58,5 +56,5 @@ def server(input: Inputs, output: Outputs, session: Session):
 app = App(
     app_ui,
     server,
-    static_assets={"/": www_dir, "/assets": app_dir.parent / "assets"},
+    static_assets={"/": www_dir},
 )

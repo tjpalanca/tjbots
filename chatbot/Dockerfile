@@ -14,9 +14,8 @@ COPY uv.lock .
 RUN uv sync --locked
 
 # Copy project files
-COPY app/app.py .
-COPY app/www www
-COPY assets ../assets
+COPY app.py .
+COPY www www
 
 # Command 
 USER shiny
