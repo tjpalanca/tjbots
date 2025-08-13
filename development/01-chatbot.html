@@ -397,6 +397,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The reconnection behavior wasn’t seamless, it would reinitialize the inputs.</li>
 </ul></li>
 <li><a href="https://github.com/rstudio/shiny/pull/1074/files#diff-15a5dbed6f706799668603a8a0b4d28e0dcb04d870a9ac0afde052d59219a932">PR for enabling reconnections in rstudio/shiny-server</a></li>
+<li>I went through it anyway and decided to incorporate the changes in my application. The benefits are:
+<ul>
+<li>SockJS will fall back to another protocol if websockets is not supported.</li>
+<li>Graceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).</li>
+<li>Some element of scalability through the scheduler.</li>
+</ul></li>
+<li>We need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.</li>
+<li>What’s unsolved:
+<ul>
+<li>Resuming after a long disconnection, likely to be solved via server-side caching of state.</li>
+</ul></li>
 </ul></li>
 <li>ShinyProxy
 <ul>
@@ -417,6 +428,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>ChatGPT says having the manifest in a different path should work, only cross-origin has complications.</li>
 </ul></li>
 </ul></li>
+<li>I’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.</li>
+<li>I decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.</li>
 </ul></li>
 </ul>
 </section>
