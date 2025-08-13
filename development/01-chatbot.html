@@ -216,9 +216,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
   <ul class="collapse">
   <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles">Principles</a></li>
-  <li><a href="#creating-a-deployable-docker-container" id="toc-creating-a-deployable-docker-container" class="nav-link" data-scroll-target="#creating-a-deployable-docker-container">Creating a deployable docker container</a></li>
-  <li><a href="#deploying-the-docker-container" id="toc-deploying-the-docker-container" class="nav-link" data-scroll-target="#deploying-the-docker-container">Deploying the docker container</a></li>
-  <li><a href="#solving-reconnection-issues" id="toc-solving-reconnection-issues" class="nav-link" data-scroll-target="#solving-reconnection-issues">Solving reconnection issues</a></li>
+  <li><a href="#creating-a-deployable-docker-container" id="toc-creating-a-deployable-docker-container" class="nav-link" data-scroll-target="#creating-a-deployable-docker-container">Creating a deployable docker container ✅</a></li>
+  <li><a href="#deploying-the-docker-container" id="toc-deploying-the-docker-container" class="nav-link" data-scroll-target="#deploying-the-docker-container">Deploying the docker container ✅</a></li>
+  <li><a href="#solving-reconnection-issues" id="toc-solving-reconnection-issues" class="nav-link" data-scroll-target="#solving-reconnection-issues">Solving reconnection issues ✅</a></li>
   </ul></li>
   <li><a href="#enhancements" id="toc-enhancements" class="nav-link" data-scroll-target="#enhancements">Enhancements</a>
   <ul class="collapse">
@@ -321,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="creating-a-deployable-docker-container" class="level3">
-<h3 class="anchored" data-anchor-id="creating-a-deployable-docker-container">Creating a deployable docker container</h3>
+<h3 class="anchored" data-anchor-id="creating-a-deployable-docker-container">Creating a deployable docker container ✅</h3>
 <ul>
 <li><p>Use the <a href="https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md">docker-in-docker devcontainer feature</a> to quickly add the ability to build images without allowing access to your own machine’s docker host.</p></li>
 <li><p><a href="https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/">Use <code>uvicorn</code> as the main docker command</a>. There’s another configuration using <code>gunicorn</code> but some cursory research made that overkill for just docker runs.</p>
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="deploying-the-docker-container" class="level3">
-<h3 class="anchored" data-anchor-id="deploying-the-docker-container">Deploying the docker container</h3>
+<h3 class="anchored" data-anchor-id="deploying-the-docker-container">Deploying the docker container ✅</h3>
 <ul>
 <li><p>We can <a href="https://containrrr.dev/watchtower/">use watchtower</a> as a lightweight way of updating the docker images as soon as they are updated in the registry.</p>
 <ul>
@@ -369,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="solving-reconnection-issues" class="level3">
-<h3 class="anchored" data-anchor-id="solving-reconnection-issues">Solving reconnection issues</h3>
+<h3 class="anchored" data-anchor-id="solving-reconnection-issues">Solving reconnection issues ✅</h3>
 <ul>
 <li>After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.</li>
 </ul>
@@ -411,15 +411,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>ShinyProxy
 <ul>
-<li>I can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.</li>
-<li>I tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.</li>
-<li>I did eventually find the reconnection setting.
+<li><p>I can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.</p></li>
+<li><p>I tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.</p></li>
+<li><p>I did eventually find the reconnection setting.</p>
 <ul>
 <li>It re-sent the inputs, so the <code>@chatui.on_user_submit</code> callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the <code>chatlas</code> object.</li>
 <li>The reconnection behavior only worked when it was on the <code>/app</code> endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.</li>
 </ul></li>
-<li>I can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.</li>
-<li>I have a few options to try:
+<li><p>I can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.</p></li>
+<li><p>I have a few options to try:</p>
 <ul>
 <li>Add another layer that rewrites the URL to /app and serves the PWA.
 <ul>
@@ -428,8 +428,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>ChatGPT says having the manifest in a different path should work, only cross-origin has complications.</li>
 </ul></li>
 </ul></li>
-<li>I’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.</li>
-<li>I decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.</li>
+<li><p>I’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.</p></li>
+<li><p>I decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.</p></li>
+<li><p>It turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ui.tags.script(<span class="st">"""</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">$(document).on('shiny:connected', function() {</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">    if (window.Shiny &amp;&amp; Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">});</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul></li>
 </ul>
 </section>
