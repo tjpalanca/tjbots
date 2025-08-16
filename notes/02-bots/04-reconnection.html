@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>general – TJBots</title>
+<title>reconnection – TJBots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -107,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Development</li><li class="breadcrumb-item"><a href="../../development/02-bots/01-general.html">02 Bots</a></li><li class="breadcrumb-item"><a href="../../development/02-bots/01-general.html">Chatbot</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Bots Playground</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/04-reconnection.html">Improving Reconnection</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -122,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Development</span></a>
+ <span class="menu-text">Notes</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -130,52 +165,52 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">01 General</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a href="../../notes/02-bots/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bots Playground</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../development/01-general/01-devcontainer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dev Container</span></a>
+  <a href="../../notes/02-bots/01-general.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01 General</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/02-bots/02-pwa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Progressive Web App</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/02-bots/03-deployment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deployment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/02-bots/04-reconnection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Improving Reconnection</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">02 Bots</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Development</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../development/02-bots/01-general.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Chatbot</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../development/02-bots/02-pwa.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Progressive Web App</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../development/02-bots/03-deployment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deployment</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../development/02-bots/04-reconnection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Improving Reconnection</span></a>
+  <a href="../../notes/01-development/01-devcontainer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dev Container</span></a>
   </div>
 </li>
       </ul>
@@ -209,77 +244,68 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#chatbot" id="toc-chatbot" class="nav-link active" data-scroll-target="#chatbot">Chatbot</a>
-  <ul class="collapse">
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a>
-  <ul class="collapse">
-  <li><a href="#couldnt-we-just-use-the-existing-apps" id="toc-couldnt-we-just-use-the-existing-apps" class="nav-link" data-scroll-target="#couldnt-we-just-use-the-existing-apps">Couldn’t we just use the existing apps?</a></li>
-  </ul></li>
-  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
-  <ul class="collapse">
-  <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User interface</a></li>
-  </ul></li>
-  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
-  <ul class="collapse">
-  <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles">Principles</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#determining-the-status-of-chat-messages" id="toc-determining-the-status-of-chat-messages" class="nav-link active" data-scroll-target="#determining-the-status-of-chat-messages">Determining the status of chat messages</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Development</li><li class="breadcrumb-item"><a href="../../development/02-bots/01-general.html">02 Bots</a></li><li class="breadcrumb-item"><a href="../../development/02-bots/01-general.html">Chatbot</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Bots Playground</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/04-reconnection.html">Improving Reconnection</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Improving Reconnection</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="chatbot" class="level1">
-<h1>Chatbot</h1>
-<section id="motivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>I want to create a test harness that allows me to quickly test our various levers, including:</p>
-<ul>
-<li>LLM model providers (e.g.&nbsp;OpenAI, Anthropic, Google) and models (e.g.&nbsp;GPT-4, Claude 3, Gemini)</li>
-<li>System and user prompts</li>
-<li>Tools (e.g.&nbsp;web search, code execution, memory, etc.)</li>
-<li>Configuration (e.g.&nbsp;chain-of-thought)</li>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>When the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.</p>
+<ul class="task-list">
+<li><label><input type="checkbox">The chat client needs to sync with what messages are in the frontend.</label></li>
+<li><label><input type="checkbox">The frontend needs to resend whatever it already has sent.</label></li>
+<li><label><input type="checkbox">The callback needs to be updated to handle reconnections, so that they don’t fire again.</label></li>
 </ul>
-<p>The sources of these configurations can come from:</p>
-<ul>
-<li>problems I want to solve</li>
-<li>articles I read about LLMs that give me ideas</li>
-</ul>
-<section id="couldnt-we-just-use-the-existing-apps" class="level3">
-<h3 class="anchored" data-anchor-id="couldnt-we-just-use-the-existing-apps">Couldn’t we just use the existing apps?</h3>
-<ul>
-<li>Most providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.</li>
-<li>Most providers will charge a margin over the raw API cost.</li>
-<li>We cannot experiment with human-AI interfaces because the interfaces are fixed.</li>
-<li>It’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.</li>
-</ul>
-</section>
-</section>
-<section id="design" class="level2">
-<h2 class="anchored" data-anchor-id="design">Design</h2>
-<section id="user-interface" class="level3">
-<h3 class="anchored" data-anchor-id="user-interface">User interface</h3>
-<ul>
-<li>Mobile first</li>
-</ul>
-</section>
-</section>
-<section id="deployment" class="level2">
-<h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
-<section id="principles" class="level3">
-<h3 class="anchored" data-anchor-id="principles">Principles</h3>
-<ul>
-<li>Only add complexity when necessary but don’t create one-way doors.</li>
-<li>Minimise drift between development and production as much as possible.</li>
-</ul>
+<section id="determining-the-status-of-chat-messages" class="level2">
+<h2 class="anchored" data-anchor-id="determining-the-status-of-chat-messages">Determining the status of chat messages</h2>
+<p>We first want to find out the chat messages</p>
+<div id="3493bf16" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatAnthropic</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>load_dotenv(<span class="st">"/run/secrets/tjbots.env"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_current_time():</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> datetime.now().isoformat()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>chat.register_tool(get_current_time)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>chat.chat(<span class="st">"Can you fetch the current time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="3a7ea0dd" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(chat.get_turns()[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="9c9b9ef5" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chatlas</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>chatlas.Turn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
-</section>
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
