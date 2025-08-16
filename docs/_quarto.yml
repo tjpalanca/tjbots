@@ -1,0 +1,26 @@
+project:
+  type: website
+  post-render: 
+    - scripts/copy_readme.py
+
+execute:
+  enabled: false
+
+website:
+  title: "TJBots"
+  navbar:
+    logo: assets/logo/tjbots.svg
+    left:
+      - href: index.qmd
+        text: Home
+  sidebar:
+    contents: auto
+
+format:
+  html:
+    license: "CC BY"
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true

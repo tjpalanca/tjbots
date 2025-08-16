@@ -1,0 +1,7 @@
+html {
+    overscroll-behavior: none;
+}
+
+body {
+    overflow-y: scroll;
+}

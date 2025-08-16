@@ -1,0 +1,25 @@
+
+
+# TJBots <img src="assets/logo/tjbots.png" style="display:block;" align="right" height="100"/>
+
+## Motivation
+
+To explore the [jagged
+frontier](https://www.oneusefulthing.org/p/centaurs-and-cyborgs-on-the-jagged)
+of the capabilities of LLMs, I think the right approach is to be very
+experimental - try out new use cases and see how we can tweak the
+various levers (prompts, models, tools, configurations) to solve the
+goal.
+
+In order to do that, I think we need to build a test harness for trying
+out various configurations against different problems, for the following
+purposes:
+
+- to reduce the time from an idea (hey, maybe I can use an LLM to solve
+  it) to implementing it in code where I can hold it and use it in my
+  day-to-day life, and
+- if there are problems that are currently unsolvable, be able to take
+  advantage of new research and tools developed to re-visit them in the
+  future.
+- make it easy for me to share my findings with others, so that they can
+  benefit from my work and I can learn from them.

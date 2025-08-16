@@ -1,0 +1,41 @@
+# Improving Reconnection
+
+When the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.
+
+- [ ] The chat client needs to sync with what messages are in the frontend.
+- [ ] The frontend needs to resend whatever it already has sent.
+- [ ] The callback needs to be updated to handle reconnections, so that they don't fire again. 
+
+## Determining the status of chat messages 
+
+We first want to find out the chat messages 
+
+```{python}
+from dotenv import load_dotenv
+from chatlas import ChatAnthropic
+from datetime import datetime
+
+load_dotenv("/run/secrets/tjbots.env")
+
+chat = ChatAnthropic()
+
+
+def get_current_time():
+    return datetime.now().isoformat()
+
+
+chat.register_tool(get_current_time)
+chat.chat("Can you fetch the current time")
+
+```
+
+
+```{python}
+dir(chat.get_turns()[1])
+```
+
+```{python}
+import chatlas
+
+chatlas.Turn
+```

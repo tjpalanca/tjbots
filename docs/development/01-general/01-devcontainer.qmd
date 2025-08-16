@@ -1,0 +1,68 @@
+# Dev Container 
+
+## Creating the dev container
+
+* Used microsoft's base dev container and some devcontainer features to enable `python` with `uv`, `nodejs`, and `quarto`. This creates a minimal setup for developing Shiny for Python applications.
+* Mounting the `uv` cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.
+
+
+## Pre-building the dev container 
+
+::: {.callout}
+Ultimately this wasn't useful unless:
+
+a. we have lots of projects depending on the same devcontainer spec, or 
+b. we went really custom with our CI and didn't want to depend on pre-built github actions
+:::
+
+* Added a github action to build the devcontainer and publish it for the following purposes:
+    - To make future devcontainer builds faster
+        - This is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.
+        - In a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like `tjpalanca/devcontainers` instead.
+    - To use the devcontainer for executing CI actions consistent with the local development experience
+        - Adds some overhead in pulling the devcontainer
+        - Creates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)
+        - Makes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.
+
+```yaml 
+    # BEFORE: Make sure to login to docker registry
+    - name: Pre-build dev container image
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ghcr.io/tjpalanca/tjbots/devcontainer
+        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer
+        push: always
+``` 
+
+* There is a separate mechanism to pre-build [Github Codespaces images](https://docs.github.com/en/codespaces/prebuilding-your-codespaces).
+
+## Keybindings 
+
+These are to help with rapid development.
+
+```jsonc 
+{
+    "key": "shift+cmd+enter",
+    "command": "shiny.python.runApp",
+    "when": "shellExecutionSupported && editorLangId == 'python'"
+}
+```
+
+## Executing actions
+
+* I'm used to using a `Makefile` to describe the build and deployment actions I want to take, but there's this new project called [`act`](https://nektosact.com) that purports to replace this and have the github action as the source of truth for both local and CI deployment.
+    * I decided against this - it's a lot of complexity.
+
+## Troubleshooting
+
+### Activating auto-reload
+
+* Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.
+* We needed to set `remote.autoForwardPortsSource` to `process` and disable the fallback by setting `remote.autoForwardPortsFallback` to `0`, which creates a bunch of spurious ones but also surfaced the autoreload port.
+    * Setting `remote.restoreForwardedPorts` to `false` alleviated it by forgetting every time the devcontainer is started.
+* It still does not work well enough, we need to run the app twice, but at least it's good.
+
+### Format on save for quarto documents
+
+* I would like `quarto` to format my markdown in addition to the code blocks.
+* I couldn't find a clean way to do this, unfortunately. 

@@ -1,0 +1,118 @@
+# Deployment 
+
+## Creating a deployable docker container ✅ 
+
+-   Use the [docker-in-docker devcontainer feature](https://github.com/devcontainers/features/blob/main/src/docker-in-docker/README.md) to quickly add the ability to build images without allowing access to your own machine's docker host.
+
+-   [Use `uvicorn` as the main docker command](https://hosting.analythium.io/containerizing-shiny-for-python-and-shinylive-applications/). There's another configuration using `gunicorn` but some cursory research made that overkill for just docker runs.
+
+    ``` dockerfile
+    CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+    ```
+
+-   Can we build off of the production dev container to build the dev image by adding more stuff onto it?
+
+    -   I think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was `python-3.12-bookworm`.
+
+    -   This general pattern allows us to consolidate configuration in the `pyproject.toml` file. It only requires python.
+
+        ``` makefile
+        VERSION := $(shell python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+        ```
+
+-   The base images all run as root, it's best to run as a non-root user:
+
+    ``` dockerfile
+    # Downgrade to non-root user 
+    RUN useradd -u 1000 -m appuser
+    USER appuser
+    ```
+
+-   I needed to generate both `arm64` and `amd64` versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.
+
+    -   One strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.
+
+-   Use a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.
+
+    ``` makefile
+    app-push:
+        docker buildx build \
+            $(APP_BUILD_ARGS) \
+            --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \
+            --cache-from=type=registry,ref=$(APP_IMG):cache \
+            --push . 
+    ```
+
+## Deploying the docker container ✅ 
+
+-   We can [use watchtower](https://containrrr.dev/watchtower/) as a lightweight way of updating the docker images as soon as they are updated in the registry.
+
+    -   This also supports docker compose.
+    -   Worked well. We just needed to specify the `container_name` in the `compose.yml` to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.
+
+    ``` yaml
+    services:
+        watchtower:
+            image: containrrr/watchtower:latest
+            container_name: watchtower
+            restart: always
+            volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            command: tjbots-app --interval 30 --cleanup
+    ```
+
+-   I think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.
+
+## Solving reconnection issues ✅ 
+
+- After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened. 
+
+Some things we can try:
+
+- Posit Connect Cloud
+    - I tried it just to see if I can get the right reconnection behavior - it works. 
+    - I know that Shiny Server products will work then. 
+    - I don't want to use this as it doesn't offer custom domains and does not allow me to place authentication on top of the application.
+
+- Shiny Server Open Source
+    - it seems that it has the needed reconnect behavior.
+    - there are no pre-build arm64 binaries. I'm going to need to [build from source](https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source)
+    - I remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn't a problem now, but is going to be a problem should I decide to do Auth0 authentication. [There is a hack to modify this behavior](https://marian-caikovski.medium.com/retrieving-all-request-headers-in-shiny-web-applications-dc07b79c4a7f).
+        - The repo and package for this modified shiny server and for `arm64` is at [tjpalanca/shiny-server](https://github.com/tjpalanca/shiny-server).
+    - For now I'll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.
+    - I eventually gave this a try, but it was not a good experience. 
+        - I had to build from source due to the lack of pre-built ARM binaries.
+        - I had to change the source code to enable headers to be passed through.
+        - The reconnection behavior wasn't seamless, it would reinitialize the inputs.
+    - [PR for enabling reconnections in rstudio/shiny-server](https://github.com/rstudio/shiny/pull/1074/files#diff-15a5dbed6f706799668603a8a0b4d28e0dcb04d870a9ac0afde052d59219a932)
+    - I went through it anyway and decided to incorporate the changes in my application. The benefits are:
+        - SockJS will fall back to another protocol if websockets is not supported.
+        - Graceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).
+        - Some element of scalability through the scheduler.
+    - We need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.
+    - What's unsolved:
+        - Resuming after a long disconnection, likely to be solved via server-side caching of state.
+
+- ShinyProxy
+    - I can't find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.
+    - I tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator. 
+    - I did eventually find the reconnection setting.
+        - It re-sent the inputs, so the `@chatui.on_user_submit` callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the `chatlas` object.
+        - The reconnection behavior only worked when it was on the `/app` endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.
+    - I can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.
+    - I have a few options to try:
+        - Add another layer that rewrites the URL to /app and serves the PWA.
+            - A problem here is that even manifest.json files served at /app have the iframes
+            - Might need to use the /app_direct endpoint for the manifest itself.
+            - ChatGPT says having the manifest in a different path should work, only cross-origin has complications.
+    - I'm encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.
+    - I decided that while this will probably be very nice for creating devcontainers, it's overkill for just a single app instance.
+    - It turns out there is no way to enable reconnecting behavior from Python although it still works well.  We just added a script that flips that to true on the client side when shiny is connected.
+
+        ```python
+        ui.tags.script("""
+        $(document).on('shiny:connected', function() {
+            if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;
+        });
+        """)
+        ```
