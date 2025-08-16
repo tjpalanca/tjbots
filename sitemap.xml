@@ -2,22 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tjpalanca.github.io/tjbots/index.html</loc>
-    <lastmod>2025-08-16T16:19:45.373Z</lastmod>
+    <lastmod>2025-08-16T16:27:33.760Z</lastmod>
   </url>
   <url>
-    <loc>https://tjpalanca.github.io/tjbots/development/01-chatbot.html</loc>
-    <lastmod>2025-08-16T16:19:45.373Z</lastmod>
+    <loc>https://tjpalanca.github.io/tjbots/development/02-bots/01-general.html</loc>
+    <lastmod>2025-08-16T16:27:33.760Z</lastmod>
   </url>
   <url>
-    <loc>https://tjpalanca.github.io/tjbots/development/02-improving_reconnection.html</loc>
-    <lastmod>2025-08-16T16:19:45.373Z</lastmod>
+    <loc>https://tjpalanca.github.io/tjbots/development/02-bots/04-reconnection.html</loc>
+    <lastmod>2025-08-16T16:27:33.760Z</lastmod>
   </url>
   <url>
-    <loc>https://tjpalanca.github.io/tjbots/development/00-general.html</loc>
-    <lastmod>2025-08-16T16:19:45.373Z</lastmod>
+    <loc>https://tjpalanca.github.io/tjbots/development/01-general/01-devcontainer.html</loc>
+    <lastmod>2025-08-16T16:27:33.760Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tjpalanca.github.io/tjbots/development/02-bots/02-pwa.html</loc>
+    <lastmod>2025-08-16T16:27:33.760Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tjpalanca.github.io/tjbots/development/02-bots/03-deployment.html</loc>
+    <lastmod>2025-08-16T16:27:33.760Z</lastmod>
   </url>
   <url>
     <loc>https://tjpalanca.github.io/tjbots/scenarios/01-grocerybot.html</loc>
-    <lastmod>2025-08-16T16:19:45.373Z</lastmod>
+    <lastmod>2025-08-16T16:27:33.760Z</lastmod>
   </url>
 </urlset>
