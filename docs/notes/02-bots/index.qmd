@@ -1,4 +1,4 @@
-# Chatbot
+# Bots Playground
 
 ## Motivation
 

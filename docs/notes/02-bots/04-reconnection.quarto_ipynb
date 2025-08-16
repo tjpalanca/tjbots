@@ -1,0 +1,78 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Improving Reconnection\n",
+        "\n",
+        "When the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.\n",
+        "\n",
+        "- [ ] The chat client needs to sync with what messages are in the frontend.\n",
+        "- [ ] The frontend needs to resend whatever it already has sent.\n",
+        "- [ ] The callback needs to be updated to handle reconnections, so that they don't fire again. \n",
+        "\n",
+        "## Determining the status of chat messages \n",
+        "\n",
+        "We first want to find out the chat messages "
+      ],
+      "id": "f82cfa11"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from dotenv import load_dotenv\n",
+        "from chatlas import ChatAnthropic\n",
+        "from datetime import datetime\n",
+        "\n",
+        "load_dotenv(\"/run/secrets/tjbots.env\")\n",
+        "\n",
+        "chat = ChatAnthropic()\n",
+        "\n",
+        "\n",
+        "def get_current_time():\n",
+        "    return datetime.now().isoformat()\n",
+        "\n",
+        "\n",
+        "chat.register_tool(get_current_time)\n",
+        "chat.chat(\"Can you fetch the current time\")"
+      ],
+      "id": "a5848614",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "dir(chat.get_turns()[1])"
+      ],
+      "id": "9b13eef3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import chatlas\n",
+        "\n",
+        "chatlas.Turn"
+      ],
+      "id": "5bff8ed7",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/workspaces/tjbots/.venv/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
