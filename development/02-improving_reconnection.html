@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>general – TJBots</title>
+<title>improving_reconnection – TJBots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../development/00-general.html">Development</a></li><li class="breadcrumb-item"><a href="../development/00-general.html">General</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../development/00-general.html">Development</a></li><li class="breadcrumb-item"><a href="../development/02-improving_reconnection.html">Improving Reconnection</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -165,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../development/00-general.html" class="sidebar-item-text sidebar-link active">
+  <a href="../development/00-general.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">General</span></a>
   </div>
 </li>
@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../development/02-improving_reconnection.html" class="sidebar-item-text sidebar-link">
+  <a href="../development/02-improving_reconnection.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Improving Reconnection</span></a>
   </div>
 </li>
@@ -210,126 +210,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#general" id="toc-general" class="nav-link active" data-scroll-target="#general">General</a>
-  <ul class="collapse">
-  <li><a href="#development" id="toc-development" class="nav-link" data-scroll-target="#development">Development</a>
-  <ul class="collapse">
-  <li><a href="#creating-the-dev-container" id="toc-creating-the-dev-container" class="nav-link" data-scroll-target="#creating-the-dev-container">Creating the dev container</a></li>
-  <li><a href="#pre-building-the-dev-container" id="toc-pre-building-the-dev-container" class="nav-link" data-scroll-target="#pre-building-the-dev-container">Pre-building the dev container</a></li>
-  <li><a href="#keybindings" id="toc-keybindings" class="nav-link" data-scroll-target="#keybindings">Keybindings</a></li>
-  <li><a href="#executing-actions" id="toc-executing-actions" class="nav-link" data-scroll-target="#executing-actions">Executing actions</a></li>
-  </ul></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
-  <ul class="collapse">
-  <li><a href="#activating-auto-reload" id="toc-activating-auto-reload" class="nav-link" data-scroll-target="#activating-auto-reload">Activating auto-reload</a></li>
-  <li><a href="#format-on-save-for-quarto-documents" id="toc-format-on-save-for-quarto-documents" class="nav-link" data-scroll-target="#format-on-save-for-quarto-documents">Format on save for quarto documents</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#determining-the-status-of-chat-messages" id="toc-determining-the-status-of-chat-messages" class="nav-link active" data-scroll-target="#determining-the-status-of-chat-messages">Determining the status of chat messages</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../development/00-general.html">Development</a></li><li class="breadcrumb-item"><a href="../development/00-general.html">General</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
 
-
-
-
-<section id="general" class="level1">
-<h1>General</h1>
-<section id="development" class="level2">
-<h2 class="anchored" data-anchor-id="development">Development</h2>
-<section id="creating-the-dev-container" class="level3">
-<h3 class="anchored" data-anchor-id="creating-the-dev-container">Creating the dev container</h3>
-<ul>
-<li>Used microsoft’s base dev container and some devcontainer features to enable <code>python</code> with <code>uv</code>, <code>nodejs</code>, and <code>quarto</code>. This creates a minimal setup for developing Shiny for Python applications.</li>
-<li>Mounting the <code>uv</code> cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.</li>
-</ul>
-</section>
-<section id="pre-building-the-dev-container" class="level3">
-<h3 class="anchored" data-anchor-id="pre-building-the-dev-container">Pre-building the dev container</h3>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../development/00-general.html">Development</a></li><li class="breadcrumb-item"><a href="../development/02-improving_reconnection.html">Improving Reconnection</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Improving Reconnection</h1>
 </div>
-<div class="callout-body-container">
-<p>Ultimately this wasn’t useful unless:</p>
-<ol type="a">
-<li>we have lots of projects depending on the same devcontainer spec, or</li>
-<li>we went really custom with our CI and didn’t want to depend on pre-built github actions</li>
-</ol>
-</div>
-</div>
-</div>
-<ul>
-<li>Added a github action to build the devcontainer and publish it for the following purposes:
-<ul>
-<li>To make future devcontainer builds faster
-<ul>
-<li>This is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.</li>
-<li>In a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like <code>tjpalanca/devcontainers</code> instead.</li>
-</ul></li>
-<li>To use the devcontainer for executing CI actions consistent with the local development experience
-<ul>
-<li>Adds some overhead in pulling the devcontainer</li>
-<li>Creates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)</li>
-<li>Makes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.</li>
-</ul></li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">    # BEFORE: Make sure to login to docker registry</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Pre-build dev container image</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> devcontainers/ci@v0.3</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">imageName</span><span class="kw">:</span><span class="at"> ghcr.io/tjpalanca/tjbots/devcontainer</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">cacheFrom</span><span class="kw">:</span><span class="at"> ghcr.io/tjpalanca/tjbots/devcontainer</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">push</span><span class="kw">:</span><span class="at"> always</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>There is a separate mechanism to pre-build <a href="https://docs.github.com/en/codespaces/prebuilding-your-codespaces">Github Codespaces images</a>.</li>
-</ul>
-</section>
-<section id="keybindings" class="level3">
-<h3 class="anchored" data-anchor-id="keybindings">Keybindings</h3>
-<p>These are to help with rapid development.</p>
-<pre class="jsonc"><code>{
-    "key": "shift+cmd+enter",
-    "command": "shiny.python.runApp",
-    "when": "shellExecutionSupported &amp;&amp; editorLangId == 'python'"
-}</code></pre>
-</section>
-<section id="executing-actions" class="level3">
-<h3 class="anchored" data-anchor-id="executing-actions">Executing actions</h3>
-<ul>
-<li>I’m used to using a <code>Makefile</code> to describe the build and deployment actions I want to take, but there’s this new project called <a href="https://nektosact.com"><code>act</code></a> that purports to replace this and have the github action as the source of truth for both local and CI deployment.
-<ul>
-<li>I decided against this - it’s a lot of complexity.</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="activating-auto-reload" class="level3">
-<h3 class="anchored" data-anchor-id="activating-auto-reload">Activating auto-reload</h3>
-<ul>
-<li>Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.</li>
-<li>We needed to set <code>remote.autoForwardPortsSource</code> to <code>process</code> and disable the fallback by setting <code>remote.autoForwardPortsFallback</code> to <code>0</code>, which creates a bunch of spurious ones but also surfaced the autoreload port.
-<ul>
-<li>Setting <code>remote.restoreForwardedPorts</code> to <code>false</code> alleviated it by forgetting every time the devcontainer is started.</li>
-</ul></li>
-<li>It still does not work well enough, we need to run the app twice, but at least it’s good.</li>
-</ul>
-</section>
-<section id="format-on-save-for-quarto-documents" class="level3">
-<h3 class="anchored" data-anchor-id="format-on-save-for-quarto-documents">Format on save for quarto documents</h3>
-<ul>
-<li>I would like <code>quarto</code> to format my markdown in addition to the code blocks.</li>
-<li>I couldn’t find a clean way to do this, unfortunately.</li>
-</ul>
 
 
-</section>
-</section>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>When the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.</p>
+<ul class="task-list">
+<li><label><input type="checkbox">The chat client needs to sync with what messages are in the frontend.</label></li>
+<li><label><input type="checkbox">The frontend needs to resend whatever it already has sent.</label></li>
+<li><label><input type="checkbox">The callback needs to be updated to handle reconnections, so that they don’t fire again.</label></li>
+</ul>
+<section id="determining-the-status-of-chat-messages" class="level2">
+<h2 class="anchored" data-anchor-id="determining-the-status-of-chat-messages">Determining the status of chat messages</h2>
+<p>We first want to find out the chat messages</p>
+<div id="b5164521" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatAnthropic</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>load_dotenv(<span class="st">"/run/secrets/tjbots.env"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> ChatAnthropic()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_current_time():</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> datetime.now().isoformat()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>chat.register_tool(get_current_time)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>chat.chat(<span class="st">"Can you fetch the current time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ed815c89" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(chat.get_turns()[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="feb7c3ac" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chatlas</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>chatlas.Turn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->

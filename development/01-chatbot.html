@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chatbot – TJBots</title>
+<title>chatbot – TJBots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -166,13 +166,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../development/00-general.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Development</span></a>
+ <span class="menu-text">General</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../development/01-chatbot.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../development/02-improving_reconnection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Improving Reconnection</span></a>
   </div>
 </li>
       </ul>
@@ -204,7 +210,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a>
+  <li><a href="#chatbot" id="toc-chatbot" class="nav-link active" data-scroll-target="#chatbot">Chatbot</a>
+  <ul class="collapse">
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a>
   <ul class="collapse">
   <li><a href="#couldnt-we-just-use-the-existing-apps" id="toc-couldnt-we-just-use-the-existing-apps" class="nav-link" data-scroll-target="#couldnt-we-just-use-the-existing-apps">Couldn’t we just use the existing apps?</a></li>
   </ul></li>
@@ -225,32 +233,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#adding-shortcuts-to-pwa" id="toc-adding-shortcuts-to-pwa" class="nav-link" data-scroll-target="#adding-shortcuts-to-pwa">Adding shortcuts to PWA</a></li>
   <li><a href="#add-an-ios-splash-screen" id="toc-add-an-ios-splash-screen" class="nav-link" data-scroll-target="#add-an-ios-splash-screen">Add an iOS Splash Screen</a></li>
   </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../development/00-general.html">Development</a></li><li class="breadcrumb-item"><a href="../development/01-chatbot.html">Chatbot</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Chatbot</h1>
-<p class="subtitle lead">Setting up a chatbot for day-to-day testing</p>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../development/00-general.html">Development</a></li><li class="breadcrumb-item"><a href="../development/01-chatbot.html">Chatbot</a></li></ol></nav></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<section id="chatbot" class="level1">
+<h1>Chatbot</h1>
 <section id="motivation" class="level2">
 <h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
 <p>I want to create a test harness that allows me to quickly test our various levers, including:</p>
@@ -451,6 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://web.dev/learn/pwa/enhancements#splash_screens">Docs</a></p>
 
 
+</section>
 </section>
 </section>
 
