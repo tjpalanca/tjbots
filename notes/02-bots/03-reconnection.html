@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Bots Playground</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/04-reconnection.html">Improving Reconnection</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Bots Playground</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/03-reconnection.html">Reconnection Behavior</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -174,26 +174,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/02-bots/01-general.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">01 General</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../notes/02-bots/02-pwa.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/02-bots/01-pwa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Progressive Web App</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/02-bots/03-deployment.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/02-bots/02-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Deployment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/02-bots/04-reconnection.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Improving Reconnection</span></a>
+  <a href="../../notes/02-bots/03-reconnection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Reconnection Behavior</span></a>
   </div>
 </li>
       </ul>
@@ -251,9 +245,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Bots Playground</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/04-reconnection.html">Improving Reconnection</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Bots Playground</a></li><li class="breadcrumb-item"><a href="../../notes/02-bots/03-reconnection.html">Reconnection Behavior</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Improving Reconnection</h1>
+<h1 class="title">Reconnection Behavior</h1>
 </div>
 
 
@@ -270,6 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.</p>
 <p>When the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.</p>
 <ul class="task-list">
 <li><label><input type="checkbox">The chat client needs to sync with what messages are in the frontend.</label></li>
@@ -278,8 +273,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="determining-the-status-of-chat-messages" class="level2">
 <h2 class="anchored" data-anchor-id="determining-the-status-of-chat-messages">Determining the status of chat messages</h2>
-<p>We first want to find out the chat messages</p>
-<div id="3493bf16" class="cell">
+<p>We first want to find out what chat messages look like in the frontend and in the backend.</p>
+<div id="16ae570d" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatAnthropic</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
@@ -296,10 +291,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>chat.register_tool(get_current_time)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>chat.chat(<span class="st">"Can you fetch the current time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3a7ea0dd" class="cell">
+<div id="88c7db10" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(chat.get_turns()[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9c9b9ef5" class="cell">
+<div id="08c38d96" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chatlas</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>chatlas.Turn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
