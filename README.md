@@ -1,6 +1,6 @@
 
 
-# TJBots <img src="assets/images/tjbots.png" style="display:block;" align="right" height="100"/>
+# TJBots <img src="assets/logo/tjbots.png" style="display:block;" align="right" height="100"/>
 
 ## Motivation
 
