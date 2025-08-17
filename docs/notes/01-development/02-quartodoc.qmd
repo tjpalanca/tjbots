@@ -1,0 +1,9 @@
+# QuartoDoc
+
+I want my package to be documented automatically based on the docstrings. The classic tool for that is Sphinx, but quartodoc seems to be a newer and compatible with what I have here already.
+
+[QuartoDoc documentation](https://machow.github.io/quartodoc/get-started/overview.html)
+
+This was relatively straightforward. It just involved creating a quartodoc section to the `_quarto.yml`, and then `quartodoc build` to build the quarto files, which then get included in the main render.
+
+We do need to add a step in the github action to run `quartodoc build` before rendering the full site.
