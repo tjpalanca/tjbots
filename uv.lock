@@ -1410,7 +1410,7 @@ wheels = [
 [[package]]
 name = "tjbots"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 
 [package.dev-dependencies]
 app = [
