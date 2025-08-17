@@ -8,6 +8,7 @@ execute:
 
 website:
   title: "TJBots"
+  favicon: assets/logo/tjbots.svg
   navbar:
     logo: assets/logo/tjbots.svg
     left:
