@@ -1,4 +1,8 @@
-*_files/**
-*.html
-/.quarto/
+# Generated files
 /_site/
+/reference/
+objects.json
+
+# Caches
+/.quarto/
+

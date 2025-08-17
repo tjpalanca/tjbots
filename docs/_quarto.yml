@@ -25,3 +25,16 @@ format:
       - brand
     css: styles.css
     toc: true
+
+quartodoc:
+  title: Reference
+  package: tjbots
+  parser: google
+  sections:
+    - title: Bots
+      package: tjbots.app
+      desc: |-
+        This application provides a chatbot application that facilitates testing of 
+        various combinations of bots, tools, and other configuration.
+      contents:
+        - app
