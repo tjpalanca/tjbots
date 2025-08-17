@@ -3,11 +3,16 @@ project:
   post-render: 
     - scripts/copy_readme.py
 
+resources: 
+  - assets/**
+
 execute:
   enabled: false
 
 website:
   title: "TJBots"
+  repo-url: https://github.com/tjpalanca/tjbots
+  repo-subdir: docs
   favicon: assets/logo/tjbots.svg
   navbar:
     logo: assets/logo/tjbots.svg
