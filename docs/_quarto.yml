@@ -3,11 +3,17 @@ project:
   post-render: 
     - scripts/copy_readme.py
 
+resources: 
+  - assets/**
+
 execute:
   enabled: false
 
 website:
   title: "TJBots"
+  repo-url: https://github.com/tjpalanca/tjbots
+  repo-subdir: docs
+  favicon: assets/logo/tjbots.svg
   navbar:
     logo: assets/logo/tjbots.svg
     left:
@@ -24,3 +30,16 @@ format:
       - brand
     css: styles.css
     toc: true
+
+quartodoc:
+  title: Reference
+  package: tjbots
+  parser: google
+  sections:
+    - title: Bots
+      package: tjbots
+      desc: |-
+        This application provides a chatbot application that facilitates testing of 
+        various combinations of bots, tools, and other configuration.
+      contents:
+        - app

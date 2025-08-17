@@ -1,6 +1,10 @@
 on:
-  workflow_dispatch:
   push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs-publish.yml"
+  pull_request:
     branches: [main]
     paths:
       - "docs/**"
@@ -21,10 +25,28 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render and Publish
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Sync uv 
+        run: uv sync --locked
+
+      - name: Render docs
+        run: source .venv/bin/activate && make docs-build
+
+      - name: Publish docs
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
           path: docs
+          render: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

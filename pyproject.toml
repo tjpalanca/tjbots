@@ -28,5 +28,10 @@ app = [
 ]
 dev = [
     "ipykernel>=6.30.1",
-    "ipython>=9.4.0"
+    "ipython>=9.4.0",
+    "quartodoc>=0.11.1",
 ]
+
+[build-system]
+requires = ["uv_build>=0.8.11,<0.9.0"]
+build-backend = "uv_build"
