@@ -1,144 +1,5 @@
 [
   {
-    "objectID": "scenarios/01-grocerybot.html",
-    "href": "scenarios/01-grocerybot.html",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#motivation",
-    "href": "scenarios/01-grocerybot.html#motivation",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#workflow",
-    "href": "scenarios/01-grocerybot.html#workflow",
-    "title": "GroceryBot",
-    "section": "Workflow",
-    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/index.html",
-    "href": "notes/02-bots/index.html",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/index.html#motivation",
-    "href": "notes/02-bots/index.html#motivation",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/index.html#design",
-    "href": "notes/02-bots/index.html#design",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "Mobile first",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/index.html#deployment",
-    "href": "notes/02-bots/index.html#deployment",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/01-pwa.html",
-    "href": "notes/02-bots/01-pwa.html",
-    "title": "Progressive Web App",
-    "section": "",
-    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground",
-      "Progressive Web App"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/01-pwa.html#enhancements",
-    "href": "notes/02-bots/01-pwa.html#enhancements",
-    "title": "Progressive Web App",
-    "section": "",
-    "text": "Docs\n\n\n\nDocs",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground",
-      "Progressive Web App"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/index.html",
-    "href": "notes/01-development/index.html",
-    "title": "Development",
-    "section": "",
-    "text": "Development\n\n\n\n\nReuseCC BY 4.0"
-  },
-  {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Reference",
-    "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
-    "crumbs": [
-      "Home",
-      "Reference"
-    ]
-  },
-  {
-    "objectID": "reference/index.html#bots",
-    "href": "reference/index.html#bots",
-    "title": "Reference",
-    "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
-    "crumbs": [
-      "Home",
-      "Reference"
-    ]
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "TJBots",
@@ -153,16 +14,11 @@
     "text": "To explore the jagged frontier of the capabilities of LLMs, I think the right approach is to be very experimental - try out new use cases and see how we can tweak the various levers (prompts, models, tools, configurations) to solve the goal.\nIn order to do that, I think we need to build a test harness for trying out various configurations against different problems, for the following purposes:\n\nto reduce the time from an idea (hey, maybe I can use an LLM to solve it) to implementing it in code where I can hold it and use it in my day-to-day life, and\nif there are problems that are currently unsolvable, be able to take advantage of new research and tools developed to re-visit them in the future.\nmake it easy for me to share my findings with others, so that they can benefit from my work and I can learn from them."
   },
   {
-    "objectID": "reference/app.html",
-    "href": "reference/app.html",
-    "title": "app",
+    "objectID": "notes/01-development/index.html",
+    "href": "notes/01-development/index.html",
+    "title": "Development",
     "section": "",
-    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
-    "crumbs": [
-      "Home",
-      "Reference",
-      "app"
-    ]
+    "text": "Development\n\n\n\n\nReuseCC BY 4.0"
   },
   {
     "objectID": "notes/01-development/01-devcontainer.html",
@@ -243,42 +99,51 @@
     ]
   },
   {
-    "objectID": "notes/01-development/02-quartodoc.html",
-    "href": "notes/01-development/02-quartodoc.html",
-    "title": "QuartoDoc",
+    "objectID": "notes/02-bots/index.html",
+    "href": "notes/02-bots/index.html",
+    "title": "Bots Playground",
     "section": "",
-    "text": "QuartoDoc\nI want my package to be documented automatically based on the docstrings. The classic tool for that is Sphinx, but quartodoc seems to be a newer and compatible with what I have here already.\nQuartoDoc documentation\nThis was relatively straightforward. It just involved creating a quartodoc section to the _quarto.yml, and then quartodoc build to build the quarto files, which then get included in the main render.\nWe do need to add a step in the github action to run quartodoc build before rendering the full site.\n\n\n\n\nReuseCC BY 4.0",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
     "crumbs": [
       "Home",
       "Notes",
-      "Development",
-      "QuartoDoc"
+      "Bots Playground"
     ]
   },
   {
-    "objectID": "notes/02-bots/03-reconnection.html",
-    "href": "notes/02-bots/03-reconnection.html",
-    "title": "Reconnection Behavior",
+    "objectID": "notes/02-bots/index.html#motivation",
+    "href": "notes/02-bots/index.html#motivation",
+    "title": "Bots Playground",
     "section": "",
-    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
     "crumbs": [
       "Home",
       "Notes",
-      "Bots Playground",
-      "Reconnection Behavior"
+      "Bots Playground"
     ]
   },
   {
-    "objectID": "notes/02-bots/03-reconnection.html#determining-the-status-of-chat-messages",
-    "href": "notes/02-bots/03-reconnection.html#determining-the-status-of-chat-messages",
-    "title": "Reconnection Behavior",
-    "section": "Determining the status of chat messages",
-    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
+    "objectID": "notes/02-bots/index.html#design",
+    "href": "notes/02-bots/index.html#design",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "Mobile first",
     "crumbs": [
       "Home",
       "Notes",
-      "Bots Playground",
-      "Reconnection Behavior"
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "notes/02-bots/index.html#deployment",
+    "href": "notes/02-bots/index.html#deployment",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Bots Playground"
     ]
   },
   {
@@ -331,6 +196,141 @@
       "Notes",
       "Bots Playground",
       "Deployment"
+    ]
+  },
+  {
+    "objectID": "reference/app.html",
+    "href": "reference/app.html",
+    "title": "app",
+    "section": "",
+    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app"
+    ]
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Reference",
+    "section": "",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "crumbs": [
+      "Home",
+      "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#bots",
+    "href": "reference/index.html#bots",
+    "title": "Reference",
+    "section": "",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "crumbs": [
+      "Home",
+      "Reference"
+    ]
+  },
+  {
+    "objectID": "notes/02-bots/01-pwa.html",
+    "href": "notes/02-bots/01-pwa.html",
+    "title": "Progressive Web App",
+    "section": "",
+    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Bots Playground",
+      "Progressive Web App"
+    ]
+  },
+  {
+    "objectID": "notes/02-bots/01-pwa.html#enhancements",
+    "href": "notes/02-bots/01-pwa.html#enhancements",
+    "title": "Progressive Web App",
+    "section": "",
+    "text": "Docs\n\n\n\nDocs",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Bots Playground",
+      "Progressive Web App"
+    ]
+  },
+  {
+    "objectID": "notes/02-bots/03-reconnection.html",
+    "href": "notes/02-bots/03-reconnection.html",
+    "title": "Reconnection Behavior",
+    "section": "",
+    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Bots Playground",
+      "Reconnection Behavior"
+    ]
+  },
+  {
+    "objectID": "notes/02-bots/03-reconnection.html#determining-the-status-of-chat-messages",
+    "href": "notes/02-bots/03-reconnection.html#determining-the-status-of-chat-messages",
+    "title": "Reconnection Behavior",
+    "section": "Determining the status of chat messages",
+    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Bots Playground",
+      "Reconnection Behavior"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/02-quartodoc.html",
+    "href": "notes/01-development/02-quartodoc.html",
+    "title": "QuartoDoc",
+    "section": "",
+    "text": "QuartoDoc\nI want my package to be documented automatically based on the docstrings. The classic tool for that is Sphinx, but quartodoc seems to be a newer and compatible with what I have here already.\nQuartoDoc documentation\nThis was relatively straightforward. It just involved creating a quartodoc section to the _quarto.yml, and then quartodoc build to build the quarto files, which then get included in the main render.\nWe do need to add a step in the github action to run quartodoc build before rendering the full site.\n\n\n\n\nReuseCC BY 4.0",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "QuartoDoc"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html",
+    "href": "scenarios/01-grocerybot.html",
+    "title": "GroceryBot",
+    "section": "",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html#motivation",
+    "href": "scenarios/01-grocerybot.html#motivation",
+    "title": "GroceryBot",
+    "section": "",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html#workflow",
+    "href": "scenarios/01-grocerybot.html#workflow",
+    "title": "GroceryBot",
+    "section": "Workflow",
+    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
     ]
   }
 ]
