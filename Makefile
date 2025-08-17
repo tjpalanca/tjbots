@@ -79,5 +79,15 @@ app-run:
 
 # Docs 
 
-docs-preview:
-	cd docs && quarto preview
+docs-build:
+	cd docs && \
+	quartodoc build && \
+	quarto render
+
+docs-preview: docs-build
+	cd docs && \
+	quarto preview
+
+docs-publish: docs-build
+	cd docs && \
+	quarto publish gh-pages --no-render

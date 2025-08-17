@@ -37,7 +37,7 @@ quartodoc:
   parser: google
   sections:
     - title: Bots
-      package: tjbots.app
+      package: tjbots
       desc: |-
         This application provides a chatbot application that facilitates testing of 
         various combinations of bots, tools, and other configuration.
