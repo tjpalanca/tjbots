@@ -30,7 +30,7 @@ app_ui = ui.page_sidebar(
             size="any",
             href="assets/logo/tjbots.svg",
         ),
-        ui.tags.link(rel="apple-touch-icon", href="assets/logo/tjbots-transparent.png"),
+        ui.tags.link(rel="apple-touch-icon", href="assets/logo/tjbots.png"),
         ui.tags.meta(
             name="viewport",
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
