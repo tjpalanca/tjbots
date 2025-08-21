@@ -1,3 +1,4 @@
+import os
 from typing import Optional
 
 from pydantic import Field, SecretStr
@@ -16,6 +17,6 @@ class PackageConfig(BaseSettings):
     )
 
     model_config = SettingsConfigDict(
-        env_file="/run/secrets/tjbots.env",
+        env_file=os.getenv("TJBOTS_ENV_FILE", "/run/secrets/tjbots.env"),
         extra="ignore",
     )
