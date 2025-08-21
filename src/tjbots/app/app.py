@@ -1,11 +1,11 @@
-import os
 from pathlib import Path
 
 from chatlas import ChatAnthropic
-from dotenv import load_dotenv
 from shiny import App, Inputs, Outputs, Session, ui
 
-load_dotenv("/run/secrets/tjbots.env")
+from tjbots.config import PackageConfig
+
+config = PackageConfig()
 
 app_dir = Path(__file__).parent
 www_dir = app_dir / "www"
@@ -53,15 +53,15 @@ app_ui = ui.page_sidebar(
 
 
 def app_server(input: Inputs, output: Outputs, session: Session):
-    print(f"API KEY: {os.getenv('ANTHROPIC_API_KEY')}")
     chat_ui = ui.Chat(id="chat")
+    assert config.anthropic_api_key
     chat = ChatAnthropic(
         model="claude-opus-4-1-20250805",
         system_prompt="""
             You are TJBot, a helpful AI assistant created by TJ.
             You are knowledgeable, friendly, and concise in your responses.
         """,
-        api_key=os.getenv("ANTHROPIC_API_KEY"),
+        api_key=config.anthropic_api_key.get_secret_value(),
     )
 
     @chat_ui.on_user_submit

@@ -1411,6 +1411,10 @@ wheels = [
 name = "tjbots"
 version = "0.1.0"
 source = { editable = "." }
+dependencies = [
+    { name = "pydantic" },
+    { name = "pydantic-settings" },
+]
 
 [package.dev-dependencies]
 app = [
@@ -1418,9 +1422,6 @@ app = [
     { name = "chatlas" },
     { name = "google-genai" },
     { name = "openai" },
-    { name = "pydantic" },
-    { name = "pydantic-settings" },
-    { name = "python-dotenv" },
     { name = "shiny" },
 ]
 dev = [
@@ -1430,6 +1431,10 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [
+    { name = "pydantic", specifier = ">=2.11.7" },
+    { name = "pydantic-settings", specifier = ">=2.10.1" },
+]
 
 [package.metadata.requires-dev]
 app = [
@@ -1437,9 +1442,6 @@ app = [
     { name = "chatlas", specifier = ">=0.9.1" },
     { name = "google-genai", specifier = ">=1.26.0" },
     { name = "openai", specifier = ">=1.97.1" },
-    { name = "pydantic", specifier = ">=2.11.7" },
-    { name = "pydantic-settings", specifier = ">=2.10.1" },
-    { name = "python-dotenv", specifier = ">=1.1.1" },
     { name = "shiny", specifier = ">=1.4.0" },
 ]
 dev = [
