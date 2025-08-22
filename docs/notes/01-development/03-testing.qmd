@@ -1,0 +1,28 @@
+# Testing
+
+We use pytest for testing and have set up automated CI/CD to catch issues early. Tests mirror the source code structure, making it easy to find what you're looking for.
+
+## Running Tests
+
+Use the convenient Makefile commands:
+
+```bash
+make test        # Run all tests
+make test-watch  # Run in watch mode (stops on first failure)
+```
+
+## Test Utilities
+
+We have a `MOCK_ENV` in `test_utils.py` with fake API keys so you don't need real ones for testing:
+
+```python
+@patch.dict(os.environ, MOCK_ENV)
+def test_something(self):
+    # Your test here - config will use mock keys
+```
+
+This keeps tests isolated and means anyone can run them without setting up API accounts.
+
+## Continuous Integration
+
+Tests run automatically on GitHub Actions when you make a pull request or merge to main.
