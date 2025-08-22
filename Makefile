@@ -77,6 +77,14 @@ docker-bash-in:
 app-run: 
 	docker run $(DOCKER_RUN_ARGS) 
 
+# Testing
+
+test:
+	uv run pytest -v
+
+test-watch:
+	uv run pytest -v --tb=short -x
+
 # Docs 
 
 docs-build:
