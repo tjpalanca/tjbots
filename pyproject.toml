@@ -30,6 +30,7 @@ app = [
 dev = [
     "ipykernel>=6.30.1",
     "ipython>=9.4.0",
+    "pytest>=8.4.1",
     "quartodoc>=0.11.1",
 ]
 
