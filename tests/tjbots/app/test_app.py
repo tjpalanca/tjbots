@@ -7,6 +7,7 @@ These tests verify basic functionality like app instantiation.
 import os
 from unittest.mock import patch
 
+import pytest
 from playwright.sync_api import Page
 from shiny import App
 from shiny.pytest import create_app_fixture
@@ -19,6 +20,16 @@ app = create_app_fixture("../../../src/tjbots/app/app.py")
 
 class TestAppBasics:
     """Test basic app functionality."""
+
+    def _assert_app_loads_successfully(
+        self, page: Page, url: str, error_text: str
+    ) -> None:
+        """Helper method to verify an app loads without errors."""
+        page.goto(url)
+        page.wait_for_load_state("networkidle")
+        page_content = page.content()
+
+        assert error_text not in page_content
 
     @patch.dict(os.environ, MOCK_ENV)
     def test_app_instantiation(self):
@@ -36,16 +47,17 @@ class TestAppBasics:
 
     def test_app_startup(self, page: Page, app: ShinyAppProc) -> None:
         """End-to-end smoke test to verify the app can start up and serve pages."""
-        # Navigate to the app URL when it's ready
-        page.goto(app.url)
+        self._assert_app_loads_successfully(page, app.url, "Internal Server Error")
 
-        # Wait for the page to fully load
-        page.wait_for_load_state("networkidle")
+    @pytest.fixture(scope="session")
+    def tjbots_docker_service(self, docker_ip, docker_services):
+        """Return the URL for the tjbots Docker service."""
+        port = docker_services.port_for("tjbots", 8080)
+        return f"http://{docker_ip}:{port}"
 
-        # Check for any error messages in the page content
-        page_content = page.content()
-
-        # Verify no error indicators are present - keep it simple
-        assert "Internal Server Error" not in page_content, (
-            "Page shows 'Internal Server Error' - app failed to load"
+    @pytest.mark.dev
+    def test_docker_startup(self, page: Page, tjbots_docker_service):
+        """End-to-end smoke test to verify the Docker app can start up and serve pages."""
+        self._assert_app_loads_successfully(
+            page, tjbots_docker_service, "The application failed to start"
         )
