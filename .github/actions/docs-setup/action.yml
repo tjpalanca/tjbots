@@ -4,9 +4,6 @@ description: 'Sets up the environment for building TJBots documentation'
 runs:
   using: 'composite'
   steps:
-    - name: Check out repository
-      uses: actions/checkout@v4
-
     - name: Set up Quarto
       uses: quarto-dev/quarto-actions/setup@v2
 
