@@ -20,8 +20,7 @@ create:
 	sudo mkdir -p $(SECRETS_DIR) && \
 	sudo mkdir -p $(CACHE_DIR) && \
 	sudo chown -R vscode:vscode $(CACHE_DIR) $(SECRETS_DIR) && \
-	uv sync --locked --no-install-project && \
-	uv run playwright install --with-deps
+	$(MAKE) deps 
 
 start:
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
@@ -31,6 +30,10 @@ start:
 clean: 
 	rm -f .env && \
 	rm -f /home/vscode/.docker/config.json
+
+deps:
+	uv sync --locked && \
+	uv run playwright install --with-deps
 
 # Docker
 
