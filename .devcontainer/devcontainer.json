@@ -22,7 +22,7 @@
         // If the devcontainer is started locally, otherwise Codespaces supplies it directly
         "OP_SERVICE_ACCOUNT_TOKEN": "${localEnv:DEVCONTAINER_OP_SERVICE_ACCOUNT_TOKEN}"
     },
-    "postCreateCommand": "make setup",
+    "postCreateCommand": "make create",
     "postStartCommand": "make start",
     "waitFor": "postCreateCommand",
     "customizations": {

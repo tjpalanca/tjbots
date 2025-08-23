@@ -16,7 +16,7 @@ SECRETS_DIR = /run/secrets
 SECRETS_FILE = $(SECRETS_DIR)/tjbots.env
 CACHE_DIR = ~/.cache
 
-setup:
+create:
 	sudo mkdir -p $(SECRETS_DIR) && \
 	sudo mkdir -p $(CACHE_DIR) && \
 	sudo chown -R vscode:vscode $(CACHE_DIR) $(SECRETS_DIR) && \
@@ -81,9 +81,6 @@ app-run:
 
 test:
 	uv run pytest -v
-
-test-watch:
-	uv run pytest -v --tb=short -x
 
 # Docs 
 
