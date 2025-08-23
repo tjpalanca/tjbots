@@ -5,8 +5,9 @@
 - Set up `pytest` to run the tests. 
 - Created basic smoke tests to instantiate the app, and to test the config.
 - `make test` and `make test-watch` allow for iterating on tests easily. 
-- [ ] Add smoke tests to actually run the app within the devcontainer 
+- [x] Add smoke tests to actually run the app within the devcontainer 
     - Shiny developers recommend using `playwright` to test the actual app. 
     - They provide controllers to abstract over the UI interactions.
     - There's a bit of a challenge running this in a devcontainer.
+    - Enhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.
 - [ ] Add smoke tests to add the Shiny Server implementation and test that as well
