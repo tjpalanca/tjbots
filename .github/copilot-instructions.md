@@ -1,4 +1,4 @@
-# Copilot Instructions for TJBots
+# Agent Instructions for TJBots
 
 ## Overview
 
