@@ -16,7 +16,7 @@ on:
       - "pyproject.toml"
       - "uv.lock"
 
-name: Run Tests
+name: Run TJBots Tests
 
 jobs:
   test:
