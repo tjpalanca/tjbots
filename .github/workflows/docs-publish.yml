@@ -39,7 +39,7 @@ jobs:
         run: uv sync --locked
 
       - name: Render docs
-        run: source .venv/bin/activate && make docs-build
+        run: make docs-build
 
       - name: Publish docs
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

@@ -87,13 +87,13 @@ test:
 
 docs-build:
 	cd docs && \
-	quartodoc build && \
-	quarto render
+	uv run quartodoc build && \
+	uv run quarto render
 
 docs-preview: docs-build
 	cd docs && \
-	quarto preview
+	uv run quarto preview
 
 docs-publish: docs-build
 	cd docs && \
-	quarto publish gh-pages --no-render
+	uv run quarto publish gh-pages --no-render
