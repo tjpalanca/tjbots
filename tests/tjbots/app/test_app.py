@@ -55,7 +55,6 @@ class TestAppBasics:
         port = docker_services.port_for("tjbots", 8080)
         return f"http://{docker_ip}:{port}"
 
-    @patch.dict(os.environ, MOCK_ENV)
     def test_docker_startup(self, page: Page, tjbots_docker_service):
         """End-to-end smoke test to verify the Docker app can start up and serve pages."""
         self._assert_app_loads_successfully(
