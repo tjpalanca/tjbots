@@ -1,0 +1,20 @@
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs-test.yml"
+      - ".github/actions/setup-docs/**"
+
+name: Test Docs
+
+jobs:
+  docs-test:
+    name: Test Documentation Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup docs environment
+        uses: ./.github/actions/setup-docs
+
+      - name: Build docs
+        run: make docs-build

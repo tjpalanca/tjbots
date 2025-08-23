@@ -1,0 +1,25 @@
+name: 'Setup Docs Environment'
+description: 'Sets up the environment for building TJBots documentation'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: "pyproject.toml"
+
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+
+    - name: Sync uv dependencies
+      shell: bash
+      run: uv sync --locked
