@@ -1,12 +1,4 @@
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/tjbots-test.yml"
-      - "src/**"
-      - "tests/**"
-      - "pyproject.toml"
-      - "uv.lock"
   pull_request:
     branches: [main]
     paths:
@@ -16,7 +8,7 @@ on:
       - "pyproject.toml"
       - "uv.lock"
 
-name: Run TJBots Tests
+name: Test TJBots
 
 jobs:
   test:

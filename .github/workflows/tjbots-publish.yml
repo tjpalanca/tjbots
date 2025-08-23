@@ -11,7 +11,7 @@ on:
       - "uv.lock"
       - "Makefile"
 
-name: Publish TJBots Image
+name: Publish TJBots
 
 jobs:
   app-publish:
