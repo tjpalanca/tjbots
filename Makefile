@@ -20,7 +20,8 @@ setup:
 	sudo mkdir -p $(SECRETS_DIR) && \
 	sudo mkdir -p $(CACHE_DIR) && \
 	sudo chown -R vscode:vscode $(CACHE_DIR) $(SECRETS_DIR) && \
-	uv sync --locked --no-install-project
+	uv sync --locked --no-install-project && \
+	uv run playwright install --with-deps
 
 start:
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
