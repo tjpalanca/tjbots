@@ -10,11 +10,11 @@ name: Test Docs
 
 jobs:
   docs-test:
-    name: Test Documentation Build
+    name: Test documentation rendering
     runs-on: ubuntu-latest
     steps:
       - name: Setup docs environment
-        uses: ./.github/actions/setup-docs
+        uses: ./.github/actions/docs-setup
 
       - name: Build docs
         run: make docs-build

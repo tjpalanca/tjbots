@@ -16,7 +16,7 @@ jobs:
       contents: write
     steps:
       - name: Setup docs environment
-        uses: ./.github/actions/setup-docs
+        uses: ./.github/actions/docs-setup
 
       - name: Render docs
         run: make docs-build
