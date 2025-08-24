@@ -20,7 +20,8 @@ create:
 	sudo mkdir -p $(SECRETS_DIR) && \
 	sudo mkdir -p $(CACHE_DIR) && \
 	sudo chown -R vscode:vscode $(CACHE_DIR) $(SECRETS_DIR) && \
-	$(MAKE) deps 
+	$(MAKE) deps && \
+	$(MAKE) pre-commit-install 
 
 start:
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
@@ -82,6 +83,23 @@ docker-publish:
 
 test:
 	uv run pytest -v -s --log-cli-level=INFO
+
+# Linting and formatting
+
+lint:
+	uv run ruff check .
+
+format:
+	uv run ruff format .
+
+lint-fix:
+	uv run ruff check --fix .
+
+pre-commit-install:
+	uv run pre-commit install
+
+pre-commit-run:
+	uv run pre-commit run --all-files
 
 # Docs 
 

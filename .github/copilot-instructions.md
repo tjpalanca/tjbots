@@ -12,7 +12,8 @@ TJBots is a framework designed to explore the capabilities of Large Language Mod
 ## Folder structure
 
 - **Bots Application**: Located in `src/tjbots/app/`, the main entry point is `app.py`. This is the test harness application that allows us to test different configurations of bots and tools. 
-- **Documentation**: Written in Quarto, located in `docs/`. Key files include `index.qmd` and notes under `docs/notes/`.
+- **Documentation**: Written in Quarto, located in `docs/`. Key files include `index.qmd` and notes under `docs/`.
+    - `docs/dev` includes any developer documentation
 - **Tests**: Located in `tests/` mirroring the `src/` structure. Uses pytest with shared utilities in `test_utils.py`.
 
 ## Testing practices
@@ -25,3 +26,4 @@ TJBots is a framework designed to explore the capabilities of Large Language Mod
 
 - If you encounter something or make a mistake that requires an update to the general or specific Copilot instructions, suggest that change to the user so that you remember the next time. 
 - I will generally be logging my development progress in a quarto document in `docs/notes/01-development`. Check the latest file there if you want to know about the progress of development.
+- When documenting, stay away from referring to specific values or configurations if they are likely to change in the future. Instead, just point to those files that contain the configuration by mentioning their name. 
