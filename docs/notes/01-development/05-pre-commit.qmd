@@ -50,5 +50,3 @@ Ruff is configured in `pyproject.toml` under `[tool.ruff]` with:
 The pre-commit configuration is in `.pre-commit-config.yaml` and includes:
 - Ruff linter with auto-fix enabled
 - Ruff formatter
-
-**Note**: The uv lock hook was excluded due to potential network connectivity issues in some environments. You can manually run `uv lock` when needed.

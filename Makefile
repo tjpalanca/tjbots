@@ -21,7 +21,7 @@ create:
 	sudo mkdir -p $(CACHE_DIR) && \
 	sudo chown -R vscode:vscode $(CACHE_DIR) $(SECRETS_DIR) && \
 	$(MAKE) deps && \
-	uv run pre-commit install 
+	$(MAKE) pre-commit-install 
 
 start:
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
