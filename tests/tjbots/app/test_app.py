@@ -25,12 +25,10 @@ app = create_app_fixture("../../../src/tjbots/app/app.py")
 def is_responsive(url):
     try:
         response = requests.get(url, timeout=5)
-        logger.info(f"Response status: {response.status_code}")
         if response.status_code == 200:
             return True
         return False
-    except Exception as e:
-        logger.info(f"Connection failed: {e}")
+    except Exception:
         return False
 
 
@@ -44,8 +42,6 @@ class TestAppBasics:
         page.goto(url)
         page.wait_for_load_state("networkidle")
         page_content = page.content()
-        logger.info(f"Page content: {page_content}")
-
         assert error_text not in page_content
 
     @patch.dict(os.environ, MOCK_ENV)
@@ -69,6 +65,7 @@ class TestAppBasics:
     @pytest.fixture(scope="session")
     def tjbots_docker_service(self, docker_ip, docker_services) -> str:
         """Return the URL for the tjbots Docker service."""
+        logger.info("Starting tjbots testing service...")
         port = docker_services.port_for("tjbots", 8080)
         url = f"http://{docker_ip}:{port}"
         docker_services.wait_until_responsive(

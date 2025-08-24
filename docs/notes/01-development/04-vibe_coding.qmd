@@ -15,3 +15,9 @@ I decided to maximise the use of GitHub Copilot for this project. I want to unde
     - Implementing a feature standalone - haven't tried yet
     - Implementing a small sub-task within the feature - this is the most successful
 - `#fetch` to point the model to relevant documentation pages has been useful
+
+## Claude Code
+
+- I also added claude code since I have the subscription.
+- It's oddly charming? The fact that it's in my terminal is quite cute and the VS code integration works well.
+- One where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code. 
