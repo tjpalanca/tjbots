@@ -18,3 +18,5 @@
             - Adding a `time.sleep(10)` made the test pass, so it's definitely an issue of not being able to wait appropriately. 
             - Solved by making the `is_responsive(url)` function handle not just `ConnectionError
         - There is still an issue in CI, worse it's passing?
+        - Actually the issue is not that the tests fail, it is something that happens on teardown.
+            - Just made the app more resilient to missing envs, much simpler

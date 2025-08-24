@@ -57,21 +57,25 @@ def app_ui(_):
 
 
 def app_server(input: Inputs, output: Outputs, session: Session):
-    chat_ui = ui.Chat(id="chat")
-    assert config.anthropic_api_key
-    chat = ChatAnthropic(
+    chat = ui.Chat(id="chat")
+
+    agent = ChatAnthropic(
         model="claude-opus-4-1-20250805",
         system_prompt="""
             You are TJBot, a helpful AI assistant created by TJ.
             You are knowledgeable, friendly, and concise in your responses.
         """,
-        api_key=config.anthropic_api_key.get_secret_value(),
+        api_key=(
+            config.anthropic_api_key.get_secret_value()
+            if config.anthropic_api_key
+            else None
+        ),
     )
 
-    @chat_ui.on_user_submit
+    @chat.on_user_submit
     async def chat_ui_respond(user_input: str):
-        response = await chat.stream_async(user_input)
-        await chat_ui.append_message_stream(response)
+        response = await agent.stream_async(user_input)
+        await chat.append_message_stream(response)
 
 
 app = App(

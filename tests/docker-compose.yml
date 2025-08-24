@@ -3,9 +3,5 @@ services:
     build: 
       context: ..
       dockerfile: build/Dockerfile
-    volumes:
-      - type: bind
-        source: ../env/test.env
-        target: /run/secrets/tjbots.env
     ports:
       - 8080:8080
