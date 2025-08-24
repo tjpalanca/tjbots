@@ -1,0 +1,34 @@
+# Pre-commit Hooks
+
+## Setup
+
+The project now includes pre-commit hooks for code quality and consistency:
+
+- **Ruff linter**: Checks for code style issues, import sorting, and various Python best practices
+- **Ruff formatter**: Ensures consistent code formatting
+
+## Installation
+
+Pre-commit hooks are automatically installed when running `make create` or you can install them manually with `make pre-commit-install`.
+
+## Usage
+
+```bash
+# Run all hooks on all files
+make pre-commit-run
+
+# Run only linting
+make lint
+
+# Run only formatting  
+make format
+
+# Run linting with auto-fix
+make lint-fix
+```
+The hooks will run automatically on every commit, checking only the files you're committing.
+
+## Configuration
+
+- Ruff is configured in `pyproject.toml` under `[tool.ruff]`.
+- Pre-commit configuration is in `.pre-commit-config.yaml`
