@@ -4,10 +4,12 @@ Smoke tests for the TJBots Shiny app.
 These tests verify basic functionality like app instantiation.
 """
 
+import logging
 import os
 from unittest.mock import patch
 
 import pytest
+import requests
 from playwright.sync_api import Page
 from shiny import App
 from shiny.pytest import create_app_fixture
@@ -15,7 +17,21 @@ from shiny.run import ShinyAppProc
 
 from ..test_utils import MOCK_ENV
 
+logger = logging.getLogger(__name__)
+
 app = create_app_fixture("../../../src/tjbots/app/app.py")
+
+
+def is_responsive(url):
+    try:
+        response = requests.get(url, timeout=5)
+        logger.info(f"Response status: {response.status_code}")
+        if response.status_code == 200:
+            return True
+        return False
+    except Exception as e:
+        logger.info(f"Connection failed: {e}")
+        return False
 
 
 class TestAppBasics:
@@ -50,12 +66,16 @@ class TestAppBasics:
         self._assert_app_loads_successfully(page, app.url, "Internal Server Error")
 
     @pytest.fixture(scope="session")
-    def tjbots_docker_service(self, docker_ip, docker_services):
+    def tjbots_docker_service(self, docker_ip, docker_services) -> str:
         """Return the URL for the tjbots Docker service."""
         port = docker_services.port_for("tjbots", 8080)
-        return f"http://{docker_ip}:{port}"
+        url = f"http://{docker_ip}:{port}"
+        docker_services.wait_until_responsive(
+            timeout=60.0, pause=2, check=lambda: is_responsive(url)
+        )
+        return url
 
-    def test_docker_startup(self, page: Page, tjbots_docker_service):
+    def test_docker_startup(self, page: Page, tjbots_docker_service: str):
         """End-to-end smoke test to verify the Docker app can start up and serve pages."""
         self._assert_app_loads_successfully(
             page, tjbots_docker_service, "The application failed to start"

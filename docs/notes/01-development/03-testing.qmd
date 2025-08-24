@@ -10,4 +10,10 @@
     - They provide controllers to abstract over the UI interactions.
     - There's a bit of a challenge running this in a devcontainer.
     - Enhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.
-- [ ] Add smoke tests to add the Shiny Server implementation and test that as well
+- [x] Add smoke tests to add the Shiny Server implementation and test that as well
+    - I've fixed the original issue which is that uv wasn't install the `tjbots` source package inside the Docker container.
+    - We used the `pytest-docker` plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.
+    - pytest still failing despite me being able to manually hit the endpoint with a good test. I'll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.
+        - Reusing the `page` fixture might be the issue
+            - Adding a `time.sleep(10)` made the test pass, so it's definitely an issue of not being able to wait appropriately. 
+            - Solved by making the `is_responsive(url)` function handle not just `ConnectionError

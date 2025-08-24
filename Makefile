@@ -81,7 +81,7 @@ docker-publish:
 # Testing
 
 test:
-	uv run pytest -v
+	uv run pytest -v -s --log-cli-level=INFO
 
 # Docs 
 
