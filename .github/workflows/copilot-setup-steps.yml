@@ -16,6 +16,9 @@ jobs:
     permissions:
       contents: read
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Run TJBots setup
         uses: ./.github/actions/tjbots-setup
         with:
