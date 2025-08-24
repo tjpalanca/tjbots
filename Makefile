@@ -33,7 +33,8 @@ clean:
 
 deps:
 	uv sync --locked && \
-	uv run playwright install --with-deps
+	uv run playwright install --with-deps && \
+	uv run pre-commit install
 
 # Docker
 
@@ -78,10 +79,25 @@ docker-publish:
 		--cache-from=type=registry,ref=$(DOCKER_IMG):cache \
 		--push . 
 
-# Testing
-
 test:
 	uv run pytest -v -s --log-cli-level=INFO
+
+# Linting and formatting
+
+lint:
+	uv run ruff check .
+
+format:
+	uv run ruff format .
+
+lint-fix:
+	uv run ruff check --fix .
+
+pre-commit-install:
+	uv run pre-commit install
+
+pre-commit-run:
+	uv run pre-commit run --all-files
 
 # Docs 
 
