@@ -22,11 +22,13 @@ WORKDIR /tjbots
 # Install dependencies
 COPY pyproject.toml .
 COPY uv.lock .
-RUN uv sync --locked --only-group app
+RUN uv sync --group app --no-dev --no-install-project
 
 # Copy project files
 COPY assets assets
 COPY src src
+COPY README.md .
+RUN uv sync --group app --no-dev
 
 # Command 
 USER tjbots

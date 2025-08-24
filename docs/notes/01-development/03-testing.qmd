@@ -1,0 +1,22 @@
+# Testing
+
+## Adding smoke tests
+
+- Set up `pytest` to run the tests. 
+- Created basic smoke tests to instantiate the app, and to test the config.
+- `make test` and `make test-watch` allow for iterating on tests easily. 
+- [x] Add smoke tests to actually run the app within the devcontainer 
+    - Shiny developers recommend using `playwright` to test the actual app. 
+    - They provide controllers to abstract over the UI interactions.
+    - There's a bit of a challenge running this in a devcontainer.
+    - Enhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.
+- [x] Add smoke tests to add the Shiny Server implementation and test that as well
+    - I've fixed the original issue which is that uv wasn't install the `tjbots` source package inside the Docker container.
+    - We used the `pytest-docker` plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.
+    - pytest still failing despite me being able to manually hit the endpoint with a good test. I'll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.
+        - Reusing the `page` fixture might be the issue
+            - Adding a `time.sleep(10)` made the test pass, so it's definitely an issue of not being able to wait appropriately. 
+            - Solved by making the `is_responsive(url)` function handle not just `ConnectionError
+        - There is still an issue in CI, worse it's passing?
+        - Actually the issue is not that the tests fail, it is something that happens on teardown.
+            - Just made the app more resilient to missing envs, much simpler

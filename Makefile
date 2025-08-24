@@ -16,11 +16,11 @@ SECRETS_DIR = /run/secrets
 SECRETS_FILE = $(SECRETS_DIR)/tjbots.env
 CACHE_DIR = ~/.cache
 
-setup:
+create:
 	sudo mkdir -p $(SECRETS_DIR) && \
 	sudo mkdir -p $(CACHE_DIR) && \
 	sudo chown -R vscode:vscode $(CACHE_DIR) $(SECRETS_DIR) && \
-	uv sync --locked --no-install-project
+	$(MAKE) deps 
 
 start:
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
@@ -31,63 +31,69 @@ clean:
 	rm -f .env && \
 	rm -f /home/vscode/.docker/config.json
 
+deps:
+	uv sync --locked && \
+	uv run playwright install --with-deps
+
 # Docker
 
 DOCKER_IMG=ghcr.io/tjpalanca/tjbots
-DOCKER_CACHE_IMG=$(DOCKER_IMG):cache
-DOCKER_LATEST_IMG=$(DOCKER_IMG):latest
-DOCKER_TAG=$(DOCKER_IMG):$(VERSION)
-DOCKER_BUILD_ARGS=\
-	--file build/Dockerfile \
-	--platform $(PLATFORM) \
-	--label "org.opencontainers.image.source=$(REPO_URL)" \
-	--label "org.opencontainers.image.licenses=$(LICENSE)" \
-	--tag $(DOCKER_TAG) \
-	--tag $(DOCKER_IMG):latest 
+DOCKER_COMPOSE := \
+	REPO_URL=$(REPO_URL) \
+	LICENSE=$(LICENSE) \
+	VERSION=$(VERSION) \
+	DOCKER_IMG=$(DOCKER_IMG) \
+	DOCKER_NAME=$(NAME) \
+	SECRETS_FILE=$(SECRETS_FILE) \
+	docker compose -f build/docker-compose.yml
+
+# Keep legacy targets for backward compatibility
+docker-build: 
+	$(DOCKER_COMPOSE) build
+
+docker-push: 
+	$(DOCKER_COMPOSE) push
+
+docker-run: 
+	$(DOCKER_COMPOSE) up
+
+docker-up: 
+	$(DOCKER_COMPOSE) up --detach
+
+docker-down: 
+	$(DOCKER_COMPOSE) down
+
+docker-bash: 
+	$(DOCKER_COMPOSE) exec $(NAME) /bin/bash
 
 docker-publish:
 	docker buildx build \
-		$(DOCKER_BUILD_ARGS) \
-		--cache-to=type=registry,ref=$(DOCKER_CACHE_IMG),mode=max \
-		--cache-from=type=registry,ref=$(DOCKER_CACHE_IMG) \
+		--file build/Dockerfile \
+		--platform $(PLATFORM) \
+		--label "org.opencontainers.image.source=$(REPO_URL)" \
+		--label "org.opencontainers.image.licenses=$(LICENSE)" \
+		--tag $(DOCKER_IMG):$(VERSION) \
+		--tag $(DOCKER_IMG):latest \
+		--cache-to=type=registry,ref=$(DOCKER_IMG):cache,mode=max \
+		--cache-from=type=registry,ref=$(DOCKER_IMG):cache \
 		--push . 
 
-docker-build:
-	docker build $(DOCKER_BUILD_ARGS) .
+# Testing
 
-docker-push: 
-	docker push $(DOCKER_TAG) && docker push $(DOCKER_LATEST_IMG)
-
-DOCKER_NAME=$(NAME)
-DOCKER_RUN_ARGS=\
-	--rm \
-	--mount type=bind,src=$(SECRETS_FILE),dst=$(SECRETS_FILE),ro \
-	--publish 8080:8080 \
-	--name $(DOCKER_NAME) \
-	$(DOCKER_TAG)
-
-docker-bash: 
-	docker run -it $(DOCKER_RUN_ARGS) /bin/bash
-
-docker-bash-in:
-	docker exec -it $(DOCKER_NAME) /bin/bash
-
-# Entrypoints
-
-app-run: 
-	docker run $(DOCKER_RUN_ARGS) 
+test:
+	uv run pytest -v -s --log-cli-level=INFO
 
 # Docs 
 
 docs-build:
 	cd docs && \
-	quartodoc build && \
-	quarto render
+	uv run quartodoc build && \
+	uv run quarto render
 
 docs-preview: docs-build
 	cd docs && \
-	quarto preview
+	uv run quarto preview
 
 docs-publish: docs-build
 	cd docs && \
-	quarto publish gh-pages --no-render
+	uv run quarto publish gh-pages --no-render

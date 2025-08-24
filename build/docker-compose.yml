@@ -1,0 +1,18 @@
+services:
+  tjbots:
+    container_name: ${DOCKER_NAME}
+    build: 
+      context: ..
+      dockerfile: build/Dockerfile
+      labels:
+        org.opencontainers.image.source: ${REPO_URL}
+        org.opencontainers.image.licenses: ${LICENSE}
+      tags:
+        - ${DOCKER_IMG}:${VERSION}
+        - ${DOCKER_IMG}:latest
+    volumes:
+      - type: bind
+        source: ${SECRETS_FILE}
+        target: ${SECRETS_FILE}
+    ports:
+      - "8080:8080"

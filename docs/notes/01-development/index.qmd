@@ -1,1 +1,9 @@
 # Development
+
+This section covers development practices, tools, and workflows for the TJBots project.
+
+## Topics
+
+- [Devcontainer Setup](01-devcontainer.qmd) - Development environment configuration
+- [Documentation with Quartodoc](02-quartodoc.qmd) - API documentation generation  
+- [Testing Framework](03-testing.qmd) - Testing practices and CI/CD workflows
