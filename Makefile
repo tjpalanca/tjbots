@@ -20,7 +20,8 @@ create:
 	sudo mkdir -p $(SECRETS_DIR) && \
 	sudo mkdir -p $(CACHE_DIR) && \
 	sudo chown -R vscode:vscode $(CACHE_DIR) $(SECRETS_DIR) && \
-	$(MAKE) deps 
+	$(MAKE) deps && \
+	uv run pre-commit install 
 
 start:
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
@@ -33,8 +34,7 @@ clean:
 
 deps:
 	uv sync --locked && \
-	uv run playwright install --with-deps && \
-	uv run pre-commit install
+	uv run playwright install --with-deps
 
 # Docker
 
@@ -78,6 +78,8 @@ docker-publish:
 		--cache-to=type=registry,ref=$(DOCKER_IMG):cache,mode=max \
 		--cache-from=type=registry,ref=$(DOCKER_IMG):cache \
 		--push . 
+
+# Testing
 
 test:
 	uv run pytest -v -s --log-cli-level=INFO
