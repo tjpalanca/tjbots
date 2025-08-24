@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index – TJBots</title>
+<title>vibe_coding – TJBots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/04-vibe_coding.html">Vibe Coding</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -177,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../notes/01-development/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../notes/01-development/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Development</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -204,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/01-development/04-vibe_coding.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/01-development/04-vibe_coding.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Vibe Coding</span></a>
   </div>
 </li>
@@ -239,29 +239,54 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#development" id="toc-development" class="nav-link active" data-scroll-target="#development">Development</a>
+  <li><a href="#vibe-coding" id="toc-vibe-coding" class="nav-link active" data-scroll-target="#vibe-coding">Vibe Coding</a>
   <ul class="collapse">
-  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
+  <li><a href="#process" id="toc-process" class="nav-link" data-scroll-target="#process">Process</a></li>
+  <li><a href="#claude-code" id="toc-claude-code" class="nav-link" data-scroll-target="#claude-code">Claude Code</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/04-vibe_coding.html">Vibe Coding</a></li></ol></nav></header>
 
 
 
 
-<section id="development" class="level1">
-<h1>Development</h1>
-<p>This section covers development practices, tools, and workflows for the TJBots project.</p>
-<section id="topics" class="level2">
-<h2 class="anchored" data-anchor-id="topics">Topics</h2>
+<section id="vibe-coding" class="level1">
+<h1>Vibe Coding</h1>
+<p>I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.</p>
+<section id="models" class="level2">
+<h2 class="anchored" data-anchor-id="models">Models</h2>
 <ul>
-<li><a href="../../notes/01-development/01-devcontainer.html">Devcontainer Setup</a> - Development environment configuration</li>
-<li><a href="../../notes/01-development/02-quartodoc.html">Documentation with Quartodoc</a> - API documentation generation<br>
-</li>
-<li><a href="../../notes/01-development/03-testing.html">Testing Framework</a> - Testing practices and CI/CD workflows</li>
+<li>Claude Sonnet 4 has been the most successful for me
+<ul>
+<li>my observation is that it takes the time to give itself context through looking at docstrings or verifying structures</li>
+</ul></li>
+<li>Gemini Pro 2.5 has not been great
+<ul>
+<li>worst was hallucinating packages that don’t exist</li>
+</ul></li>
+</ul>
+</section>
+<section id="process" class="level2">
+<h2 class="anchored" data-anchor-id="process">Process</h2>
+<ul>
+<li>How much do I delegate to the agent?
+<ul>
+<li>Implementing a feature standalone - haven’t tried yet</li>
+<li>Implementing a small sub-task within the feature - this is the most successful</li>
+</ul></li>
+<li><code>#fetch</code> to point the model to relevant documentation pages has been useful</li>
+</ul>
+</section>
+<section id="claude-code" class="level2">
+<h2 class="anchored" data-anchor-id="claude-code">Claude Code</h2>
+<ul>
+<li>I also added claude code since I have the subscription.</li>
+<li>It’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.</li>
+<li>One where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.</li>
 </ul>
 
 

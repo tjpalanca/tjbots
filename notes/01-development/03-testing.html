@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index – TJBots</title>
+<title>testing – TJBots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/03-testing.html">Testing</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -177,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../notes/01-development/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../notes/01-development/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Development</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -198,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/01-development/03-testing.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/01-development/03-testing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Testing</span></a>
   </div>
 </li>
@@ -239,29 +239,52 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#development" id="toc-development" class="nav-link active" data-scroll-target="#development">Development</a>
+  <li><a href="#testing" id="toc-testing" class="nav-link active" data-scroll-target="#testing">Testing</a>
   <ul class="collapse">
-  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#adding-smoke-tests" id="toc-adding-smoke-tests" class="nav-link" data-scroll-target="#adding-smoke-tests">Adding smoke tests</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/02-bots/index.html">Notes</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/index.html">Development</a></li><li class="breadcrumb-item"><a href="../../notes/01-development/03-testing.html">Testing</a></li></ol></nav></header>
 
 
 
 
-<section id="development" class="level1">
-<h1>Development</h1>
-<p>This section covers development practices, tools, and workflows for the TJBots project.</p>
-<section id="topics" class="level2">
-<h2 class="anchored" data-anchor-id="topics">Topics</h2>
+<section id="testing" class="level1">
+<h1>Testing</h1>
+<section id="adding-smoke-tests" class="level2">
+<h2 class="anchored" data-anchor-id="adding-smoke-tests">Adding smoke tests</h2>
 <ul>
-<li><a href="../../notes/01-development/01-devcontainer.html">Devcontainer Setup</a> - Development environment configuration</li>
-<li><a href="../../notes/01-development/02-quartodoc.html">Documentation with Quartodoc</a> - API documentation generation<br>
-</li>
-<li><a href="../../notes/01-development/03-testing.html">Testing Framework</a> - Testing practices and CI/CD workflows</li>
+<li>Set up <code>pytest</code> to run the tests.</li>
+<li>Created basic smoke tests to instantiate the app, and to test the config.</li>
+<li><code>make test</code> and <code>make test-watch</code> allow for iterating on tests easily.</li>
+<li><label><input type="checkbox" checked="">Add smoke tests to actually run the app within the devcontainer</label>
+<ul>
+<li>Shiny developers recommend using <code>playwright</code> to test the actual app.</li>
+<li>They provide controllers to abstract over the UI interactions.</li>
+<li>There’s a bit of a challenge running this in a devcontainer.</li>
+<li>Enhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="">Add smoke tests to add the Shiny Server implementation and test that as well</label>
+<ul>
+<li>I’ve fixed the original issue which is that uv wasn’t install the <code>tjbots</code> source package inside the Docker container.</li>
+<li>We used the <code>pytest-docker</code> plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.</li>
+<li>pytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.
+<ul>
+<li>Reusing the <code>page</code> fixture might be the issue
+<ul>
+<li>Adding a <code>time.sleep(10)</code> made the test pass, so it’s definitely an issue of not being able to wait appropriately.</li>
+<li>Solved by making the <code>is_responsive(url)</code> function handle not just `ConnectionError</li>
+</ul></li>
+<li>There is still an issue in CI, worse it’s passing?</li>
+<li>Actually the issue is not that the tests fail, it is something that happens on teardown.
+<ul>
+<li>Just made the app more resilient to missing envs, much simpler</li>
+</ul></li>
+</ul></li>
+</ul></li>
 </ul>
 
 

@@ -18,84 +18,101 @@
     "href": "notes/01-development/index.html",
     "title": "Development",
     "section": "",
-    "text": "Development\n\n\n\n\nReuseCC BY 4.0"
-  },
-  {
-    "objectID": "notes/01-development/01-devcontainer.html",
-    "href": "notes/01-development/01-devcontainer.html",
-    "title": "Dev Container",
-    "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.\n\n\n\n\n\n\n\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
+    "text": "This section covers development practices, tools, and workflows for the TJBots project.\n\n\n\nDevcontainer Setup - Development environment configuration\nDocumentation with Quartodoc - API documentation generation\n\nTesting Framework - Testing practices and CI/CD workflows",
     "crumbs": [
       "Home",
       "Notes",
-      "Development",
-      "Dev Container"
+      "Development"
     ]
   },
   {
-    "objectID": "notes/01-development/01-devcontainer.html#creating-the-dev-container",
-    "href": "notes/01-development/01-devcontainer.html#creating-the-dev-container",
-    "title": "Dev Container",
+    "objectID": "notes/01-development/index.html#topics",
+    "href": "notes/01-development/index.html#topics",
+    "title": "Development",
     "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.",
+    "text": "Devcontainer Setup - Development environment configuration\nDocumentation with Quartodoc - API documentation generation\n\nTesting Framework - Testing practices and CI/CD workflows",
     "crumbs": [
       "Home",
       "Notes",
-      "Development",
-      "Dev Container"
+      "Development"
     ]
   },
   {
-    "objectID": "notes/01-development/01-devcontainer.html#pre-building-the-dev-container",
-    "href": "notes/01-development/01-devcontainer.html#pre-building-the-dev-container",
-    "title": "Dev Container",
+    "objectID": "notes/01-development/03-testing.html",
+    "href": "notes/01-development/03-testing.html",
+    "title": "Testing",
     "section": "",
-    "text": "Ultimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.",
+    "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
     "crumbs": [
       "Home",
       "Notes",
       "Development",
-      "Dev Container"
+      "Testing"
     ]
   },
   {
-    "objectID": "notes/01-development/01-devcontainer.html#keybindings",
-    "href": "notes/01-development/01-devcontainer.html#keybindings",
-    "title": "Dev Container",
+    "objectID": "notes/01-development/03-testing.html#adding-smoke-tests",
+    "href": "notes/01-development/03-testing.html#adding-smoke-tests",
+    "title": "Testing",
     "section": "",
-    "text": "These are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
+    "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
     "crumbs": [
       "Home",
       "Notes",
       "Development",
-      "Dev Container"
+      "Testing"
     ]
   },
   {
-    "objectID": "notes/01-development/01-devcontainer.html#executing-actions",
-    "href": "notes/01-development/01-devcontainer.html#executing-actions",
-    "title": "Dev Container",
+    "objectID": "notes/01-development/04-vibe_coding.html",
+    "href": "notes/01-development/04-vibe_coding.html",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "I’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
+    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
     "crumbs": [
       "Home",
       "Notes",
       "Development",
-      "Dev Container"
+      "Vibe Coding"
     ]
   },
   {
-    "objectID": "notes/01-development/01-devcontainer.html#troubleshooting",
-    "href": "notes/01-development/01-devcontainer.html#troubleshooting",
-    "title": "Dev Container",
+    "objectID": "notes/01-development/04-vibe_coding.html#models",
+    "href": "notes/01-development/04-vibe_coding.html#models",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
+    "text": "Claude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist",
     "crumbs": [
       "Home",
       "Notes",
       "Development",
-      "Dev Container"
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/04-vibe_coding.html#process",
+    "href": "notes/01-development/04-vibe_coding.html#process",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "How much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/04-vibe_coding.html#claude-code",
+    "href": "notes/01-development/04-vibe_coding.html#claude-code",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Vibe Coding"
     ]
   },
   {
@@ -282,6 +299,84 @@
       "Notes",
       "Bots Playground",
       "Reconnection Behavior"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/01-devcontainer.html",
+    "href": "notes/01-development/01-devcontainer.html",
+    "title": "Dev Container",
+    "section": "",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.\n\n\n\n\n\n\n\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Dev Container"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/01-devcontainer.html#creating-the-dev-container",
+    "href": "notes/01-development/01-devcontainer.html#creating-the-dev-container",
+    "title": "Dev Container",
+    "section": "",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Dev Container"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/01-devcontainer.html#pre-building-the-dev-container",
+    "href": "notes/01-development/01-devcontainer.html#pre-building-the-dev-container",
+    "title": "Dev Container",
+    "section": "",
+    "text": "Ultimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Dev Container"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/01-devcontainer.html#keybindings",
+    "href": "notes/01-development/01-devcontainer.html#keybindings",
+    "title": "Dev Container",
+    "section": "",
+    "text": "These are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Dev Container"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/01-devcontainer.html#executing-actions",
+    "href": "notes/01-development/01-devcontainer.html#executing-actions",
+    "title": "Dev Container",
+    "section": "",
+    "text": "I’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Dev Container"
+    ]
+  },
+  {
+    "objectID": "notes/01-development/01-devcontainer.html#troubleshooting",
+    "href": "notes/01-development/01-devcontainer.html#troubleshooting",
+    "title": "Dev Container",
+    "section": "",
+    "text": "Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Development",
+      "Dev Container"
     ]
   },
   {
