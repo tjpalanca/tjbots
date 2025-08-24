@@ -21,3 +21,8 @@ I decided to maximise the use of GitHub Copilot for this project. I want to unde
 - I also added claude code since I have the subscription.
 - It's oddly charming? The fact that it's in my terminal is quite cute and the VS code integration works well.
 - One where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code. 
+
+# Copilot Coding Agent
+
+- A simple task like adding uv pre-commit hooks was good but it still kind of did too much. 
+- GitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.
