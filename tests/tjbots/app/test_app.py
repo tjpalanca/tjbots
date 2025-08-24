@@ -44,6 +44,7 @@ class TestAppBasics:
         page.goto(url)
         page.wait_for_load_state("networkidle")
         page_content = page.content()
+        logger.info(f"Page content: {page_content}")
 
         assert error_text not in page_content
 

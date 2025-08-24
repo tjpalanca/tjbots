@@ -17,3 +17,4 @@
         - Reusing the `page` fixture might be the issue
             - Adding a `time.sleep(10)` made the test pass, so it's definitely an issue of not being able to wait appropriately. 
             - Solved by making the `is_responsive(url)` function handle not just `ConnectionError
+        - There is still an issue in CI, worse it's passing?
