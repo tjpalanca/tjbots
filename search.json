@@ -1,62 +1,339 @@
 [
   {
-    "objectID": "dev/pre-commit.html",
-    "href": "dev/pre-commit.html",
+    "objectID": "developer/pre-commit.html",
+    "href": "developer/pre-commit.html",
     "title": "Pre-commit Hooks",
     "section": "",
     "text": "The project now includes pre-commit hooks for code quality and consistency:\n\nRuff linter: Checks for code style issues, import sorting, and various Python best practices\nRuff formatter: Ensures consistent code formatting\n\n\n\n\nPre-commit hooks are automatically installed when running make create or you can install them manually with make pre-commit-install.\n\n\n\n# Run all hooks on all files\nmake pre-commit-run\n\n# Run only linting\nmake lint\n\n# Run only formatting  \nmake format\n\n# Run linting with auto-fix\nmake lint-fix\nThe hooks will run automatically on every commit, checking only the files you’re committing.\n\n\n\n\nRuff is configured in pyproject.toml under [tool.ruff].\nPre-commit configuration is in .pre-commit-config.yaml",
     "crumbs": [
       "Home",
-      "Dev",
+      "Developer",
       "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "dev/pre-commit.html#setup",
-    "href": "dev/pre-commit.html#setup",
+    "objectID": "developer/pre-commit.html#setup",
+    "href": "developer/pre-commit.html#setup",
     "title": "Pre-commit Hooks",
     "section": "",
     "text": "The project now includes pre-commit hooks for code quality and consistency:\n\nRuff linter: Checks for code style issues, import sorting, and various Python best practices\nRuff formatter: Ensures consistent code formatting",
     "crumbs": [
       "Home",
-      "Dev",
+      "Developer",
       "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "dev/pre-commit.html#installation",
-    "href": "dev/pre-commit.html#installation",
+    "objectID": "developer/pre-commit.html#installation",
+    "href": "developer/pre-commit.html#installation",
     "title": "Pre-commit Hooks",
     "section": "",
     "text": "Pre-commit hooks are automatically installed when running make create or you can install them manually with make pre-commit-install.",
     "crumbs": [
       "Home",
-      "Dev",
+      "Developer",
       "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "dev/pre-commit.html#usage",
-    "href": "dev/pre-commit.html#usage",
+    "objectID": "developer/pre-commit.html#usage",
+    "href": "developer/pre-commit.html#usage",
     "title": "Pre-commit Hooks",
     "section": "",
     "text": "# Run all hooks on all files\nmake pre-commit-run\n\n# Run only linting\nmake lint\n\n# Run only formatting  \nmake format\n\n# Run linting with auto-fix\nmake lint-fix\nThe hooks will run automatically on every commit, checking only the files you’re committing.",
     "crumbs": [
       "Home",
-      "Dev",
+      "Developer",
       "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "dev/pre-commit.html#configuration",
-    "href": "dev/pre-commit.html#configuration",
+    "objectID": "developer/pre-commit.html#configuration",
+    "href": "developer/pre-commit.html#configuration",
     "title": "Pre-commit Hooks",
     "section": "",
     "text": "Ruff is configured in pyproject.toml under [tool.ruff].\nPre-commit configuration is in .pre-commit-config.yaml",
     "crumbs": [
       "Home",
-      "Dev",
+      "Developer",
       "Pre-commit Hooks"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/02-quartodoc.html",
+    "href": "journal/01-development/02-quartodoc.html",
+    "title": "QuartoDoc",
+    "section": "",
+    "text": "QuartoDoc\nI want my package to be documented automatically based on the docstrings. The classic tool for that is Sphinx, but quartodoc seems to be a newer and compatible with what I have here already.\nQuartoDoc documentation\nThis was relatively straightforward. It just involved creating a quartodoc section to the _quarto.yml, and then quartodoc build to build the quarto files, which then get included in the main render.\nWe do need to add a step in the github action to run quartodoc build before rendering the full site.\n\n\n\n\nReuseCC BY 4.0",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "QuartoDoc"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html",
+    "href": "journal/01-development/05-github_copilot_agents.html",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "The workflow is similar to how you would interact with a human developer (jokes, banter, and off-topic Slack conversations aside):\n\nCreate an issue, this should contain a lot more context because that’s the prompt to the agent essentially.\nAssign Copilot the issue and they will raise the pull request.\nMake comments, do reviews, and then eventually get the PR merged. You can even add in some commits of your own.\n\nEach request only uses 1 premium request, so it’s pretty good value actually.\n\n\nGitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.\n\n\n\n\nSandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.\n\n\n\n\n\nOnly 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners\n\n\n\n\n\nBasically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).\n\n\n\n\n\nAdjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#use-cases",
+    "href": "journal/01-development/05-github_copilot_agents.html#use-cases",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "GitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#security",
+    "href": "journal/01-development/05-github_copilot_agents.html#security",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Sandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#limitations",
+    "href": "journal/01-development/05-github_copilot_agents.html#limitations",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Only 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
+    "href": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Basically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#customizations",
+    "href": "journal/01-development/05-github_copilot_agents.html#customizations",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Adjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html",
+    "href": "journal/01-development/04-vibe_coding.html",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#models",
+    "href": "journal/01-development/04-vibe_coding.html#models",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "Claude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#process",
+    "href": "journal/01-development/04-vibe_coding.html#process",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "How much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#claude-code",
+    "href": "journal/01-development/04-vibe_coding.html#claude-code",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html",
+    "href": "journal/02-bots_playground/index.html",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html#motivation",
+    "href": "journal/02-bots_playground/index.html#motivation",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html#design",
+    "href": "journal/02-bots_playground/index.html#design",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "Mobile first",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html#deployment",
+    "href": "journal/02-bots_playground/index.html#deployment",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html",
+    "href": "journal/02-bots_playground/02-deployment.html",
+    "title": "Deployment",
+    "section": "",
+    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push . \n\n\n\n\n\nWe can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.\n\n\n\n\n\nAfter the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html#creating-a-deployable-docker-container",
+    "href": "journal/02-bots_playground/02-deployment.html#creating-a-deployable-docker-container",
+    "title": "Deployment",
+    "section": "",
+    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push .",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html#deploying-the-docker-container",
+    "href": "journal/02-bots_playground/02-deployment.html#deploying-the-docker-container",
+    "title": "Deployment",
+    "section": "",
+    "text": "We can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html#solving-reconnection-issues",
+    "href": "journal/02-bots_playground/02-deployment.html#solving-reconnection-issues",
+    "title": "Deployment",
+    "section": "",
+    "text": "After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Reference",
+    "section": "",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "crumbs": [
+      "Home",
+      "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#bots",
+    "href": "reference/index.html#bots",
+    "title": "Reference",
+    "section": "",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "crumbs": [
+      "Home",
+      "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/app.html",
+    "href": "reference/app.html",
+    "title": "app",
+    "section": "",
+    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app"
     ]
   },
   {
@@ -96,382 +373,159 @@
     ]
   },
   {
-    "objectID": "notes/01-development/02-quartodoc.html",
-    "href": "notes/01-development/02-quartodoc.html",
-    "title": "QuartoDoc",
-    "section": "",
-    "text": "QuartoDoc\nI want my package to be documented automatically based on the docstrings. The classic tool for that is Sphinx, but quartodoc seems to be a newer and compatible with what I have here already.\nQuartoDoc documentation\nThis was relatively straightforward. It just involved creating a quartodoc section to the _quarto.yml, and then quartodoc build to build the quarto files, which then get included in the main render.\nWe do need to add a step in the github action to run quartodoc build before rendering the full site.\n\n\n\n\nReuseCC BY 4.0",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "QuartoDoc"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/01-devcontainer.html",
-    "href": "notes/01-development/01-devcontainer.html",
-    "title": "Dev Container",
-    "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.\n\n\n\n\n\n\n\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Dev Container"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/01-devcontainer.html#creating-the-dev-container",
-    "href": "notes/01-development/01-devcontainer.html#creating-the-dev-container",
-    "title": "Dev Container",
-    "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Dev Container"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/01-devcontainer.html#pre-building-the-dev-container",
-    "href": "notes/01-development/01-devcontainer.html#pre-building-the-dev-container",
-    "title": "Dev Container",
-    "section": "",
-    "text": "Ultimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Dev Container"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/01-devcontainer.html#keybindings",
-    "href": "notes/01-development/01-devcontainer.html#keybindings",
-    "title": "Dev Container",
-    "section": "",
-    "text": "These are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Dev Container"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/01-devcontainer.html#executing-actions",
-    "href": "notes/01-development/01-devcontainer.html#executing-actions",
-    "title": "Dev Container",
-    "section": "",
-    "text": "I’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Dev Container"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/01-devcontainer.html#troubleshooting",
-    "href": "notes/01-development/01-devcontainer.html#troubleshooting",
-    "title": "Dev Container",
-    "section": "",
-    "text": "Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Dev Container"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/03-reconnection.html",
-    "href": "notes/02-bots/03-reconnection.html",
-    "title": "Reconnection Behavior",
-    "section": "",
-    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground",
-      "Reconnection Behavior"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/03-reconnection.html#determining-the-status-of-chat-messages",
-    "href": "notes/02-bots/03-reconnection.html#determining-the-status-of-chat-messages",
-    "title": "Reconnection Behavior",
-    "section": "Determining the status of chat messages",
-    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Bots Playground",
-      "Reconnection Behavior"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/01-pwa.html",
-    "href": "notes/02-bots/01-pwa.html",
+    "objectID": "journal/02-bots_playground/01-pwa.html",
+    "href": "journal/02-bots_playground/01-pwa.html",
     "title": "Progressive Web App",
     "section": "",
     "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
     "crumbs": [
       "Home",
-      "Notes",
+      "Journal",
       "Bots Playground",
       "Progressive Web App"
     ]
   },
   {
-    "objectID": "notes/02-bots/01-pwa.html#enhancements",
-    "href": "notes/02-bots/01-pwa.html#enhancements",
+    "objectID": "journal/02-bots_playground/01-pwa.html#enhancements",
+    "href": "journal/02-bots_playground/01-pwa.html#enhancements",
     "title": "Progressive Web App",
     "section": "",
     "text": "Docs\n\n\n\nDocs",
     "crumbs": [
       "Home",
-      "Notes",
+      "Journal",
       "Bots Playground",
       "Progressive Web App"
     ]
   },
   {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Reference",
+    "objectID": "journal/02-bots_playground/03-reconnection.html",
+    "href": "journal/02-bots_playground/03-reconnection.html",
+    "title": "Reconnection Behavior",
     "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
     "crumbs": [
       "Home",
-      "Reference"
-    ]
-  },
-  {
-    "objectID": "reference/index.html#bots",
-    "href": "reference/index.html#bots",
-    "title": "Reference",
-    "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
-    "crumbs": [
-      "Home",
-      "Reference"
-    ]
-  },
-  {
-    "objectID": "reference/app.html",
-    "href": "reference/app.html",
-    "title": "app",
-    "section": "",
-    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
-    "crumbs": [
-      "Home",
-      "Reference",
-      "app"
-    ]
-  },
-  {
-    "objectID": "notes/02-bots/02-deployment.html",
-    "href": "notes/02-bots/02-deployment.html",
-    "title": "Deployment",
-    "section": "",
-    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push . \n\n\n\n\n\nWe can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.\n\n\n\n\n\nAfter the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
-    "crumbs": [
-      "Home",
-      "Notes",
+      "Journal",
       "Bots Playground",
-      "Deployment"
+      "Reconnection Behavior"
     ]
   },
   {
-    "objectID": "notes/02-bots/02-deployment.html#creating-a-deployable-docker-container",
-    "href": "notes/02-bots/02-deployment.html#creating-a-deployable-docker-container",
-    "title": "Deployment",
-    "section": "",
-    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push .",
+    "objectID": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
+    "href": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
+    "title": "Reconnection Behavior",
+    "section": "Determining the status of chat messages",
+    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
     "crumbs": [
       "Home",
-      "Notes",
+      "Journal",
       "Bots Playground",
-      "Deployment"
+      "Reconnection Behavior"
     ]
   },
   {
-    "objectID": "notes/02-bots/02-deployment.html#deploying-the-docker-container",
-    "href": "notes/02-bots/02-deployment.html#deploying-the-docker-container",
-    "title": "Deployment",
+    "objectID": "journal/01-development/01-devcontainer.html",
+    "href": "journal/01-development/01-devcontainer.html",
+    "title": "Dev Container",
     "section": "",
-    "text": "We can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.\n\n\n\n\n\n\n\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
     "crumbs": [
       "Home",
-      "Notes",
-      "Bots Playground",
-      "Deployment"
+      "Journal",
+      "01 Development",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "notes/02-bots/02-deployment.html#solving-reconnection-issues",
-    "href": "notes/02-bots/02-deployment.html#solving-reconnection-issues",
-    "title": "Deployment",
+    "objectID": "journal/01-development/01-devcontainer.html#creating-the-dev-container",
+    "href": "journal/01-development/01-devcontainer.html#creating-the-dev-container",
+    "title": "Dev Container",
     "section": "",
-    "text": "After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.",
     "crumbs": [
       "Home",
-      "Notes",
-      "Bots Playground",
-      "Deployment"
+      "Journal",
+      "01 Development",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "notes/02-bots/index.html",
-    "href": "notes/02-bots/index.html",
-    "title": "Bots Playground",
+    "objectID": "journal/01-development/01-devcontainer.html#pre-building-the-dev-container",
+    "href": "journal/01-development/01-devcontainer.html#pre-building-the-dev-container",
+    "title": "Dev Container",
     "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "text": "Ultimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.",
     "crumbs": [
       "Home",
-      "Notes",
-      "Bots Playground"
+      "Journal",
+      "01 Development",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "notes/02-bots/index.html#motivation",
-    "href": "notes/02-bots/index.html#motivation",
-    "title": "Bots Playground",
+    "objectID": "journal/01-development/01-devcontainer.html#keybindings",
+    "href": "journal/01-development/01-devcontainer.html#keybindings",
+    "title": "Dev Container",
     "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
+    "text": "These are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
     "crumbs": [
       "Home",
-      "Notes",
-      "Bots Playground"
+      "Journal",
+      "01 Development",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "notes/02-bots/index.html#design",
-    "href": "notes/02-bots/index.html#design",
-    "title": "Bots Playground",
+    "objectID": "journal/01-development/01-devcontainer.html#executing-actions",
+    "href": "journal/01-development/01-devcontainer.html#executing-actions",
+    "title": "Dev Container",
     "section": "",
-    "text": "Mobile first",
+    "text": "I’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
     "crumbs": [
       "Home",
-      "Notes",
-      "Bots Playground"
+      "Journal",
+      "01 Development",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "notes/02-bots/index.html#deployment",
-    "href": "notes/02-bots/index.html#deployment",
-    "title": "Bots Playground",
+    "objectID": "journal/01-development/01-devcontainer.html#troubleshooting",
+    "href": "journal/01-development/01-devcontainer.html#troubleshooting",
+    "title": "Dev Container",
     "section": "",
-    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "text": "Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
     "crumbs": [
       "Home",
-      "Notes",
-      "Bots Playground"
+      "Journal",
+      "01 Development",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "notes/01-development/04-vibe_coding.html",
-    "href": "notes/01-development/04-vibe_coding.html",
-    "title": "Vibe Coding",
-    "section": "",
-    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Vibe Coding"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/04-vibe_coding.html#models",
-    "href": "notes/01-development/04-vibe_coding.html#models",
-    "title": "Vibe Coding",
-    "section": "",
-    "text": "Claude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Vibe Coding"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/04-vibe_coding.html#process",
-    "href": "notes/01-development/04-vibe_coding.html#process",
-    "title": "Vibe Coding",
-    "section": "",
-    "text": "How much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Vibe Coding"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/04-vibe_coding.html#claude-code",
-    "href": "notes/01-development/04-vibe_coding.html#claude-code",
-    "title": "Vibe Coding",
-    "section": "",
-    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development",
-      "Vibe Coding"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/03-testing.html",
-    "href": "notes/01-development/03-testing.html",
+    "objectID": "journal/01-development/03-testing.html",
+    "href": "journal/01-development/03-testing.html",
     "title": "Testing",
     "section": "",
     "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
     "crumbs": [
       "Home",
-      "Notes",
-      "Development",
+      "Journal",
+      "01 Development",
       "Testing"
     ]
   },
   {
-    "objectID": "notes/01-development/03-testing.html#adding-smoke-tests",
-    "href": "notes/01-development/03-testing.html#adding-smoke-tests",
+    "objectID": "journal/01-development/03-testing.html#adding-smoke-tests",
+    "href": "journal/01-development/03-testing.html#adding-smoke-tests",
     "title": "Testing",
     "section": "",
     "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
     "crumbs": [
       "Home",
-      "Notes",
-      "Development",
+      "Journal",
+      "01 Development",
       "Testing"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/index.html",
-    "href": "notes/01-development/index.html",
-    "title": "Development",
-    "section": "",
-    "text": "This section covers development practices, tools, and workflows for the TJBots project.\n\n\n\nDevcontainer Setup - Development environment configuration\nDocumentation with Quartodoc - API documentation generation\n\nTesting Framework - Testing practices and CI/CD workflows",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development"
-    ]
-  },
-  {
-    "objectID": "notes/01-development/index.html#topics",
-    "href": "notes/01-development/index.html#topics",
-    "title": "Development",
-    "section": "",
-    "text": "Devcontainer Setup - Development environment configuration\nDocumentation with Quartodoc - API documentation generation\n\nTesting Framework - Testing practices and CI/CD workflows",
-    "crumbs": [
-      "Home",
-      "Notes",
-      "Development"
     ]
   },
   {
