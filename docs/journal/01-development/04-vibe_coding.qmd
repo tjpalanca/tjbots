@@ -21,8 +21,18 @@ I decided to maximise the use of GitHub Copilot for this project. I want to unde
 - I also added claude code since I have the subscription.
 - It's oddly charming? The fact that it's in my terminal is quite cute and the VS code integration works well.
 - One where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code. 
+- Runs in the terminal and has some integration with VS code to run it in a dedicated terminal instance
+- A lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you're just trying to automate some typing of a very straightforward task where you know how to engineer it.
+- Very good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.
+- Not very integrated in the IDE so can't take advantage of those.
 
-# Copilot Coding Agent
+## Copilot Coding Agent
 
 - A simple task like adding uv pre-commit hooks was good but it still kind of did too much. 
 - GitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.
+
+## Copilot
+
+- Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less "you're absolutely right")
+- Has very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI
+- Copilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results
