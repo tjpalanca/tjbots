@@ -60,220 +60,236 @@
     ]
   },
   {
-    "objectID": "journal/01-development/02-quartodoc.html",
-    "href": "journal/01-development/02-quartodoc.html",
-    "title": "QuartoDoc",
+    "objectID": "journal/01-development/index.html",
+    "href": "journal/01-development/index.html",
+    "title": "Development Process",
     "section": "",
-    "text": "QuartoDoc\nI want my package to be documented automatically based on the docstrings. The classic tool for that is Sphinx, but quartodoc seems to be a newer and compatible with what I have here already.\nQuartoDoc documentation\nThis was relatively straightforward. It just involved creating a quartodoc section to the _quarto.yml, and then quartodoc build to build the quarto files, which then get included in the main render.\nWe do need to add a step in the github action to run quartodoc build before rendering the full site.\n\n\n\n\nReuseCC BY 4.0",
+    "text": "Development Process\n\n\n\n\nReuseCC BY 4.0"
+  },
+  {
+    "objectID": "journal/01-development/03-testing.html",
+    "href": "journal/01-development/03-testing.html",
+    "title": "Testing",
+    "section": "",
+    "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "QuartoDoc"
+      "Development Process",
+      "Testing"
     ]
   },
   {
-    "objectID": "journal/01-development/05-github_copilot_agents.html",
-    "href": "journal/01-development/05-github_copilot_agents.html",
-    "title": "GitHub Copilot Agents",
+    "objectID": "journal/01-development/03-testing.html#adding-smoke-tests",
+    "href": "journal/01-development/03-testing.html#adding-smoke-tests",
+    "title": "Testing",
     "section": "",
-    "text": "The workflow is similar to how you would interact with a human developer (jokes, banter, and off-topic Slack conversations aside):\n\nCreate an issue, this should contain a lot more context because that’s the prompt to the agent essentially.\nAssign Copilot the issue and they will raise the pull request.\nMake comments, do reviews, and then eventually get the PR merged. You can even add in some commits of your own.\n\nEach request only uses 1 premium request, so it’s pretty good value actually.\n\n\nGitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.\n\n\n\n\nSandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.\n\n\n\n\n\nOnly 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners\n\n\n\n\n\nBasically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).\n\n\n\n\n\nAdjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
+    "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "GitHub Copilot Agents"
+      "Development Process",
+      "Testing"
     ]
   },
   {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#use-cases",
-    "href": "journal/01-development/05-github_copilot_agents.html#use-cases",
-    "title": "GitHub Copilot Agents",
+    "objectID": "journal/01-development/01-devcontainer.html",
+    "href": "journal/01-development/01-devcontainer.html",
+    "title": "Dev Container",
     "section": "",
-    "text": "GitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.\n\n\n\n\n\n\n\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "GitHub Copilot Agents"
+      "Development Process",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#security",
-    "href": "journal/01-development/05-github_copilot_agents.html#security",
-    "title": "GitHub Copilot Agents",
+    "objectID": "journal/01-development/01-devcontainer.html#creating-the-dev-container",
+    "href": "journal/01-development/01-devcontainer.html#creating-the-dev-container",
+    "title": "Dev Container",
     "section": "",
-    "text": "Sandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.",
+    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "GitHub Copilot Agents"
+      "Development Process",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#limitations",
-    "href": "journal/01-development/05-github_copilot_agents.html#limitations",
-    "title": "GitHub Copilot Agents",
+    "objectID": "journal/01-development/01-devcontainer.html#pre-building-the-dev-container",
+    "href": "journal/01-development/01-devcontainer.html#pre-building-the-dev-container",
+    "title": "Dev Container",
     "section": "",
-    "text": "Only 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners",
+    "text": "Ultimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "GitHub Copilot Agents"
+      "Development Process",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
-    "href": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
-    "title": "GitHub Copilot Agents",
+    "objectID": "journal/01-development/01-devcontainer.html#keybindings",
+    "href": "journal/01-development/01-devcontainer.html#keybindings",
+    "title": "Dev Container",
     "section": "",
-    "text": "Basically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).",
+    "text": "These are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "GitHub Copilot Agents"
+      "Development Process",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#customizations",
-    "href": "journal/01-development/05-github_copilot_agents.html#customizations",
-    "title": "GitHub Copilot Agents",
+    "objectID": "journal/01-development/01-devcontainer.html#executing-actions",
+    "href": "journal/01-development/01-devcontainer.html#executing-actions",
+    "title": "Dev Container",
     "section": "",
-    "text": "Adjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
+    "text": "I’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "GitHub Copilot Agents"
+      "Development Process",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html",
-    "href": "journal/01-development/04-vibe_coding.html",
-    "title": "Vibe Coding",
+    "objectID": "journal/01-development/01-devcontainer.html#troubleshooting",
+    "href": "journal/01-development/01-devcontainer.html#troubleshooting",
+    "title": "Dev Container",
     "section": "",
-    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.\n\n\n\n\n\nA simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.\n\n\n\n\n\nBetter value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
+    "text": "Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Vibe Coding"
+      "Development Process",
+      "Dev Container"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#models",
-    "href": "journal/01-development/04-vibe_coding.html#models",
-    "title": "Vibe Coding",
+    "objectID": "journal/02-bots_playground/03-reconnection.html",
+    "href": "journal/02-bots_playground/03-reconnection.html",
+    "title": "Reconnection Behavior",
     "section": "",
-    "text": "Claude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist",
+    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Vibe Coding"
+      "Bots Playground",
+      "Reconnection Behavior"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#process",
-    "href": "journal/01-development/04-vibe_coding.html#process",
-    "title": "Vibe Coding",
-    "section": "",
-    "text": "How much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful",
+    "objectID": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
+    "href": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
+    "title": "Reconnection Behavior",
+    "section": "Determining the status of chat messages",
+    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Vibe Coding"
+      "Bots Playground",
+      "Reconnection Behavior"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#claude-code",
-    "href": "journal/01-development/04-vibe_coding.html#claude-code",
-    "title": "Vibe Coding",
+    "objectID": "journal/02-bots_playground/01-pwa.html",
+    "href": "journal/02-bots_playground/01-pwa.html",
+    "title": "Progressive Web App",
     "section": "",
-    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.",
+    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Vibe Coding"
+      "Bots Playground",
+      "Progressive Web App"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
-    "href": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
-    "title": "Vibe Coding",
+    "objectID": "journal/02-bots_playground/01-pwa.html#enhancements",
+    "href": "journal/02-bots_playground/01-pwa.html#enhancements",
+    "title": "Progressive Web App",
     "section": "",
-    "text": "A simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.",
+    "text": "Docs\n\n\n\nDocs",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Vibe Coding"
+      "Bots Playground",
+      "Progressive Web App"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#copilot",
-    "href": "journal/01-development/04-vibe_coding.html#copilot",
-    "title": "Vibe Coding",
+    "objectID": "scenarios/01-grocerybot.html",
+    "href": "scenarios/01-grocerybot.html",
+    "title": "GroceryBot",
     "section": "",
-    "text": "Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
     "crumbs": [
       "Home",
-      "Journal",
-      "01 Development",
-      "Vibe Coding"
+      "Scenarios",
+      "GroceryBot"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/index.html",
-    "href": "journal/02-bots_playground/index.html",
-    "title": "Bots Playground",
+    "objectID": "scenarios/01-grocerybot.html#motivation",
+    "href": "scenarios/01-grocerybot.html#motivation",
+    "title": "GroceryBot",
     "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
     "crumbs": [
       "Home",
-      "Journal",
-      "Bots Playground"
+      "Scenarios",
+      "GroceryBot"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/index.html#motivation",
-    "href": "journal/02-bots_playground/index.html#motivation",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
+    "objectID": "scenarios/01-grocerybot.html#workflow",
+    "href": "scenarios/01-grocerybot.html#workflow",
+    "title": "GroceryBot",
+    "section": "Workflow",
+    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
     "crumbs": [
       "Home",
-      "Journal",
-      "Bots Playground"
+      "Scenarios",
+      "GroceryBot"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/index.html#design",
-    "href": "journal/02-bots_playground/index.html#design",
-    "title": "Bots Playground",
+    "objectID": "reference/app.html",
+    "href": "reference/app.html",
+    "title": "app",
     "section": "",
-    "text": "Mobile first",
+    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
     "crumbs": [
       "Home",
-      "Journal",
-      "Bots Playground"
+      "Reference",
+      "app"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/index.html#deployment",
-    "href": "journal/02-bots_playground/index.html#deployment",
-    "title": "Bots Playground",
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Reference",
     "section": "",
-    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
     "crumbs": [
       "Home",
-      "Journal",
-      "Bots Playground"
+      "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#bots",
+    "href": "reference/index.html#bots",
+    "title": "Reference",
+    "section": "",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "crumbs": [
+      "Home",
+      "Reference"
     ]
   },
   {
@@ -329,229 +345,220 @@
     ]
   },
   {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Reference",
+    "objectID": "journal/02-bots_playground/index.html",
+    "href": "journal/02-bots_playground/index.html",
+    "title": "Bots Playground",
     "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
-    "crumbs": [
-      "Home",
-      "Reference"
-    ]
-  },
-  {
-    "objectID": "reference/index.html#bots",
-    "href": "reference/index.html#bots",
-    "title": "Reference",
-    "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
-    "crumbs": [
-      "Home",
-      "Reference"
-    ]
-  },
-  {
-    "objectID": "reference/app.html",
-    "href": "reference/app.html",
-    "title": "app",
-    "section": "",
-    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
-    "crumbs": [
-      "Home",
-      "Reference",
-      "app"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html",
-    "href": "scenarios/01-grocerybot.html",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#motivation",
-    "href": "scenarios/01-grocerybot.html#motivation",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#workflow",
-    "href": "scenarios/01-grocerybot.html#workflow",
-    "title": "GroceryBot",
-    "section": "Workflow",
-    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/01-pwa.html",
-    "href": "journal/02-bots_playground/01-pwa.html",
-    "title": "Progressive Web App",
-    "section": "",
-    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
     "crumbs": [
       "Home",
       "Journal",
-      "Bots Playground",
-      "Progressive Web App"
+      "Bots Playground"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/01-pwa.html#enhancements",
-    "href": "journal/02-bots_playground/01-pwa.html#enhancements",
-    "title": "Progressive Web App",
+    "objectID": "journal/02-bots_playground/index.html#motivation",
+    "href": "journal/02-bots_playground/index.html#motivation",
+    "title": "Bots Playground",
     "section": "",
-    "text": "Docs\n\n\n\nDocs",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
     "crumbs": [
       "Home",
       "Journal",
-      "Bots Playground",
-      "Progressive Web App"
+      "Bots Playground"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/03-reconnection.html",
-    "href": "journal/02-bots_playground/03-reconnection.html",
-    "title": "Reconnection Behavior",
+    "objectID": "journal/02-bots_playground/index.html#design",
+    "href": "journal/02-bots_playground/index.html#design",
+    "title": "Bots Playground",
     "section": "",
-    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
+    "text": "Mobile first",
     "crumbs": [
       "Home",
       "Journal",
-      "Bots Playground",
-      "Reconnection Behavior"
+      "Bots Playground"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
-    "href": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
-    "title": "Reconnection Behavior",
-    "section": "Determining the status of chat messages",
-    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Reconnection Behavior"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/01-devcontainer.html",
-    "href": "journal/01-development/01-devcontainer.html",
-    "title": "Dev Container",
+    "objectID": "journal/02-bots_playground/index.html#deployment",
+    "href": "journal/02-bots_playground/index.html#deployment",
+    "title": "Bots Playground",
     "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.\n\n\n\n\n\n\n\n\n\n\nUltimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.\n\n\n\n\nThese are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}\n\n\n\n\nI’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.\n\n\n\n\n\n\n\n\nInitially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
+    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Dev Container"
+      "Bots Playground"
     ]
   },
   {
-    "objectID": "journal/01-development/01-devcontainer.html#creating-the-dev-container",
-    "href": "journal/01-development/01-devcontainer.html#creating-the-dev-container",
-    "title": "Dev Container",
+    "objectID": "journal/01-development/04-vibe_coding.html",
+    "href": "journal/01-development/04-vibe_coding.html",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "Used microsoft’s base dev container and some devcontainer features to enable python with uv, nodejs, and quarto. This creates a minimal setup for developing Shiny for Python applications.\nMounting the uv cache as a separate volume speeds up future re-creations of the devcontainer and installation of previously-installed dependencies.",
+    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.\n\n\n\n\n\nA simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.\n\n\n\n\n\nBetter value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Dev Container"
+      "Development Process",
+      "Vibe Coding"
     ]
   },
   {
-    "objectID": "journal/01-development/01-devcontainer.html#pre-building-the-dev-container",
-    "href": "journal/01-development/01-devcontainer.html#pre-building-the-dev-container",
-    "title": "Dev Container",
+    "objectID": "journal/01-development/04-vibe_coding.html#models",
+    "href": "journal/01-development/04-vibe_coding.html#models",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "Ultimately this wasn’t useful unless:\n\nwe have lots of projects depending on the same devcontainer spec, or\nwe went really custom with our CI and didn’t want to depend on pre-built github actions\n\n\n\n\n\nAdded a github action to build the devcontainer and publish it for the following purposes:\n\nTo make future devcontainer builds faster\n\nThis is really only useful if you have multiple repositories that share the same devcontainer base, or a complex setup.\nIn a single repository setup, this would cause the same build to happen twice, once for the common devcontainer, and once for the project specific devcontainer. It would be best to factor that out to something like tjpalanca/devcontainers instead.\n\nTo use the devcontainer for executing CI actions consistent with the local development experience\n\nAdds some overhead in pulling the devcontainer\nCreates some problems when the devcontainer and the application code are edited at the same time (one workflow has to finish before the other)\nMakes using pre-built github actions a little hit or miss, depending on how those pre-build github actions are built.\n\n\n\n    # BEFORE: Make sure to login to docker registry\n    - name: Pre-build dev container image\n      uses: devcontainers/ci@v0.3\n      with:\n        imageName: ghcr.io/tjpalanca/tjbots/devcontainer\n        cacheFrom: ghcr.io/tjpalanca/tjbots/devcontainer\n        push: always\n\nThere is a separate mechanism to pre-build Github Codespaces images.",
+    "text": "Claude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Dev Container"
+      "Development Process",
+      "Vibe Coding"
     ]
   },
   {
-    "objectID": "journal/01-development/01-devcontainer.html#keybindings",
-    "href": "journal/01-development/01-devcontainer.html#keybindings",
-    "title": "Dev Container",
+    "objectID": "journal/01-development/04-vibe_coding.html#process",
+    "href": "journal/01-development/04-vibe_coding.html#process",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "These are to help with rapid development.\n{\n    \"key\": \"shift+cmd+enter\",\n    \"command\": \"shiny.python.runApp\",\n    \"when\": \"shellExecutionSupported && editorLangId == 'python'\"\n}",
+    "text": "How much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Dev Container"
+      "Development Process",
+      "Vibe Coding"
     ]
   },
   {
-    "objectID": "journal/01-development/01-devcontainer.html#executing-actions",
-    "href": "journal/01-development/01-devcontainer.html#executing-actions",
-    "title": "Dev Container",
+    "objectID": "journal/01-development/04-vibe_coding.html#claude-code",
+    "href": "journal/01-development/04-vibe_coding.html#claude-code",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "I’m used to using a Makefile to describe the build and deployment actions I want to take, but there’s this new project called act that purports to replace this and have the github action as the source of truth for both local and CI deployment.\n\nI decided against this - it’s a lot of complexity.",
+    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Dev Container"
+      "Development Process",
+      "Vibe Coding"
     ]
   },
   {
-    "objectID": "journal/01-development/01-devcontainer.html#troubleshooting",
-    "href": "journal/01-development/01-devcontainer.html#troubleshooting",
-    "title": "Dev Container",
+    "objectID": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
+    "href": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "Initially, the auto-reload feature did not work well in the devcontainer setup either in VS Code or in Positron.\nWe needed to set remote.autoForwardPortsSource to process and disable the fallback by setting remote.autoForwardPortsFallback to 0, which creates a bunch of spurious ones but also surfaced the autoreload port.\n\nSetting remote.restoreForwardedPorts to false alleviated it by forgetting every time the devcontainer is started.\n\nIt still does not work well enough, we need to run the app twice, but at least it’s good.\n\n\n\n\n\nI would like quarto to format my markdown in addition to the code blocks.\nI couldn’t find a clean way to do this, unfortunately.",
+    "text": "A simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Dev Container"
+      "Development Process",
+      "Vibe Coding"
     ]
   },
   {
-    "objectID": "journal/01-development/03-testing.html",
-    "href": "journal/01-development/03-testing.html",
-    "title": "Testing",
+    "objectID": "journal/01-development/04-vibe_coding.html#copilot",
+    "href": "journal/01-development/04-vibe_coding.html#copilot",
+    "title": "Vibe Coding",
     "section": "",
-    "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
+    "text": "Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Testing"
+      "Development Process",
+      "Vibe Coding"
     ]
   },
   {
-    "objectID": "journal/01-development/03-testing.html#adding-smoke-tests",
-    "href": "journal/01-development/03-testing.html#adding-smoke-tests",
-    "title": "Testing",
+    "objectID": "journal/01-development/05-github_copilot_agents.html",
+    "href": "journal/01-development/05-github_copilot_agents.html",
+    "title": "GitHub Copilot Agents",
     "section": "",
-    "text": "Set up pytest to run the tests.\nCreated basic smoke tests to instantiate the app, and to test the config.\nmake test and make test-watch allow for iterating on tests easily.\nAdd smoke tests to actually run the app within the devcontainer\n\nShiny developers recommend using playwright to test the actual app.\nThey provide controllers to abstract over the UI interactions.\nThere’s a bit of a challenge running this in a devcontainer.\nEnhanced the smoke tests to actually execute the UI function and detect errors in browser-based testing using playwright.\n\nAdd smoke tests to add the Shiny Server implementation and test that as well\n\nI’ve fixed the original issue which is that uv wasn’t install the tjbots source package inside the Docker container.\nWe used the pytest-docker plugin because we already use docker compose for deployment and there are some opportunities to dedupe config there.\npytest still failing despite me being able to manually hit the endpoint with a good test. I’ll check whether there is something wrong with the test configuration or the way the app is being instantiated in the tests.\n\nReusing the page fixture might be the issue\n\nAdding a time.sleep(10) made the test pass, so it’s definitely an issue of not being able to wait appropriately.\nSolved by making the is_responsive(url) function handle not just `ConnectionError\n\nThere is still an issue in CI, worse it’s passing?\nActually the issue is not that the tests fail, it is something that happens on teardown.\n\nJust made the app more resilient to missing envs, much simpler",
+    "text": "The workflow is similar to how you would interact with a human developer (jokes, banter, and off-topic Slack conversations aside):\n\nCreate an issue, this should contain a lot more context because that’s the prompt to the agent essentially.\nAssign Copilot the issue and they will raise the pull request.\nMake comments, do reviews, and then eventually get the PR merged. You can even add in some commits of your own.\n\nEach request only uses 1 premium request, so it’s pretty good value actually.\n\n\nGitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.\n\n\n\n\nSandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.\n\n\n\n\n\nOnly 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners\n\n\n\n\n\nBasically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).\n\n\n\n\n\nAdjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
     "crumbs": [
       "Home",
       "Journal",
-      "01 Development",
-      "Testing"
+      "Development Process",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#use-cases",
+    "href": "journal/01-development/05-github_copilot_agents.html#use-cases",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "GitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#security",
+    "href": "journal/01-development/05-github_copilot_agents.html#security",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Sandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#limitations",
+    "href": "journal/01-development/05-github_copilot_agents.html#limitations",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Only 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
+    "href": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Basically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/05-github_copilot_agents.html#customizations",
+    "href": "journal/01-development/05-github_copilot_agents.html#customizations",
+    "title": "GitHub Copilot Agents",
+    "section": "",
+    "text": "Adjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "GitHub Copilot Agents"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/02-quartodoc.html",
+    "href": "journal/01-development/02-quartodoc.html",
+    "title": "QuartoDoc",
+    "section": "",
+    "text": "QuartoDoc\nI want my package to be documented automatically based on the docstrings. The classic tool for that is Sphinx, but quartodoc seems to be a newer and compatible with what I have here already.\nQuartoDoc documentation\nThis was relatively straightforward. It just involved creating a quartodoc section to the _quarto.yml, and then quartodoc build to build the quarto files, which then get included in the main render.\nWe do need to add a step in the github action to run quartodoc build before rendering the full site.\n\n\n\n\nReuseCC BY 4.0",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "QuartoDoc"
     ]
   },
   {
