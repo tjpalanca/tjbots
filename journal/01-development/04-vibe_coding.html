@@ -267,8 +267,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
   <li><a href="#process" id="toc-process" class="nav-link" data-scroll-target="#process">Process</a></li>
   <li><a href="#claude-code" id="toc-claude-code" class="nav-link" data-scroll-target="#claude-code">Claude Code</a></li>
-  </ul></li>
   <li><a href="#copilot-coding-agent" id="toc-copilot-coding-agent" class="nav-link" data-scroll-target="#copilot-coding-agent">Copilot Coding Agent</a></li>
+  <li><a href="#copilot" id="toc-copilot" class="nav-link" data-scroll-target="#copilot">Copilot</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -311,17 +312,29 @@ ul.task-list li input[type="checkbox"] {
 <li>I also added claude code since I have the subscription.</li>
 <li>It’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.</li>
 <li>One where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.</li>
+<li>Runs in the terminal and has some integration with VS code to run it in a dedicated terminal instance</li>
+<li>A lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.</li>
+<li>Very good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.</li>
+<li>Not very integrated in the IDE so can’t take advantage of those.</li>
 </ul>
 </section>
-</section>
-<section id="copilot-coding-agent" class="level1">
-<h1>Copilot Coding Agent</h1>
+<section id="copilot-coding-agent" class="level2">
+<h2 class="anchored" data-anchor-id="copilot-coding-agent">Copilot Coding Agent</h2>
 <ul>
 <li>A simple task like adding uv pre-commit hooks was good but it still kind of did too much.</li>
 <li>GitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.</li>
 </ul>
+</section>
+<section id="copilot" class="level2">
+<h2 class="anchored" data-anchor-id="copilot">Copilot</h2>
+<ul>
+<li>Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)</li>
+<li>Has very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI</li>
+<li>Copilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results</li>
+</ul>
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->

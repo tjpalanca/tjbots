@@ -155,7 +155,7 @@
     "href": "journal/01-development/04-vibe_coding.html",
     "title": "Vibe Coding",
     "section": "",
-    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
+    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.\n\n\n\n\n\nA simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.\n\n\n\n\n\nBetter value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
     "crumbs": [
       "Home",
       "Journal",
@@ -194,7 +194,33 @@
     "href": "journal/01-development/04-vibe_coding.html#claude-code",
     "title": "Vibe Coding",
     "section": "",
-    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.",
+    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
+    "href": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "A simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "01 Development",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#copilot",
+    "href": "journal/01-development/04-vibe_coding.html#copilot",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
     "crumbs": [
       "Home",
       "Journal",
