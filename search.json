@@ -171,228 +171,6 @@
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/03-reconnection.html",
-    "href": "journal/02-bots_playground/03-reconnection.html",
-    "title": "Reconnection Behavior",
-    "section": "",
-    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Reconnection Behavior"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
-    "href": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
-    "title": "Reconnection Behavior",
-    "section": "Determining the status of chat messages",
-    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Reconnection Behavior"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/01-pwa.html",
-    "href": "journal/02-bots_playground/01-pwa.html",
-    "title": "Progressive Web App",
-    "section": "",
-    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Progressive Web App"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/01-pwa.html#enhancements",
-    "href": "journal/02-bots_playground/01-pwa.html#enhancements",
-    "title": "Progressive Web App",
-    "section": "",
-    "text": "Docs\n\n\n\nDocs",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Progressive Web App"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html",
-    "href": "scenarios/01-grocerybot.html",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#motivation",
-    "href": "scenarios/01-grocerybot.html#motivation",
-    "title": "GroceryBot",
-    "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "scenarios/01-grocerybot.html#workflow",
-    "href": "scenarios/01-grocerybot.html#workflow",
-    "title": "GroceryBot",
-    "section": "Workflow",
-    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
-    "crumbs": [
-      "Home",
-      "Scenarios",
-      "GroceryBot"
-    ]
-  },
-  {
-    "objectID": "reference/app.html",
-    "href": "reference/app.html",
-    "title": "app",
-    "section": "",
-    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
-    "crumbs": [
-      "Home",
-      "Reference",
-      "app"
-    ]
-  },
-  {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Reference",
-    "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
-    "crumbs": [
-      "Home",
-      "Reference"
-    ]
-  },
-  {
-    "objectID": "reference/index.html#bots",
-    "href": "reference/index.html#bots",
-    "title": "Reference",
-    "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
-    "crumbs": [
-      "Home",
-      "Reference"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/02-deployment.html",
-    "href": "journal/02-bots_playground/02-deployment.html",
-    "title": "Deployment",
-    "section": "",
-    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push . \n\n\n\n\n\nWe can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.\n\n\n\n\n\nAfter the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Deployment"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/02-deployment.html#creating-a-deployable-docker-container",
-    "href": "journal/02-bots_playground/02-deployment.html#creating-a-deployable-docker-container",
-    "title": "Deployment",
-    "section": "",
-    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push .",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Deployment"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/02-deployment.html#deploying-the-docker-container",
-    "href": "journal/02-bots_playground/02-deployment.html#deploying-the-docker-container",
-    "title": "Deployment",
-    "section": "",
-    "text": "We can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Deployment"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/02-deployment.html#solving-reconnection-issues",
-    "href": "journal/02-bots_playground/02-deployment.html#solving-reconnection-issues",
-    "title": "Deployment",
-    "section": "",
-    "text": "After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Deployment"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/index.html",
-    "href": "journal/02-bots_playground/index.html",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/index.html#motivation",
-    "href": "journal/02-bots_playground/index.html#motivation",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/index.html#design",
-    "href": "journal/02-bots_playground/index.html#design",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "Mobile first",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/index.html#deployment",
-    "href": "journal/02-bots_playground/index.html#deployment",
-    "title": "Bots Playground",
-    "section": "",
-    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground"
-    ]
-  },
-  {
     "objectID": "journal/01-development/04-vibe_coding.html",
     "href": "journal/01-development/04-vibe_coding.html",
     "title": "Vibe Coding",
@@ -468,6 +246,254 @@
       "Journal",
       "Development Process",
       "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html",
+    "href": "journal/02-bots_playground/index.html",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html#motivation",
+    "href": "journal/02-bots_playground/index.html#motivation",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html#design",
+    "href": "journal/02-bots_playground/index.html#design",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "Mobile first",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/index.html#deployment",
+    "href": "journal/02-bots_playground/index.html#deployment",
+    "title": "Bots Playground",
+    "section": "",
+    "text": "Only add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html",
+    "href": "journal/02-bots_playground/02-deployment.html",
+    "title": "Deployment",
+    "section": "",
+    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push . \n\n\n\n\n\nWe can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.\n\n\n\n\n\nAfter the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html#creating-a-deployable-docker-container",
+    "href": "journal/02-bots_playground/02-deployment.html#creating-a-deployable-docker-container",
+    "title": "Deployment",
+    "section": "",
+    "text": "Use the docker-in-docker devcontainer feature to quickly add the ability to build images without allowing access to your own machine’s docker host.\nUse uvicorn as the main docker command. There’s another configuration using gunicorn but some cursory research made that overkill for just docker runs.\nCMD [\"uv\", \"run\", \"uvicorn\", \"app:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]\nCan we build off of the production dev container to build the dev image by adding more stuff onto it?\n\nI think the best way is to still construct a slimmed down version. We can get consistency by making sure we both have the same base image, which as of writing was python-3.12-bookworm.\nThis general pattern allows us to consolidate configuration in the pyproject.toml file. It only requires python.\nVERSION := $(shell python -c 'import tomllib; print(tomllib.load(open(\"pyproject.toml\", \"rb\"))[\"project\"][\"version\"])')\n\nThe base images all run as root, it’s best to run as a non-root user:\n# Downgrade to non-root user \nRUN useradd -u 1000 -m appuser\nUSER appuser\nI needed to generate both arm64 and amd64 versions for the application images. Currently in runs on my HomeLab (M1 Mac Mini), but it might run in the cloud in the future.\n\nOne strategy I tried was to cycle through two different runners as a strategy, but the arm64 ubuntu runner did not have Python.\n\nUse a registry cache to speed up docker builds. Add these arguments to the docker build command. A complete cache hit (re-run) went from 51s to 31s.\napp-push:\n    docker buildx build \\\n        $(APP_BUILD_ARGS) \\\n        --cache-to=type=registry,ref=$(APP_IMG):cache,mode=max \\\n        --cache-from=type=registry,ref=$(APP_IMG):cache \\\n        --push .",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html#deploying-the-docker-container",
+    "href": "journal/02-bots_playground/02-deployment.html#deploying-the-docker-container",
+    "title": "Deployment",
+    "section": "",
+    "text": "We can use watchtower as a lightweight way of updating the docker images as soon as they are updated in the registry.\n\nThis also supports docker compose.\nWorked well. We just needed to specify the container_name in the compose.yml to have consistent container names, then set the interval to be shorter (from the default 24 horus) to facilitate frequent updates.\n\nservices:\n    watchtower:\n        image: containrrr/watchtower:latest\n        container_name: watchtower\n        restart: always\n        volumes:\n        - /var/run/docker.sock:/var/run/docker.sock\n        command: tjbots-app --interval 30 --cleanup\nI think we can initially start with just running the bare container and then we can start using something like shinyproxy if we feel the need to scale.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/02-deployment.html#solving-reconnection-issues",
+    "href": "journal/02-bots_playground/02-deployment.html#solving-reconnection-issues",
+    "title": "Deployment",
+    "section": "",
+    "text": "After the PWA has been open for quite some time, it will gray out. At a minimum we should start a fresh session, but at best we should reconnect to the existing session as if nothing has happened.\n\nSome things we can try:\n\nPosit Connect Cloud\n\nI tried it just to see if I can get the right reconnection behavior - it works.\nI know that Shiny Server products will work then.\nI don’t want to use this as it doesn’t offer custom domains and does not allow me to place authentication on top of the application.\n\nShiny Server Open Source\n\nit seems that it has the needed reconnect behavior.\nthere are no pre-build arm64 binaries. I’m going to need to build from source\nI remembered a problem I struggled with before - Shiny Server Open Source does not pass along necessary headers. This isn’t a problem now, but is going to be a problem should I decide to do Auth0 authentication. There is a hack to modify this behavior.\n\nThe repo and package for this modified shiny server and for arm64 is at tjpalanca/shiny-server.\n\nFor now I’ll move on first to ShinyProxy as it has a more complete feature set and I can always come back to this later.\nI eventually gave this a try, but it was not a good experience.\n\nI had to build from source due to the lack of pre-built ARM binaries.\nI had to change the source code to enable headers to be passed through.\nThe reconnection behavior wasn’t seamless, it would reinitialize the inputs.\n\nPR for enabling reconnections in rstudio/shiny-server\nI went through it anyway and decided to incorporate the changes in my application. The benefits are:\n\nSockJS will fall back to another protocol if websockets is not supported.\nGraceful resumption still happens for network switching, which is going to alleviate cases when user does not intend to disconnect (did not close the app).\nSome element of scalability through the scheduler.\n\nWe need to manually whitelist the headers that would be passed through to the websocket creation request, but this is alright.\nWhat’s unsolved:\n\nResuming after a long disconnection, likely to be solved via server-side caching of state.\n\n\nShinyProxy\n\nI can’t find indications that it has reconnect behavior; given that it can run all sorts of other dockerized applications, it might expect the application to handle that.\nI tried this, and their operator implementation was very smooth. It was very easy to setup on a plain Docker host and I like that they have a Kubernetes operator.\nI did eventually find the reconnection setting.\n\nIt re-sent the inputs, so the @chatui.on_user_submit callback was called again, creating a duplicate response. Additionally, since the server state was reset, the chat history was not on the chatlas object.\nThe reconnection behavior only worked when it was on the /app endpoint which contained some shinyproxy wrapper code, but that interfered with the PWA capabilities.\n\nI can still try to use this as a way to run the application, but I will need to understand how to serve at root path and re-enable the PWA capabilities.\nI have a few options to try:\n\nAdd another layer that rewrites the URL to /app and serves the PWA.\n\nA problem here is that even manifest.json files served at /app have the iframes\nMight need to use the /app_direct endpoint for the manifest itself.\nChatGPT says having the manifest in a different path should work, only cross-origin has complications.\n\n\nI’m encountering a bug where shinyproxy instance is unable to communicate with the docker daemon after some point in time.\nI decided that while this will probably be very nice for creating devcontainers, it’s overkill for just a single app instance.\nIt turns out there is no way to enable reconnecting behavior from Python although it still works well. We just added a script that flips that to true on the client side when shiny is connected.\nui.tags.script(\"\"\"\n$(document).on('shiny:connected', function() {\n    if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;\n});\n\"\"\")",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Deployment"
+    ]
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Reference",
+    "section": "",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "crumbs": [
+      "Home",
+      "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#bots",
+    "href": "reference/index.html#bots",
+    "title": "Reference",
+    "section": "",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "crumbs": [
+      "Home",
+      "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/app.html",
+    "href": "reference/app.html",
+    "title": "app",
+    "section": "",
+    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html",
+    "href": "scenarios/01-grocerybot.html",
+    "title": "GroceryBot",
+    "section": "",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html#motivation",
+    "href": "scenarios/01-grocerybot.html#motivation",
+    "title": "GroceryBot",
+    "section": "",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
+    ]
+  },
+  {
+    "objectID": "scenarios/01-grocerybot.html#workflow",
+    "href": "scenarios/01-grocerybot.html#workflow",
+    "title": "GroceryBot",
+    "section": "Workflow",
+    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
+    "crumbs": [
+      "Home",
+      "Scenarios",
+      "GroceryBot"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/01-pwa.html",
+    "href": "journal/02-bots_playground/01-pwa.html",
+    "title": "Progressive Web App",
+    "section": "",
+    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Progressive Web App"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/01-pwa.html#enhancements",
+    "href": "journal/02-bots_playground/01-pwa.html#enhancements",
+    "title": "Progressive Web App",
+    "section": "",
+    "text": "Docs\n\n\n\nDocs",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Progressive Web App"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/03-reconnection.html",
+    "href": "journal/02-bots_playground/03-reconnection.html",
+    "title": "Reconnection Behavior",
+    "section": "",
+    "text": "The current setup is now that we use a dockerised Shiny Server Pro instance to serve the app at the root directory. This enables reconnection behavior at the server side where sessions are held for up to 15 seconds (customisable but only at source code level), and reconnect once it’s established.\nWhen the connection is reestablished, the last chat message is reinitialized. The bot sends another message when it had already been sent. In addition, the chat client does not receive the old messages that were sent prior to the disconnection.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Reconnection Behavior"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
+    "href": "journal/02-bots_playground/03-reconnection.html#determining-the-status-of-chat-messages",
+    "title": "Reconnection Behavior",
+    "section": "Determining the status of chat messages",
+    "text": "Determining the status of chat messages\nWe first want to find out what chat messages look like in the frontend and in the backend.\n\nfrom dotenv import load_dotenv\nfrom chatlas import ChatAnthropic\nfrom datetime import datetime\n\nload_dotenv(\"/run/secrets/tjbots.env\")\n\nchat = ChatAnthropic()\n\n\ndef get_current_time():\n    return datetime.now().isoformat()\n\n\nchat.register_tool(get_current_time)\nchat.chat(\"Can you fetch the current time\")\n\n\ndir(chat.get_turns()[1])\n\n\nimport chatlas\n\nchatlas.Turn",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Reconnection Behavior"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/06-cicd.html",
+    "href": "journal/01-development/06-cicd.html",
+    "title": "Continuous Integration / Deployment",
+    "section": "",
+    "text": "Currently we have the docker-compose.yml file in tests/ and an unused one in build/.\nFirst we want the docker-build target to be based on the compose file\nDocker service profiles kind of work for situations where you need to activate/deactivate specific services for testing or deployment, but it does not unify the configuration for testing and deployment.\nDocker docs indicate you can use yaml anchors to separate the release target from the running target\nWe can use the tjbots service in docker compose for both building in dev and production because we can specify both the build and image arguments.\nSuccesfully implemented!",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Continuous Integration / Deployment"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/06-cicd.html#unifying-docker-compose-for-testing-and-deployment",
+    "href": "journal/01-development/06-cicd.html#unifying-docker-compose-for-testing-and-deployment",
+    "title": "Continuous Integration / Deployment",
+    "section": "",
+    "text": "Currently we have the docker-compose.yml file in tests/ and an unused one in build/.\nFirst we want the docker-build target to be based on the compose file\nDocker service profiles kind of work for situations where you need to activate/deactivate specific services for testing or deployment, but it does not unify the configuration for testing and deployment.\nDocker docs indicate you can use yaml anchors to separate the release target from the running target\nWe can use the tjbots service in docker compose for both building in dev and production because we can specify both the build and image arguments.\nSuccesfully implemented!",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Continuous Integration / Deployment"
     ]
   },
   {

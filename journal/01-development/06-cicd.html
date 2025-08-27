@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>vibe_coding – TJBots</title>
+<title>cicd – TJBots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../journal/02-bots_playground/index.html">Journal</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/01-devcontainer.html">Development Process</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/04-vibe_coding.html">Vibe Coding</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../journal/02-bots_playground/index.html">Journal</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/01-devcontainer.html">Development Process</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/06-cicd.html">Continuous Integration / Deployment</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -221,7 +221,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/04-vibe_coding.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../journal/01-development/04-vibe_coding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vibe Coding</span></a>
   </div>
 </li>
@@ -233,7 +233,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/06-cicd.html" class="sidebar-item-text sidebar-link">
+  <a href="../../journal/01-development/06-cicd.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Continuous Integration / Deployment</span></a>
   </div>
 </li>
@@ -268,75 +268,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#vibe-coding" id="toc-vibe-coding" class="nav-link active" data-scroll-target="#vibe-coding">Vibe Coding</a>
+  <li><a href="#continuous-integration-deployment" id="toc-continuous-integration-deployment" class="nav-link active" data-scroll-target="#continuous-integration-deployment">Continuous Integration / Deployment</a>
   <ul class="collapse">
-  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
-  <li><a href="#process" id="toc-process" class="nav-link" data-scroll-target="#process">Process</a></li>
-  <li><a href="#claude-code" id="toc-claude-code" class="nav-link" data-scroll-target="#claude-code">Claude Code</a></li>
-  <li><a href="#copilot-coding-agent" id="toc-copilot-coding-agent" class="nav-link" data-scroll-target="#copilot-coding-agent">Copilot Coding Agent</a></li>
-  <li><a href="#copilot" id="toc-copilot" class="nav-link" data-scroll-target="#copilot">Copilot</a></li>
+  <li><a href="#unifying-docker-compose-for-testing-and-deployment" id="toc-unifying-docker-compose-for-testing-and-deployment" class="nav-link" data-scroll-target="#unifying-docker-compose-for-testing-and-deployment">Unifying docker compose for testing and deployment</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../journal/02-bots_playground/index.html">Journal</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/01-devcontainer.html">Development Process</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/04-vibe_coding.html">Vibe Coding</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../journal/02-bots_playground/index.html">Journal</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/01-devcontainer.html">Development Process</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/06-cicd.html">Continuous Integration / Deployment</a></li></ol></nav></header>
 
 
 
 
-<section id="vibe-coding" class="level1">
-<h1>Vibe Coding</h1>
-<p>I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.</p>
-<section id="models" class="level2">
-<h2 class="anchored" data-anchor-id="models">Models</h2>
+<section id="continuous-integration-deployment" class="level1">
+<h1>Continuous Integration / Deployment</h1>
+<section id="unifying-docker-compose-for-testing-and-deployment" class="level2">
+<h2 class="anchored" data-anchor-id="unifying-docker-compose-for-testing-and-deployment">Unifying docker compose for testing and deployment</h2>
 <ul>
-<li>Claude Sonnet 4 has been the most successful for me
-<ul>
-<li>my observation is that it takes the time to give itself context through looking at docstrings or verifying structures</li>
-</ul></li>
-<li>Gemini Pro 2.5 has not been great
-<ul>
-<li>worst was hallucinating packages that don’t exist</li>
-</ul></li>
-</ul>
-</section>
-<section id="process" class="level2">
-<h2 class="anchored" data-anchor-id="process">Process</h2>
-<ul>
-<li>How much do I delegate to the agent?
-<ul>
-<li>Implementing a feature standalone - haven’t tried yet</li>
-<li>Implementing a small sub-task within the feature - this is the most successful</li>
-</ul></li>
-<li><code>#fetch</code> to point the model to relevant documentation pages has been useful</li>
-</ul>
-</section>
-<section id="claude-code" class="level2">
-<h2 class="anchored" data-anchor-id="claude-code">Claude Code</h2>
-<ul>
-<li>I also added claude code since I have the subscription.</li>
-<li>It’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.</li>
-<li>One where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.</li>
-<li>Runs in the terminal and has some integration with VS code to run it in a dedicated terminal instance</li>
-<li>A lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.</li>
-<li>Very good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.</li>
-<li>Not very integrated in the IDE so can’t take advantage of those.</li>
-</ul>
-</section>
-<section id="copilot-coding-agent" class="level2">
-<h2 class="anchored" data-anchor-id="copilot-coding-agent">Copilot Coding Agent</h2>
-<ul>
-<li>A simple task like adding uv pre-commit hooks was good but it still kind of did too much.</li>
-<li>GitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.</li>
-</ul>
-</section>
-<section id="copilot" class="level2">
-<h2 class="anchored" data-anchor-id="copilot">Copilot</h2>
-<ul>
-<li>Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)</li>
-<li>Has very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI</li>
-<li>Copilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results</li>
+<li>Currently we have the <code>docker-compose.yml</code> file in <code>tests/</code> and an unused one in <code>build/</code>.</li>
+<li>First we want the docker-build target to be based on the compose file</li>
+<li>Docker service profiles kind of work for situations where you need to activate/deactivate specific services for testing or deployment, but it does not unify the configuration for testing and deployment.</li>
+<li><a href="https://docs.docker.com/build/bake/compose-file/">Docker docs</a> indicate you can use yaml anchors to separate the release target from the running target</li>
+<li>We can use the <code>tjbots</code> service in docker compose for both building in dev and production because we can specify both the <code>build</code> and <code>image</code> arguments.</li>
+<li>Succesfully implemented!</li>
 </ul>
 
 
