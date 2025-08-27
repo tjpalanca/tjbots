@@ -1,5 +1,5 @@
-name: "tjbots-setup"
-description: "Reusable setup action for TJBots workflows: setup Python, install uv, cache playwright, install deps"
+name: TJBots Python Setup
+description: "setup Python, install uv, cache playwright, install deps"
 inputs:
   python-version:
     description: 'Python version to set up'
