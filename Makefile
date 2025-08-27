@@ -66,18 +66,22 @@ docker-down:
 docker-bash: 
 	$(DOCKER_COMPOSE) exec $(NAME) /bin/bash
 
+# Building
+
 DOCKER_BUILD_ENV := \
 	$(DOCKER_COMPOSE_ENV) \
 	REPO_URL=$(REPO_URL) \
 	LICENSE=$(LICENSE) 
-
-docker-build-test:
+DOCKER_BUILD_COMMAND := \
+	cd build && \
 	$(DOCKER_BUILD_ENV) \
-	docker buildx bake -f build/docker-compose.yml
+	docker buildx bake --allow=fs.read=..
 
-docker-build-publish:
-	$(DOCKER_BUILD_ENV) \
-	docker buildx bake --push -f build/docker-compose.yml
+build-test:
+	$(DOCKER_BUILD_COMMAND)
+
+build-publish:
+	$(DOCKER_BUILD_COMMAND) --push
 
 # Testing
 

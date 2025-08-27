@@ -15,7 +15,7 @@ on:
 name: Publish TJBots
 
 jobs:
-  
+
   build-publish:
     name: Publish TJBots image to GitHub Container Registry 
     runs-on: ubuntu-latest
@@ -26,5 +26,5 @@ jobs:
       - name: TJBots build setup
         uses: ./.github/actions/tjbots-build-setup
 
-      - name: Build and push application image
-        run: make docker-build-publish
+      - name: Build and publish application image
+        run: make build-publish

@@ -38,5 +38,5 @@ jobs:
       - name: TJBots build setup
         uses: ./.github/actions/tjbots-build-setup
 
-      - name: Run build test
-        run: make docker-build-test
+      - name: Test building the image
+        run: make build-test
