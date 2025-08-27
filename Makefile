@@ -38,17 +38,16 @@ deps:
 
 # Docker
 
-DOCKER_IMG=ghcr.io/tjpalanca/tjbots
-DOCKER_COMPOSE := \
-	REPO_URL=$(REPO_URL) \
-	LICENSE=$(LICENSE) \
-	VERSION=$(VERSION) \
-	DOCKER_IMG=$(DOCKER_IMG) \
+DOCKER_COMPOSE_ENV := \
 	DOCKER_NAME=$(NAME) \
 	SECRETS_FILE=$(SECRETS_FILE) \
+	VERSION=$(VERSION) \
+	DOCKER_IMG=ghcr.io/tjpalanca/tjbots
+
+DOCKER_COMPOSE := \
+	$(DOCKER_COMPOSE_ENV) \
 	docker compose -f build/docker-compose.yml
 
-# Keep legacy targets for backward compatibility
 docker-build: 
 	$(DOCKER_COMPOSE) build
 
@@ -67,17 +66,18 @@ docker-down:
 docker-bash: 
 	$(DOCKER_COMPOSE) exec $(NAME) /bin/bash
 
-docker-publish:
-	docker buildx build \
-		--file build/Dockerfile \
-		--platform $(PLATFORM) \
-		--label "org.opencontainers.image.source=$(REPO_URL)" \
-		--label "org.opencontainers.image.licenses=$(LICENSE)" \
-		--tag $(DOCKER_IMG):$(VERSION) \
-		--tag $(DOCKER_IMG):latest \
-		--cache-to=type=registry,ref=$(DOCKER_IMG):cache,mode=max \
-		--cache-from=type=registry,ref=$(DOCKER_IMG):cache \
-		--push . 
+DOCKER_BUILD_ENV := \
+	$(DOCKER_COMPOSE_ENV) \
+	REPO_URL=$(REPO_URL) \
+	LICENSE=$(LICENSE) 
+
+docker-build-test:
+	$(DOCKER_BUILD_ENV) \
+	docker buildx bake -f build/docker-compose.yml
+
+docker-build-publish:
+	$(DOCKER_BUILD_ENV) \
+	docker buildx bake --push -f build/docker-compose.yml
 
 # Testing
 

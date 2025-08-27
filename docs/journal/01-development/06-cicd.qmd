@@ -1,0 +1,8 @@
+# Continuous Integration / Deployment
+
+## Unifying docker compmose for testing and deployment 
+
+- Currently we have the `docker-compose.yml` file in `tests/` and an unused one in `build/`.
+- First we want the docker-build target to be based on the compose file
+- Docker service profiles kind of work for situations where you need to activate/deactivate specific services for testing or deployment, but it does not unify the configuration for testing and deployment.
+- [Docker docs](https://docs.docker.com/build/bake/compose-file/) indicate you can use yaml anchors to separate the release target from the running target
