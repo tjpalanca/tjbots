@@ -7,8 +7,8 @@ services:
       dockerfile: build/Dockerfile
     volumes:
       - type: bind
-        source: ${SECRETS_FILE}
-        target: ${SECRETS_FILE}
+        source: ${SECRETS_FILE-/run/secrets/tjbots.env}
+        target: /run/secrets/tjbots.env
     ports:
       - "8080:8080"
   tjbots-release:
