@@ -37,6 +37,10 @@ jobs:
 
       - name: TJBots build setup
         uses: ./.github/actions/tjbots-build-setup
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test building the image
+        env:
+            CACHE: cache-staging
         run: make build-test

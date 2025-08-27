@@ -1,5 +1,9 @@
 name: TJBots Build Setup
 description: "setup Docker build environment with QEMU, Buildx, and GitHub Container Registry login"
+inputs:
+  github-token:
+    description: 'GitHub token for container registry authentication'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -8,7 +12,7 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ github.token }}
+        password: ${{ inputs.github-token }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
