@@ -4,6 +4,7 @@ from chatlas import ChatAnthropic
 from shiny import App, Inputs, Outputs, Session, ui
 
 from tjbots.config import PackageConfig
+from tjbots.app.ui import create_pwa_head_content, create_sidebar, create_tjbots_icon
 
 config = PackageConfig()
 
@@ -13,40 +14,11 @@ assets_dir = app_dir.parent.parent.parent / "assets"
 
 
 def app_ui(_):
-    tjbots_icon = ui.img(style="background-color: white;", src="assets/logo/tjbots.svg")
+    tjbots_icon = create_tjbots_icon()
     return ui.page_sidebar(
-        ui.sidebar(ui.input_dark_mode(), open="closed"),
+        create_sidebar(),
         # Progressive Web App
-        ui.head_content(
-            ui.tags.link(rel="stylesheet", href="custom.css"),
-            ui.tags.link(rel="manifest", href="manifest.json"),
-            ui.tags.link(
-                rel="icon",
-                type="image/svg+xml",
-                size="any",
-                href="assets/logo/tjbots.svg",
-            ),
-            ui.tags.link(
-                rel="shortcut icon",
-                type="image/svg+xml",
-                size="any",
-                href="assets/logo/tjbots.svg",
-            ),
-            ui.tags.link(rel="apple-touch-icon", href="assets/logo/tjbots.png"),
-            ui.tags.meta(
-                name="viewport",
-                content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
-            ),
-            ui.tags.meta(name="mobile-web-app-capable", content="yes"),
-            ui.tags.meta(
-                name="apple-mobile-web-app-status-bar-style", content="default"
-            ),
-            ui.tags.script("""
-        $(document).on('shiny:connected', function() {
-            if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;
-        });
-        """),
-        ),
+        create_pwa_head_content(),
         # Chat Contents
         ui.chat_ui(id="chat", icon_assistant=tjbots_icon),
         # Other Settings
