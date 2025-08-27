@@ -6,3 +6,4 @@
 - First we want the docker-build target to be based on the compose file
 - Docker service profiles kind of work for situations where you need to activate/deactivate specific services for testing or deployment, but it does not unify the configuration for testing and deployment.
 - [Docker docs](https://docs.docker.com/build/bake/compose-file/) indicate you can use yaml anchors to separate the release target from the running target
+- We can use the `tjbots` service in docker compose for both building in dev and production because we can specify both the `build` and `image` arguments. 

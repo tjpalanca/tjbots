@@ -3,23 +3,40 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/tjbots-test.yml"
+      - ".github/actions/tjbots-*-setup/**"
       - "src/**"
-      - "tests/**"
+      - "assets/**"
+      - "build/**"
       - "pyproject.toml"
       - "uv.lock"
+      - "Makefile"
 
 name: Test TJBots
 
 jobs:
-  test:
-    name: Run tests with pytest
+
+  python-test:
+    name: Run python tests with pytest
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: TJBots setup
-        uses: ./.github/actions/tjbots-setup
+      - name: TJBots python setup
+        uses: ./.github/actions/tjbots-python-setup
 
       - name: Run tests
         run: make test
+
+  build-test: 
+    name: Run build test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: TJBots build setup
+        uses: ./.github/actions/tjbots-build-setup
+
+      - name: Run build test
+        run: make docker-build-test
