@@ -4,7 +4,7 @@ from chatlas import ChatAnthropic
 from shiny import App, Inputs, Outputs, Session, ui
 
 from tjbots.config import PackageConfig
-from tjbots.app.ui import create_pwa_head_content, create_sidebar, create_tjbots_icon
+from tjbots.app.ui import pwa_head_content, sidebar, tjbots_icon
 
 config = PackageConfig()
 
@@ -14,13 +14,21 @@ assets_dir = app_dir.parent.parent.parent / "assets"
 
 
 def app_ui(_):
-    tjbots_icon = create_tjbots_icon()
+    tjbots_icon_component = tjbots_icon()
     return ui.page_sidebar(
-        create_sidebar(),
+        sidebar(),
         # Progressive Web App
-        create_pwa_head_content(),
+        pwa_head_content(),
+        # Reconnection script
+        ui.head_content(
+            ui.tags.script("""
+        $(document).on('shiny:connected', function() {
+            if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;
+        });
+        """)
+        ),
         # Chat Contents
-        ui.chat_ui(id="chat", icon_assistant=tjbots_icon),
+        ui.chat_ui(id="chat", icon_assistant=tjbots_icon_component),
         # Other Settings
         window_title="TJBots",
         fillable=True,

@@ -8,7 +8,7 @@ including Progressive Web App configuration, branding, and layout components.
 from shiny import ui
 
 
-def create_tjbots_icon():
+def tjbots_icon():
     """Create the TJBots logo component.
     
     Returns:
@@ -17,11 +17,11 @@ def create_tjbots_icon():
     return ui.img(style="background-color: white;", src="assets/logo/tjbots.svg")
 
 
-def create_pwa_head_content():
+def pwa_head_content():
     """Create Progressive Web App head content configuration.
     
     Returns:
-        ui.head_content: Head content with PWA meta tags, links, and scripts
+        ui.head_content: Head content with PWA meta tags and links
     """
     return ui.head_content(
         ui.tags.link(rel="stylesheet", href="custom.css"),
@@ -47,15 +47,10 @@ def create_pwa_head_content():
         ui.tags.meta(
             name="apple-mobile-web-app-status-bar-style", content="default"
         ),
-        ui.tags.script("""
-        $(document).on('shiny:connected', function() {
-            if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;
-        });
-        """),
     )
 
 
-def create_sidebar():
+def sidebar():
     """Create the sidebar component with dark mode toggle.
     
     Returns:
