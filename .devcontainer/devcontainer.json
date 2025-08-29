@@ -6,7 +6,6 @@
         "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {},
         "ghcr.io/devcontainers/features/docker-in-docker:2": {},
         "ghcr.io/itsmechlark/features/1password:1": {},
-        "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
     },
     "mounts": [
@@ -39,10 +38,7 @@
                 "tamasfe.even-better-toml",
                 "github.vscode-github-actions",
                 "-ms-python.autopep8",
-                "-ms-toolsai.vscode-jupyter-cell-tags",
-                "-ms-toolsai.jupyter-keymap",
-                "-ms-azuretools.vscode-docker",
-                "-1Password.op-vscode"
+                "-ms-azuretools.vscode-docker"
             ],
             "settings": {
                 // Fix something in positron
