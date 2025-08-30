@@ -43,3 +43,6 @@ quartodoc:
         various combinations of bots, tools, and other configuration.
       contents:
         - app
+        - app.modules.pwa 
+        - app.modules.reconnect 
+
