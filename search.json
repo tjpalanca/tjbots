@@ -1,70 +1,39 @@
 [
   {
-    "objectID": "developer/pre-commit.html",
-    "href": "developer/pre-commit.html",
-    "title": "Pre-commit Hooks",
+    "objectID": "scenarios/01-grocerybot.html",
+    "href": "scenarios/01-grocerybot.html",
+    "title": "GroceryBot",
     "section": "",
-    "text": "The project now includes pre-commit hooks for code quality and consistency:\n\nRuff linter: Checks for code style issues, import sorting, and various Python best practices\nRuff formatter: Ensures consistent code formatting\n\n\n\n\nPre-commit hooks are automatically installed when running make create or you can install them manually with make pre-commit-install.\n\n\n\n# Run all hooks on all files\nmake pre-commit-run\n\n# Run only linting\nmake lint\n\n# Run only formatting  \nmake format\n\n# Run linting with auto-fix\nmake lint-fix\nThe hooks will run automatically on every commit, checking only the files you’re committing.\n\n\n\n\nRuff is configured in pyproject.toml under [tool.ruff].\nPre-commit configuration is in .pre-commit-config.yaml",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
     "crumbs": [
       "Home",
-      "Developer",
-      "Pre-commit Hooks"
+      "Scenarios",
+      "GroceryBot"
     ]
   },
   {
-    "objectID": "developer/pre-commit.html#setup",
-    "href": "developer/pre-commit.html#setup",
-    "title": "Pre-commit Hooks",
+    "objectID": "scenarios/01-grocerybot.html#motivation",
+    "href": "scenarios/01-grocerybot.html#motivation",
+    "title": "GroceryBot",
     "section": "",
-    "text": "The project now includes pre-commit hooks for code quality and consistency:\n\nRuff linter: Checks for code style issues, import sorting, and various Python best practices\nRuff formatter: Ensures consistent code formatting",
+    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
     "crumbs": [
       "Home",
-      "Developer",
-      "Pre-commit Hooks"
+      "Scenarios",
+      "GroceryBot"
     ]
   },
   {
-    "objectID": "developer/pre-commit.html#installation",
-    "href": "developer/pre-commit.html#installation",
-    "title": "Pre-commit Hooks",
-    "section": "",
-    "text": "Pre-commit hooks are automatically installed when running make create or you can install them manually with make pre-commit-install.",
+    "objectID": "scenarios/01-grocerybot.html#workflow",
+    "href": "scenarios/01-grocerybot.html#workflow",
+    "title": "GroceryBot",
+    "section": "Workflow",
+    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
     "crumbs": [
       "Home",
-      "Developer",
-      "Pre-commit Hooks"
+      "Scenarios",
+      "GroceryBot"
     ]
-  },
-  {
-    "objectID": "developer/pre-commit.html#usage",
-    "href": "developer/pre-commit.html#usage",
-    "title": "Pre-commit Hooks",
-    "section": "",
-    "text": "# Run all hooks on all files\nmake pre-commit-run\n\n# Run only linting\nmake lint\n\n# Run only formatting  \nmake format\n\n# Run linting with auto-fix\nmake lint-fix\nThe hooks will run automatically on every commit, checking only the files you’re committing.",
-    "crumbs": [
-      "Home",
-      "Developer",
-      "Pre-commit Hooks"
-    ]
-  },
-  {
-    "objectID": "developer/pre-commit.html#configuration",
-    "href": "developer/pre-commit.html#configuration",
-    "title": "Pre-commit Hooks",
-    "section": "",
-    "text": "Ruff is configured in pyproject.toml under [tool.ruff].\nPre-commit configuration is in .pre-commit-config.yaml",
-    "crumbs": [
-      "Home",
-      "Developer",
-      "Pre-commit Hooks"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/index.html",
-    "href": "journal/01-development/index.html",
-    "title": "Development Process",
-    "section": "",
-    "text": "Development Process\n\n\n\n\nReuseCC BY 4.0"
   },
   {
     "objectID": "journal/01-development/03-testing.html",
@@ -91,6 +60,13 @@
       "Development Process",
       "Testing"
     ]
+  },
+  {
+    "objectID": "journal/01-development/index.html",
+    "href": "journal/01-development/index.html",
+    "title": "Development Process",
+    "section": "",
+    "text": "Development Process\n\n\n\n\nReuseCC BY 4.0"
   },
   {
     "objectID": "journal/01-development/01-devcontainer.html",
@@ -171,81 +147,81 @@
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html",
-    "href": "journal/01-development/04-vibe_coding.html",
-    "title": "Vibe Coding",
+    "objectID": "journal/01-development/05-github_copilot_agents.html",
+    "href": "journal/01-development/05-github_copilot_agents.html",
+    "title": "GitHub Copilot Agents",
     "section": "",
-    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.\n\n\n\n\n\nA simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.\n\n\n\n\n\nBetter value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
+    "text": "The workflow is similar to how you would interact with a human developer (jokes, banter, and off-topic Slack conversations aside):\n\nCreate an issue, this should contain a lot more context because that’s the prompt to the agent essentially.\nAssign Copilot the issue and they will raise the pull request.\nMake comments, do reviews, and then eventually get the PR merged. You can even add in some commits of your own.\n\nEach request only uses 1 premium request, so it’s pretty good value actually.\n\n\nGitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.\n\n\n\n\nSandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.\n\n\n\n\n\nOnly 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners\n\n\n\n\n\nBasically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).\n\n\n\n\n\nAdjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
     "crumbs": [
       "Home",
       "Journal",
       "Development Process",
-      "Vibe Coding"
+      "GitHub Copilot Agents"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#models",
-    "href": "journal/01-development/04-vibe_coding.html#models",
-    "title": "Vibe Coding",
+    "objectID": "journal/01-development/05-github_copilot_agents.html#use-cases",
+    "href": "journal/01-development/05-github_copilot_agents.html#use-cases",
+    "title": "GitHub Copilot Agents",
     "section": "",
-    "text": "Claude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist",
+    "text": "GitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.",
     "crumbs": [
       "Home",
       "Journal",
       "Development Process",
-      "Vibe Coding"
+      "GitHub Copilot Agents"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#process",
-    "href": "journal/01-development/04-vibe_coding.html#process",
-    "title": "Vibe Coding",
+    "objectID": "journal/01-development/05-github_copilot_agents.html#security",
+    "href": "journal/01-development/05-github_copilot_agents.html#security",
+    "title": "GitHub Copilot Agents",
     "section": "",
-    "text": "How much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful",
+    "text": "Sandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.",
     "crumbs": [
       "Home",
       "Journal",
       "Development Process",
-      "Vibe Coding"
+      "GitHub Copilot Agents"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#claude-code",
-    "href": "journal/01-development/04-vibe_coding.html#claude-code",
-    "title": "Vibe Coding",
+    "objectID": "journal/01-development/05-github_copilot_agents.html#limitations",
+    "href": "journal/01-development/05-github_copilot_agents.html#limitations",
+    "title": "GitHub Copilot Agents",
     "section": "",
-    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.",
+    "text": "Only 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners",
     "crumbs": [
       "Home",
       "Journal",
       "Development Process",
-      "Vibe Coding"
+      "GitHub Copilot Agents"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
-    "href": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
-    "title": "Vibe Coding",
+    "objectID": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
+    "href": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
+    "title": "GitHub Copilot Agents",
     "section": "",
-    "text": "A simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.",
+    "text": "Basically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).",
     "crumbs": [
       "Home",
       "Journal",
       "Development Process",
-      "Vibe Coding"
+      "GitHub Copilot Agents"
     ]
   },
   {
-    "objectID": "journal/01-development/04-vibe_coding.html#copilot",
-    "href": "journal/01-development/04-vibe_coding.html#copilot",
-    "title": "Vibe Coding",
+    "objectID": "journal/01-development/05-github_copilot_agents.html#customizations",
+    "href": "journal/01-development/05-github_copilot_agents.html#customizations",
+    "title": "GitHub Copilot Agents",
     "section": "",
-    "text": "Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
+    "text": "Adjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
     "crumbs": [
       "Home",
       "Journal",
       "Development Process",
-      "Vibe Coding"
+      "GitHub Copilot Agents"
     ]
   },
   {
@@ -349,6 +325,18 @@
     ]
   },
   {
+    "objectID": "reference/app.html",
+    "href": "reference/app.html",
+    "title": "app",
+    "section": "",
+    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app"
+    ]
+  },
+  {
     "objectID": "reference/index.html",
     "href": "reference/index.html",
     "title": "Reference",
@@ -371,77 +359,63 @@
     ]
   },
   {
-    "objectID": "reference/app.html",
-    "href": "reference/app.html",
-    "title": "app",
+    "objectID": "developer/pre-commit.html",
+    "href": "developer/pre-commit.html",
+    "title": "Pre-commit Hooks",
     "section": "",
-    "text": "app\napp\nBots Shiny Application\nTest harness for configuring and testing various bot and tool combinations.\n\n\n\n\nReuseCC BY 4.0",
+    "text": "The project now includes pre-commit hooks for code quality and consistency:\n\nRuff linter: Checks for code style issues, import sorting, and various Python best practices\nRuff formatter: Ensures consistent code formatting\n\n\n\n\nPre-commit hooks are automatically installed when running make create or you can install them manually with make pre-commit-install.\n\n\n\n# Run all hooks on all files\nmake pre-commit-run\n\n# Run only linting\nmake lint\n\n# Run only formatting  \nmake format\n\n# Run linting with auto-fix\nmake lint-fix\nThe hooks will run automatically on every commit, checking only the files you’re committing.\n\n\n\n\nRuff is configured in pyproject.toml under [tool.ruff].\nPre-commit configuration is in .pre-commit-config.yaml",
     "crumbs": [
       "Home",
-      "Reference",
-      "app"
+      "Developer",
+      "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "scenarios/01-grocerybot.html",
-    "href": "scenarios/01-grocerybot.html",
-    "title": "GroceryBot",
+    "objectID": "developer/pre-commit.html#setup",
+    "href": "developer/pre-commit.html#setup",
+    "title": "Pre-commit Hooks",
     "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "text": "The project now includes pre-commit hooks for code quality and consistency:\n\nRuff linter: Checks for code style issues, import sorting, and various Python best practices\nRuff formatter: Ensures consistent code formatting",
     "crumbs": [
       "Home",
-      "Scenarios",
-      "GroceryBot"
+      "Developer",
+      "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "scenarios/01-grocerybot.html#motivation",
-    "href": "scenarios/01-grocerybot.html#motivation",
-    "title": "GroceryBot",
+    "objectID": "developer/pre-commit.html#installation",
+    "href": "developer/pre-commit.html#installation",
+    "title": "Pre-commit Hooks",
     "section": "",
-    "text": "Lots of time spent looking at different websites (FairPrice, Cold Storage, Foodpanda, etc.) to look for the same item at different prices (and different SKUs)\nSave time, and do so while chatting away with GroceryBot.",
+    "text": "Pre-commit hooks are automatically installed when running make create or you can install them manually with make pre-commit-install.",
     "crumbs": [
       "Home",
-      "Scenarios",
-      "GroceryBot"
+      "Developer",
+      "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "scenarios/01-grocerybot.html#workflow",
-    "href": "scenarios/01-grocerybot.html#workflow",
-    "title": "GroceryBot",
-    "section": "Workflow",
-    "text": "Workflow\n\nSpecify the item, and ask any questions\nWhen you c",
+    "objectID": "developer/pre-commit.html#usage",
+    "href": "developer/pre-commit.html#usage",
+    "title": "Pre-commit Hooks",
+    "section": "",
+    "text": "# Run all hooks on all files\nmake pre-commit-run\n\n# Run only linting\nmake lint\n\n# Run only formatting  \nmake format\n\n# Run linting with auto-fix\nmake lint-fix\nThe hooks will run automatically on every commit, checking only the files you’re committing.",
     "crumbs": [
       "Home",
-      "Scenarios",
-      "GroceryBot"
+      "Developer",
+      "Pre-commit Hooks"
     ]
   },
   {
-    "objectID": "journal/02-bots_playground/01-pwa.html",
-    "href": "journal/02-bots_playground/01-pwa.html",
-    "title": "Progressive Web App",
+    "objectID": "developer/pre-commit.html#configuration",
+    "href": "developer/pre-commit.html#configuration",
+    "title": "Pre-commit Hooks",
     "section": "",
-    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
+    "text": "Ruff is configured in pyproject.toml under [tool.ruff].\nPre-commit configuration is in .pre-commit-config.yaml",
     "crumbs": [
       "Home",
-      "Journal",
-      "Bots Playground",
-      "Progressive Web App"
-    ]
-  },
-  {
-    "objectID": "journal/02-bots_playground/01-pwa.html#enhancements",
-    "href": "journal/02-bots_playground/01-pwa.html#enhancements",
-    "title": "Progressive Web App",
-    "section": "",
-    "text": "Docs\n\n\n\nDocs",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Bots Playground",
-      "Progressive Web App"
+      "Developer",
+      "Pre-commit Hooks"
     ]
   },
   {
@@ -471,6 +445,110 @@
     ]
   },
   {
+    "objectID": "journal/02-bots_playground/01-pwa.html",
+    "href": "journal/02-bots_playground/01-pwa.html",
+    "title": "Progressive Web App",
+    "section": "",
+    "text": "Enable this by creating a manifest.json and linking to it with a &lt;link rel=\"manifest\"&gt; tag.\nAdd to home screen on iOS works, but the icon is not displayed.\n\nWe needed to add the apple-touch-icon link to a PNG file, as it does not accept SVG files.\n\nThe interface should not be pinch-to-zoomable when added to the home screen.\n\nAdd this meta tag to disable pinch to zoom so it doesn’t create problems with the theme.\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover\"/&gt;\nDisabling overscroll worked\nhtml {\n    overscroll-behavior: none;\n}\n\nbody {\n    overflow-y: scroll;\n}\n\nThe sidebar should display during swipe events.\n\nI think this requires some custom mobile framework like Framework7 and would likely be an overoptimisation if ever.\n\n\n\n\n\n\nDocs\n\n\n\nDocs",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Progressive Web App"
+    ]
+  },
+  {
+    "objectID": "journal/02-bots_playground/01-pwa.html#enhancements",
+    "href": "journal/02-bots_playground/01-pwa.html#enhancements",
+    "title": "Progressive Web App",
+    "section": "",
+    "text": "Docs\n\n\n\nDocs",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Bots Playground",
+      "Progressive Web App"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html",
+    "href": "journal/01-development/04-vibe_coding.html",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "I decided to maximise the use of GitHub Copilot for this project. I want to understand how to practically boost my productivity as a developer and analyst from first principles.\n\n\n\nClaude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist\n\n\n\n\n\n\nHow much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful\n\n\n\n\n\nI also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.\n\n\n\n\n\nA simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.\n\n\n\n\n\nBetter value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#models",
+    "href": "journal/01-development/04-vibe_coding.html#models",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "Claude Sonnet 4 has been the most successful for me\n\nmy observation is that it takes the time to give itself context through looking at docstrings or verifying structures\n\nGemini Pro 2.5 has not been great\n\nworst was hallucinating packages that don’t exist",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#process",
+    "href": "journal/01-development/04-vibe_coding.html#process",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "How much do I delegate to the agent?\n\nImplementing a feature standalone - haven’t tried yet\nImplementing a small sub-task within the feature - this is the most successful\n\n#fetch to point the model to relevant documentation pages has been useful",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#claude-code",
+    "href": "journal/01-development/04-vibe_coding.html#claude-code",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "I also added claude code since I have the subscription.\nIt’s oddly charming? The fact that it’s in my terminal is quite cute and the VS code integration works well.\nOne where Copilot was better - I was asking about something in my github actions workflow and copilot fetched that, whereas claude code could not interact with the extensions in VS Code.\nRuns in the terminal and has some integration with VS code to run it in a dedicated terminal instance\nA lot more step by step rather than cursor or copilot that make a lot of edits at once - definitely more ergonomic if you’re just trying to automate some typing of a very straightforward task where you know how to engineer it.\nVery good at picking up context automatically. Copilot and claude I had to use a lot of file references to make sure it picked up the right files, claude code picked them up as necessary.\nNot very integrated in the IDE so can’t take advantage of those.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
+    "href": "journal/01-development/04-vibe_coding.html#copilot-coding-agent",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "A simple task like adding uv pre-commit hooks was good but it still kind of did too much.\nGitHub has some docs about giving it even more context and setting up its environment. I struggled with Codex.",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Vibe Coding"
+    ]
+  },
+  {
+    "objectID": "journal/01-development/04-vibe_coding.html#copilot",
+    "href": "journal/01-development/04-vibe_coding.html#copilot",
+    "title": "Vibe Coding",
+    "section": "",
+    "text": "Better value than cursor for the same amount of API calls (quality is on par as long as we use the Anthropic models with a bit less “you’re absolutely right”)\nHas very deep integration with GitHub through the tools that VS code provides: one example is that it printed out the logs from GitHub Actions CI to diagnose an issue that only happens in CI\nCopilot coding agent can run a github action to set up its environment, and you can interact with it through PR reviews and comments - greatly improves the autonomous online only results",
+    "crumbs": [
+      "Home",
+      "Journal",
+      "Development Process",
+      "Vibe Coding"
+    ]
+  },
+  {
     "objectID": "journal/01-development/06-cicd.html",
     "href": "journal/01-development/06-cicd.html",
     "title": "Continuous Integration / Deployment",
@@ -494,84 +572,6 @@
       "Journal",
       "Development Process",
       "Continuous Integration / Deployment"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/05-github_copilot_agents.html",
-    "href": "journal/01-development/05-github_copilot_agents.html",
-    "title": "GitHub Copilot Agents",
-    "section": "",
-    "text": "The workflow is similar to how you would interact with a human developer (jokes, banter, and off-topic Slack conversations aside):\n\nCreate an issue, this should contain a lot more context because that’s the prompt to the agent essentially.\nAssign Copilot the issue and they will raise the pull request.\nMake comments, do reviews, and then eventually get the PR merged. You can even add in some commits of your own.\n\nEach request only uses 1 premium request, so it’s pretty good value actually.\n\n\nGitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.\n\n\n\n\nSandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.\n\n\n\n\n\nOnly 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners\n\n\n\n\n\nBasically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).\n\n\n\n\n\nAdjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Development Process",
-      "GitHub Copilot Agents"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#use-cases",
-    "href": "journal/01-development/05-github_copilot_agents.html#use-cases",
-    "title": "GitHub Copilot Agents",
-    "section": "",
-    "text": "GitHub are pretty clear that it should be for straightforward issues on the backlog. Nice to haves, documentation, and other small updates. Code refactors and adding logging are also some things that can be delegated to the coding agent.\nThe whole idea is to parallelize yourself and offload these simpler tasks to the agent, freeing you up to focus on more complex and high-value work.",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Development Process",
-      "GitHub Copilot Agents"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#security",
-    "href": "journal/01-development/05-github_copilot_agents.html#security",
-    "title": "GitHub Copilot Agents",
-    "section": "",
-    "text": "Sandboxed environment\nDoesn’t have access to all branches\nOnly responds to users with write permissions\nIt’s an outside collaborator so GitHub Actions only run with approval, can’t mark pull requests as ready for review, cannot approve or merge PRs.\nTagged to the developer who assigned the issue, so they can’t approve the same PR that Copilot Agent raised.\nGitHub has a firewall that is primarily for avoiding exfiltration due to malicious input.\nGitHub also filters out HTML comments in issues to avoid invisible text from being added to the prompt.",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Development Process",
-      "GitHub Copilot Agents"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#limitations",
-    "href": "journal/01-development/05-github_copilot_agents.html#limitations",
-    "title": "GitHub Copilot Agents",
-    "section": "",
-    "text": "Only 1 PR and 1 repository at a time, and cannot join existing PRs.\nNo commit signing\nDoes not work with self-hosted GitHub Actions runners",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Development Process",
-      "GitHub Copilot Agents"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
-    "href": "journal/01-development/05-github_copilot_agents.html#mcp-servers-for-the-coding-agent",
-    "title": "GitHub Copilot Agents",
-    "section": "",
-    "text": "Basically equips the agent with tools.\nBy default, they have access to the GitHub and Playwright (primarily for testing apps on localhost, not for browsing the web).",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Development Process",
-      "GitHub Copilot Agents"
-    ]
-  },
-  {
-    "objectID": "journal/01-development/05-github_copilot_agents.html#customizations",
-    "href": "journal/01-development/05-github_copilot_agents.html#customizations",
-    "title": "GitHub Copilot Agents",
-    "section": "",
-    "text": "Adjust the firewall to allow the coding agent to access web resources.\nPre-install environment\n\nCopilot can figure it out through trial and error but it can be done\nNo sign of supporting devcontainers\n\nAdd secrets or env vars\n\nAdd a github actions variable in the copilot environment",
-    "crumbs": [
-      "Home",
-      "Journal",
-      "Development Process",
-      "GitHub Copilot Agents"
     ]
   },
   {
