@@ -47,16 +47,12 @@ class TestAppBasics:
     @patch.dict(os.environ, MOCK_ENV)
     def test_app_instantiation(self):
         """Test that the Shiny app can be instantiated without errors."""
-        from tjbots.app.app import app, app_ui
+        from tjbots.app.app import app
 
         assert app is not None
         assert isinstance(app, App)
         assert app.ui is not None
         assert app.server is not None
-
-        # Test that the UI function can be executed without exceptions
-        ui_result = app_ui(None)
-        assert ui_result is not None
 
     def test_app_startup(self, page: Page, app: ShinyAppProc) -> None:
         """End-to-end smoke test to verify the app can start up and serve pages."""

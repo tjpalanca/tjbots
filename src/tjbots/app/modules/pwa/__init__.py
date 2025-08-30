@@ -105,5 +105,4 @@ def pwa_ui(
         ui.tags.meta(name="mobile-web-app-capable", content="yes"),
         ui.tags.meta(name="apple-mobile-web-app-status-bar-style", content=status_bar),
     )
-    pwa_ui._hrefs: dict[str, str] = {"svg_logo_href": svg_logo_href}
     return pwa_ui
