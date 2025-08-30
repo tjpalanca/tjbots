@@ -1,4 +1,4 @@
-name: TJBots Build Setup
+name: Setup docker
 description: "setup Docker build environment with QEMU, Buildx, and GitHub Container Registry login"
 inputs:
   github-token:

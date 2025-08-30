@@ -1,4 +1,4 @@
-name: TJBots Python Setup
+name: Setup Python
 description: "setup Python, install uv, cache playwright, install deps"
 inputs:
   python-version:

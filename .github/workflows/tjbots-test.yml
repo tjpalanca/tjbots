@@ -3,7 +3,8 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/tjbots-test.yml"
-      - ".github/actions/tjbots-*-setup/**"
+      - ".github/actions/setup-python/**"
+      - ".github/actions/setup-docker/**"
       - "src/**"
       - "assets/**"
       - "build/**"
@@ -22,8 +23,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: TJBots python setup
-        uses: ./.github/actions/tjbots-python-setup
+      - name: Setup python environment
+        uses: ./.github/actions/setup-python
 
       - name: Run tests
         run: make test
@@ -35,8 +36,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: TJBots build setup
-        uses: ./.github/actions/tjbots-build-setup
+      - name: Setup docker environment
+        uses: ./.github/actions/setup-docker
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
