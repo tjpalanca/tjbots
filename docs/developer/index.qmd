@@ -1,0 +1,3 @@
+# Developing TJBots
+
+Conventions, styles, and other information you need to develop TJBots

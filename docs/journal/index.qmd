@@ -1,0 +1,3 @@
+# Developer Journal
+
+This is intended as a continuous journal of development progress for myself (and LLMs) to use when catching up on the state of the project. 

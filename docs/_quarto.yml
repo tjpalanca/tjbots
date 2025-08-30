@@ -15,10 +15,7 @@ website:
   repo-subdir: docs
   favicon: assets/logo/tjbots.svg
   navbar:
-    logo: assets/logo/tjbots.svg
-    left:
-      - href: index.qmd
-        text: Home
+    search: true
   sidebar:
     contents: auto
 
@@ -35,14 +32,17 @@ quartodoc:
   title: Reference
   package: tjbots
   parser: google
+  source_dir: ../src/tjbots
   sections:
-    - title: Bots
-      package: tjbots
+    - title: Bots Playground
+      package: tjbots.app
       desc: |-
-        This application provides a chatbot application that facilitates testing of 
-        various combinations of bots, tools, and other configuration.
+        Chatbot application that facilitates testing of various 
+        combinations of bots, tools, and other configuration.
       contents:
         - app
-        - app.modules.pwa 
-        - app.modules.reconnect 
-
+    - subtitle: Modules
+      package: tjbots.app.modules
+      contents:
+        - pwa
+        - reconnect

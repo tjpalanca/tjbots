@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 from typing import Literal
 
+from htmltools import HTMLDependency
 from shiny import module, ui
 
 module_dir = Path(__file__).parent
@@ -23,7 +24,7 @@ def pwa_ui(
     app_short_name: str | None = None,
     display: str = "standalone",
     status_bar: Literal["default", "black-translucent", "black-opaque"] = "default",
-):
+) -> HTMLDependency:
     """Set up PWA assets and return file paths for use in UI components.
 
     Creates a manifest.json and copies logo files to a static directory.
@@ -58,7 +59,6 @@ def pwa_ui(
     shutil.copy(module_dir / "pwa.css", pwa_css_path)
     pwa_css_href = str(pwa_css_path.relative_to(www_dir))
 
-    # Generate manifest.json programmatically
     manifest_data = {
         "name": app_name,
         "short_name": app_short_name if app_short_name is not None else app_name,
@@ -82,7 +82,7 @@ def pwa_ui(
         json.dump(manifest_data, f, indent=4)
     manifest_json_href = str(manifest_json_path.relative_to(www_dir))
 
-    pwa_ui = ui.head_content(
+    return ui.head_content(
         ui.tags.link(rel="stylesheet", href=pwa_css_href),
         ui.tags.link(rel="manifest", href=manifest_json_href),
         ui.tags.link(
@@ -105,4 +105,3 @@ def pwa_ui(
         ui.tags.meta(name="mobile-web-app-capable", content="yes"),
         ui.tags.meta(name="apple-mobile-web-app-status-bar-style", content=status_bar),
     )
-    return pwa_ui
