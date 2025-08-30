@@ -20,6 +20,11 @@ pwa_hrefs = pwa_setup(
     png_logo=assets_dir / "logo" / "tjbots.png",
     svg_logo=assets_dir / "logo" / "tjbots.svg",
     www_dir=www_dir,
+    app_name="TJBots",
+    start_url="https://bots.tjpalanca.com",
+    background_color="#000000",
+    theme_color="#008080",
+    description="TJ's adventures with LLMs",
 )
 
 
