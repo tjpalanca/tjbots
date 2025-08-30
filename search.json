@@ -341,7 +341,7 @@
     "href": "reference/index.html",
     "title": "Reference",
     "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application\n\n\napp.modules.pwa\nProgressive Web App (PWA) module for Shiny applications\n\n\napp.modules.reconnect\nShiny module for maintaining connections",
     "crumbs": [
       "Home",
       "Reference"
@@ -352,10 +352,58 @@
     "href": "reference/index.html#bots",
     "title": "Reference",
     "section": "",
-    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application",
+    "text": "This application provides a chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application\n\n\napp.modules.pwa\nProgressive Web App (PWA) module for Shiny applications\n\n\napp.modules.reconnect\nShiny module for maintaining connections",
     "crumbs": [
       "Home",
       "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/app.modules.pwa.html",
+    "href": "reference/app.modules.pwa.html",
+    "title": "app.modules.pwa",
+    "section": "",
+    "text": "app.modules.pwa\nProgressive Web App (PWA) module for Shiny applications\n\n\n\n\n\nName\nDescription\n\n\n\n\npwa_ui\nSet up PWA assets and return file paths for use in UI components.\n\n\n\n\n\napp.modules.pwa.pwa_ui(\n    svg_logo,\n    png_logo,\n    www_dir,\n    app_name,\n    start_url,\n    background_color,\n    theme_color,\n    description,\n    app_short_name=None,\n    display='standalone',\n    status_bar='default',\n)\nSet up PWA assets and return file paths for use in UI components.\nCreates a manifest.json and copies logo files to a static directory.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsvg_logo\nPath\nPath to SVG logo file to copy.\nrequired\n\n\npng_logo\nPath\nPath to PNG logo file to copy.\nrequired\n\n\nwww_dir\nPath\nTarget directory for web assets.\nrequired\n\n\napp_name\nstr\nName of the application for the PWA manifest.\nrequired\n\n\nstart_url\nstr\nThe URL that loads when the PWA is launched.\nrequired\n\n\nbackground_color\nstr\nBackground color for the PWA splash screen.\nrequired\n\n\ntheme_color\nstr\nTheme color for the PWA UI elements.\nrequired\n\n\ndescription\nstr\nDescription of the PWA.\nrequired\n\n\napp_short_name\nstr | None\nShort name for the PWA manifest. Defaults to app_name if not provided.\nNone\n\n\ndisplay\nstr\nDisplay mode for the PWA (standalone, fullscreen, minimal-ui, browser).\n'standalone'\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nShiny UI head content for activating the PWA",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app.modules.pwa"
+    ]
+  },
+  {
+    "objectID": "reference/app.modules.pwa.html#functions",
+    "href": "reference/app.modules.pwa.html#functions",
+    "title": "app.modules.pwa",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\npwa_ui\nSet up PWA assets and return file paths for use in UI components.\n\n\n\n\n\napp.modules.pwa.pwa_ui(\n    svg_logo,\n    png_logo,\n    www_dir,\n    app_name,\n    start_url,\n    background_color,\n    theme_color,\n    description,\n    app_short_name=None,\n    display='standalone',\n    status_bar='default',\n)\nSet up PWA assets and return file paths for use in UI components.\nCreates a manifest.json and copies logo files to a static directory.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsvg_logo\nPath\nPath to SVG logo file to copy.\nrequired\n\n\npng_logo\nPath\nPath to PNG logo file to copy.\nrequired\n\n\nwww_dir\nPath\nTarget directory for web assets.\nrequired\n\n\napp_name\nstr\nName of the application for the PWA manifest.\nrequired\n\n\nstart_url\nstr\nThe URL that loads when the PWA is launched.\nrequired\n\n\nbackground_color\nstr\nBackground color for the PWA splash screen.\nrequired\n\n\ntheme_color\nstr\nTheme color for the PWA UI elements.\nrequired\n\n\ndescription\nstr\nDescription of the PWA.\nrequired\n\n\napp_short_name\nstr | None\nShort name for the PWA manifest. Defaults to app_name if not provided.\nNone\n\n\ndisplay\nstr\nDisplay mode for the PWA (standalone, fullscreen, minimal-ui, browser).\n'standalone'\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nShiny UI head content for activating the PWA",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app.modules.pwa"
+    ]
+  },
+  {
+    "objectID": "reference/app.modules.reconnect.html",
+    "href": "reference/app.modules.reconnect.html",
+    "title": "app.modules.reconnect",
+    "section": "",
+    "text": "app.modules.reconnect\nShiny module for maintaining connections\n\n\n\n\n\nName\nDescription\n\n\n\n\nreconnect_ui\nAdd reconnection UI components\n\n\n\n\n\napp.modules.reconnect.reconnect_ui()\nAdd reconnection UI components\nThis adds a script that indicates that reconnection is enabled for this app; only available when run in a Shiny server instance.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app.modules.reconnect"
+    ]
+  },
+  {
+    "objectID": "reference/app.modules.reconnect.html#functions",
+    "href": "reference/app.modules.reconnect.html#functions",
+    "title": "app.modules.reconnect",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nreconnect_ui\nAdd reconnection UI components\n\n\n\n\n\napp.modules.reconnect.reconnect_ui()\nAdd reconnection UI components\nThis adds a script that indicates that reconnection is enabled for this app; only available when run in a Shiny server instance.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "app.modules.reconnect"
     ]
   },
   {
