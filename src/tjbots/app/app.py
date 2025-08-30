@@ -1,16 +1,25 @@
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from chatlas import ChatAnthropic
 from shiny import App, Inputs, Outputs, Session, ui
 
+from tjbots.app.modules.pwa import pwa_setup, pwa_ui
+from tjbots.app.ui import sidebar, tjbots_icon
 from tjbots.config import PackageConfig
-from tjbots.app.ui import pwa_head_content, sidebar, tjbots_icon
 
 config = PackageConfig()
 
 app_dir = Path(__file__).parent
-www_dir = app_dir / "www"
+www_tempdir = TemporaryDirectory("tjbots_app_www")
+www_dir = Path(www_tempdir.name)
 assets_dir = app_dir.parent.parent.parent / "assets"
+
+pwa_hrefs = pwa_setup(
+    png_logo=assets_dir / "logo" / "tjbots.png",
+    svg_logo=assets_dir / "logo" / "tjbots.svg",
+    www_dir=www_dir,
+)
 
 
 def app_ui(_):
@@ -18,7 +27,7 @@ def app_ui(_):
     return ui.page_sidebar(
         sidebar(),
         # Progressive Web App
-        pwa_head_content(),
+        pwa_ui("pwa", pwa_hrefs),
         # Reconnection script
         ui.head_content(
             ui.tags.script("""
@@ -61,5 +70,6 @@ def app_server(input: Inputs, output: Outputs, session: Session):
 app = App(
     app_ui,
     app_server,
-    static_assets={"/": www_dir, "/assets": assets_dir},
+    static_assets={"/": www_dir},
 )
+app.on_shutdown(lambda: www_tempdir.cleanup())
