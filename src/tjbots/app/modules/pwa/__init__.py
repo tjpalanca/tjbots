@@ -1,13 +1,25 @@
+"""Progressive Web App (PWA) module for Shiny applications"""
+
 import shutil
 from pathlib import Path
 from typing import Literal
 
 from shiny import module, ui
 
+module_dir = Path(__file__).parent
+
 
 def pwa_setup(svg_logo: Path, png_logo: Path, www_dir: Path) -> dict[str, str]:
-    module_dir = Path(__file__).parent
+    """Set up PWA assets and return file paths for use in UI components.
 
+    Args:
+        svg_logo: Path to SVG logo file to copy.
+        png_logo: Path to PNG logo file to copy.
+        www_dir: Target directory for web assets.
+
+    Returns:
+        Dictionary mapping asset types to their relative paths.
+    """
     pwa_dir = www_dir / "pwa"
     pwa_dir.mkdir(parents=True, exist_ok=True)
 
@@ -40,6 +52,15 @@ def pwa_ui(
     pwa_hrefs: dict[str, str],
     status_bar: Literal["default", "black-translucent", "black-opaque"] = "default",
 ):
+    """Generate PWA-compatible HTML head content for Shiny apps.
+
+    Args:
+        pwa_hrefs: Dictionary of asset paths from pwa_setup().
+        status_bar: iOS status bar style for mobile web apps.
+
+    Returns:
+        Shiny UI head content with PWA meta tags and links.
+    """
     return ui.head_content(
         ui.tags.link(rel="stylesheet", href=pwa_hrefs["pwa_css"]),
         ui.tags.link(rel="manifest", href=pwa_hrefs["manifest_json"]),

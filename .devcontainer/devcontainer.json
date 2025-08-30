@@ -66,6 +66,10 @@
                     "editor.codeActionsOnSave": {
                         "source.organizeImports": "explicit"
                     }
+                },
+                // Format javascript 
+                "[javascript]": {
+                    "editor.formatOnSave": true
                 }
             },
             "mcp": {
