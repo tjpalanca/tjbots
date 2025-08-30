@@ -24,6 +24,7 @@ create:
 	$(MAKE) pre-commit-install 
 
 start:
+	op inject -f -i env/dev.env -o $(SECRETS_DIR)/dev.env && \
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
 	op read "op://Development/Docker GitHub PAT/credential" | \
 	docker login ghcr.io -u tjpalanca --password-stdin
