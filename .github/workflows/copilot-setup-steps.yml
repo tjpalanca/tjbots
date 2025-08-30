@@ -19,7 +19,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Run TJBots setup
-        uses: ./.github/actions/tjbots-setup
+      - name: Setup python environment
+        uses: ./.github/actions/tjbots-python-setup
         with:
           python-version: '3.12'
