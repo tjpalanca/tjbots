@@ -27,3 +27,10 @@ TJBots is a framework designed to explore the capabilities of Large Language Mod
 - If you encounter something or make a mistake that requires an update to the general or specific Copilot instructions, suggest that change to the user so that you remember the next time. 
 - I will generally be logging my development progress in a quarto document in `docs/journal/01-development`. Check the latest file there if you want to know about the progress of development.
 - When documenting, stay away from referring to specific values or configurations if they are likely to change in the future. Instead, just point to those files that contain the configuration by mentioning their name. 
+
+## Documentation Guidelines 
+
+These guidelines cover documenting things in the development journals, but also documenting functions and modules via docstrings.
+
+- **Google-Style**: Use Google-style docstrings for all public modules, functions, and classes.
+- **Clarity**: Write clear and concise documentation. Write the high-level intent rather than explaining the code in detail.

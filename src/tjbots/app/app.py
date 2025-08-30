@@ -1,59 +1,40 @@
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from chatlas import ChatAnthropic
 from shiny import App, Inputs, Outputs, Session, ui
 
+from tjbots.app.modules.pwa import pwa_ui
+from tjbots.app.modules.reconnect import reconnect_ui
 from tjbots.config import PackageConfig
 
 config = PackageConfig()
 
 app_dir = Path(__file__).parent
-www_dir = app_dir / "www"
+www_tempdir = TemporaryDirectory("tjbots_app_www")
+www_dir = Path(www_tempdir.name)
 assets_dir = app_dir.parent.parent.parent / "assets"
 
 
-def app_ui(_):
-    tjbots_icon = ui.img(style="background-color: white;", src="assets/logo/tjbots.svg")
-    return ui.page_sidebar(
-        ui.sidebar(ui.input_dark_mode(), open="closed"),
-        # Progressive Web App
-        ui.head_content(
-            ui.tags.link(rel="stylesheet", href="custom.css"),
-            ui.tags.link(rel="manifest", href="manifest.json"),
-            ui.tags.link(
-                rel="icon",
-                type="image/svg+xml",
-                size="any",
-                href="assets/logo/tjbots.svg",
-            ),
-            ui.tags.link(
-                rel="shortcut icon",
-                type="image/svg+xml",
-                size="any",
-                href="assets/logo/tjbots.svg",
-            ),
-            ui.tags.link(rel="apple-touch-icon", href="assets/logo/tjbots.png"),
-            ui.tags.meta(
-                name="viewport",
-                content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
-            ),
-            ui.tags.meta(name="mobile-web-app-capable", content="yes"),
-            ui.tags.meta(
-                name="apple-mobile-web-app-status-bar-style", content="default"
-            ),
-            ui.tags.script("""
-        $(document).on('shiny:connected', function() {
-            if (window.Shiny && Shiny.shinyapp) Shiny.shinyapp.$allowReconnect = true;
-        });
-        """),
-        ),
-        # Chat Contents
-        ui.chat_ui(id="chat", icon_assistant=tjbots_icon),
-        # Other Settings
-        window_title="TJBots",
-        fillable=True,
-        fillable_mobile=True,
-    )
+app_ui = ui.page_sidebar(
+    ui.sidebar(ui.input_dark_mode(), open="closed"),
+    pwa_ui(
+        "pwa",
+        png_logo=assets_dir / "logo" / "tjbots.png",
+        svg_logo=assets_dir / "logo" / "tjbots.svg",
+        www_dir=www_dir,
+        app_name="TJBots",
+        start_url="https://bots.tjpalanca.com",
+        background_color="#000000",
+        theme_color="#008080",
+        description="TJ's adventures with LLMs",
+    ),
+    reconnect_ui("reconnect"),
+    ui.chat_ui(id="chat"),
+    window_title="TJBots",
+    fillable=True,
+    fillable_mobile=True,
+)
 
 
 def app_server(input: Inputs, output: Outputs, session: Session):
@@ -81,5 +62,6 @@ def app_server(input: Inputs, output: Outputs, session: Session):
 app = App(
     app_ui,
     app_server,
-    static_assets={"/": www_dir, "/assets": assets_dir},
+    static_assets={"/": www_dir},
 )
+app.on_shutdown(lambda: www_tempdir.cleanup())

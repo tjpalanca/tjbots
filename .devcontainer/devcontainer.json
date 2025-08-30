@@ -66,24 +66,24 @@
                     "editor.codeActionsOnSave": {
                         "source.organizeImports": "explicit"
                     }
+                },
+                // Format javascript 
+                "[javascript]": {
+                    "editor.formatOnSave": true
                 }
             },
             "mcp": {
-                "inputs": [
-                    {
-                        "type": "promptString",
-                        "id": "context7-api-key",
-                        "description": "Context7 API Key",
-                        "password": true
-                    }
-                ],
                 "servers": {
                     "context7": {
-                        "type": "http",
-                        "url": "https://mcp.context7.com/mcp",
-                        "headers": {
-                            "CONTEXT7_API_KEY": "${input:context7-api-key}"
-                        }
+                        "type": "stdio",
+                        "command": "npx",
+                        "args": [
+                            "-y",
+                            "@upstash/context7-mcp",
+                            "--api-key",
+                            "$CONTEXT7_API_KEY"
+                        ],
+                        "envFile": "/run/secrets/dev.env"
                     },
                     "github": {
                         "type": "http",
