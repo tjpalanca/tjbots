@@ -4,7 +4,8 @@ from tempfile import TemporaryDirectory
 from chatlas import ChatAnthropic
 from shiny import App, Inputs, Outputs, Session, ui
 
-from tjbots.app.modules import pwa, reconnect
+from tjbots.app.modules.pwa import pwa_setup, pwa_ui
+from tjbots.app.modules.reconnect import reconnect_ui
 from tjbots.app.ui import sidebar, tjbots_icon
 from tjbots.config import PackageConfig
 
@@ -15,7 +16,7 @@ www_tempdir = TemporaryDirectory("tjbots_app_www")
 www_dir = Path(www_tempdir.name)
 assets_dir = app_dir.parent.parent.parent / "assets"
 
-pwa_hrefs = pwa.pwa_setup(
+pwa_hrefs = pwa_setup(
     png_logo=assets_dir / "logo" / "tjbots.png",
     svg_logo=assets_dir / "logo" / "tjbots.svg",
     www_dir=www_dir,
@@ -26,8 +27,8 @@ def app_ui(_):
     tjbots_icon_component = tjbots_icon()
     return ui.page_sidebar(
         sidebar(),
-        pwa.pwa_ui("pwa", pwa_hrefs),
-        reconnect.reconnect_ui("reconnect"),
+        pwa_ui("pwa", pwa_hrefs),
+        reconnect_ui("reconnect"),
         ui.chat_ui(id="chat", icon_assistant=tjbots_icon_component),
         window_title="TJBots",
         fillable=True,
