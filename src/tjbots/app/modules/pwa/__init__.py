@@ -10,7 +10,8 @@ from shiny import module, ui
 module_dir = Path(__file__).parent
 
 
-def pwa_setup(
+@module.ui
+def pwa_ui(
     svg_logo: Path,
     png_logo: Path,
     www_dir: Path,
@@ -21,8 +22,11 @@ def pwa_setup(
     description: str,
     app_short_name: str | None = None,
     display: str = "standalone",
-) -> dict[str, str]:
+    status_bar: Literal["default", "black-translucent", "black-opaque"] = "default",
+):
     """Set up PWA assets and return file paths for use in UI components.
+
+    Creates a manifest.json and copies logo files to a static directory.
 
     Args:
         svg_logo: Path to SVG logo file to copy.
@@ -37,7 +41,7 @@ def pwa_setup(
         display: Display mode for the PWA (standalone, fullscreen, minimal-ui, browser).
 
     Returns:
-        Dictionary mapping asset types to their relative paths.
+        Shiny UI head content for activating the PWA
     """
     pwa_dir = www_dir / "pwa"
     pwa_dir.mkdir(parents=True, exist_ok=True)
@@ -78,44 +82,22 @@ def pwa_setup(
         json.dump(manifest_data, f, indent=4)
     manifest_json_href = str(manifest_json_path.relative_to(www_dir))
 
-    return {
-        "png_logo": png_logo_href,
-        "svg_logo": svg_logo_href,
-        "pwa_css": pwa_css_href,
-        "manifest_json": manifest_json_href,
-    }
-
-
-@module.ui
-def pwa_ui(
-    pwa_hrefs: dict[str, str],
-    status_bar: Literal["default", "black-translucent", "black-opaque"] = "default",
-):
-    """Generate PWA-compatible HTML head content for Shiny apps.
-
-    Args:
-        pwa_hrefs: Dictionary of asset paths from pwa_setup().
-        status_bar: iOS status bar style for mobile web apps.
-
-    Returns:
-        Shiny UI head content with PWA meta tags and links.
-    """
-    return ui.head_content(
-        ui.tags.link(rel="stylesheet", href=pwa_hrefs["pwa_css"]),
-        ui.tags.link(rel="manifest", href=pwa_hrefs["manifest_json"]),
+    pwa_ui = ui.head_content(
+        ui.tags.link(rel="stylesheet", href=pwa_css_href),
+        ui.tags.link(rel="manifest", href=manifest_json_href),
         ui.tags.link(
             rel="icon",
             type="image/svg+xml",
             size="any",
-            href=pwa_hrefs["svg_logo"],
+            href=svg_logo_href,
         ),
         ui.tags.link(
             rel="shortcut icon",
             type="image/svg+xml",
             size="any",
-            href=pwa_hrefs["svg_logo"],
+            href=svg_logo_href,
         ),
-        ui.tags.link(rel="apple-touch-icon", href=pwa_hrefs["png_logo"]),
+        ui.tags.link(rel="apple-touch-icon", href=png_logo_href),
         ui.tags.meta(
             name="viewport",
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
@@ -123,3 +105,5 @@ def pwa_ui(
         ui.tags.meta(name="mobile-web-app-capable", content="yes"),
         ui.tags.meta(name="apple-mobile-web-app-status-bar-style", content=status_bar),
     )
+    pwa_ui._hrefs: dict[str, str] = {"svg_logo_href": svg_logo_href}
+    return pwa_ui

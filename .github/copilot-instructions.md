@@ -30,5 +30,7 @@ TJBots is a framework designed to explore the capabilities of Large Language Mod
 
 ## Documentation Guidelines 
 
+These guidelines cover documenting things in the development journals, but also documenting functions and modules via docstrings.
+
 - **Google-Style**: Use Google-style docstrings for all public modules, functions, and classes.
 - **Clarity**: Write clear and concise documentation. Write the high-level intent rather than explaining the code in detail.
