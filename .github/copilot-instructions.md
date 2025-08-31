@@ -2,7 +2,7 @@
 
 ## Overview
 
-TJBots is a framework designed to explore the capabilities of Large Language Models (LLMs) by building experimental bots and tools. The project emphasizes rapid prototyping, configurability, and sharing findings with the community.
+TJBots is a project for exploring the capabilities of Large Language Models (LLMs) by building experimental bots and tools. The project emphasizes rapid prototyping, configurability, and sharing findings with the community.
 
 ## Development
 
@@ -12,25 +12,30 @@ TJBots is a framework designed to explore the capabilities of Large Language Mod
 ## Folder structure
 
 - **Bots Application**: Located in `src/tjbots/app/`, the main entry point is `app.py`. This is the test harness application that allows us to test different configurations of bots and tools. 
-- **Documentation**: Written in Quarto, located in `docs/`. Key files include `index.qmd` and notes under `docs/`.
-    - `docs/dev` includes any developer documentation
-- **Tests**: Located in `tests/` mirroring the `src/` structure. Uses pytest with shared utilities in `test_utils.py`.
+- **Documentation**: Written in Quarto, located in `docs/`. 
+    - `docs/developer` includes any developer documentation
+    - `docs/journal` is a development log basically
+    - `docs/scenarios` contains use cases that are explored 
+- **Tests**: Located in `tests/` mirroring the `src/` structure. 
+
 
 ## Testing practices
 
-- **Structure**: Mirror `src/` directory structure in `tests/`
-- **Utilities**: Use `tests/tjbots/test_utils.py` for shared constants like `MOCK_ENV`
-- **Environment**: Mock API keys with `@patch.dict(os.environ, MOCK_ENV)` for isolation
+- Three kinds of tests: 
+    - regular unit tests for units of logic, 
+    - shiny integration tests for actual browser testing, and
+    - docker integration tests for testing the package itself.
+- For Shiny integration tests, refer to [the documentation](https://shiny.posit.co/py/docs/end-to-end-testing.html).
+- Use `test_utils` for common utilities shared across unrelated test modules.
 
 ## General guidelines
 
-- If you encounter something or make a mistake that requires an update to the general or specific Copilot instructions, suggest that change to the user so that you remember the next time. 
-- I will generally be logging my development progress in a quarto document in `docs/journal/01-development`. Check the latest file there if you want to know about the progress of development.
-- When documenting, stay away from referring to specific values or configurations if they are likely to change in the future. Instead, just point to those files that contain the configuration by mentioning their name. 
-
+- Suggest changes to the Copilot instructions if there are inconsitencies between these instructions and what you were told by the user.
+- Check the development log for recently edited files to catch up on progress, if you have questions about what's been done so far.
 ## Documentation Guidelines 
 
 These guidelines cover documenting things in the development journals, but also documenting functions and modules via docstrings.
 
 - **Google-Style**: Use Google-style docstrings for all public modules, functions, and classes.
 - **Clarity**: Write clear and concise documentation. Write the high-level intent rather than explaining the code in detail.
+- **DRY**: Don't document configuration that is likely to change, instead write a reference to that file.
