@@ -7,10 +7,10 @@ Test harness for configuring and testing various bot and tool combinations.
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from chatlas import ChatAnthropic
-from shiny import App, Inputs, Outputs, Session, ui
+import chatlas
+from shiny import App, Inputs, Outputs, Session, reactive, req, ui
 
-from tjbots.app.components.sidebar import sidebar_ui
+from tjbots.app.components.sidebar import sidebar_server, sidebar_ui
 from tjbots.app.modules.pwa import pwa_ui
 from tjbots.app.modules.reconnect import reconnect_ui
 from tjbots.config import PackageConfig
@@ -45,23 +45,30 @@ app_ui = ui.page_sidebar(
 
 
 def app_server(input: Inputs, output: Outputs, session: Session):
+    # Set up sidebar module
+    sidebar_values = sidebar_server("sidebar")
+
     chat = ui.Chat(id="chat")
 
-    agent = ChatAnthropic(
-        model="claude-opus-4-1-20250805",
-        system_prompt="""
-            You are TJBot, a helpful AI assistant created by TJ.
-            You are knowledgeable, friendly, and concise in your responses.
-        """,
-        api_key=(
-            config.anthropic_api_key.get_secret_value()
-            if config.anthropic_api_key
-            else None
-        ),
-    )
+    @reactive.calc
+    def current_agent():
+        provider = sidebar_values["provider"]()
+        model = sidebar_values["model"]()
+
+        req(provider, model)  # Require both provider and model to be truthy
+
+        return chatlas.ChatAuto(
+            provider=provider,
+            model=model,
+            system_prompt="""
+                You are TJBot, a helpful AI assistant created by TJ.
+                You are knowledgeable, friendly, and concise in your responses.
+            """,
+        )
 
     @chat.on_user_submit
     async def chat_ui_respond(user_input: str):
+        agent = current_agent()
         response = await agent.stream_async(user_input)
         await chat.append_message_stream(response)
 
