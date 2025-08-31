@@ -10,6 +10,7 @@ from tempfile import TemporaryDirectory
 from chatlas import ChatAnthropic
 from shiny import App, Inputs, Outputs, Session, ui
 
+from tjbots.app.components.sidebar import sidebar_ui
 from tjbots.app.modules.pwa import pwa_ui
 from tjbots.app.modules.reconnect import reconnect_ui
 from tjbots.config import PackageConfig
@@ -23,7 +24,7 @@ assets_dir = app_dir.parent.parent.parent / "assets"
 
 
 app_ui = ui.page_sidebar(
-    ui.sidebar(ui.input_dark_mode(), open="closed"),
+    sidebar_ui("sidebar"),
     pwa_ui(
         "pwa",
         png_logo=assets_dir / "logo" / "tjbots.png",
