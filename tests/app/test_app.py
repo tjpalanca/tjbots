@@ -19,7 +19,7 @@ from ..test_utils import MOCK_ENV
 
 logger = logging.getLogger(__name__)
 
-app = create_app_fixture("../../../src/tjbots/app/app.py")
+app = create_app_fixture("../../src/tjbots/app/app.py")
 
 
 def is_responsive(url):
