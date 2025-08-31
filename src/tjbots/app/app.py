@@ -45,31 +45,32 @@ app_ui = ui.page_sidebar(
 
 
 def app_server(input: Inputs, output: Outputs, session: Session):
-    # Set up sidebar module
-    sidebar_values = sidebar_server("sidebar")
+    PackageConfig()
+    selected_provider, selected_model = sidebar_server("sidebar")
+
+    @reactive.calc
+    def system_prompt():
+        return """
+            You are TJBot, a helpful AI assistant created by TJ.
+            You are knowledgeable, friendly, and concise in your responses.
+        """
+
+    @reactive.calc
+    def agent():
+        req(selected_provider(), selected_model())
+
+        return chatlas.ChatAuto(
+            provider=selected_provider(),
+            model=selected_model(),
+            system_prompt=system_prompt(),
+        )
 
     chat = ui.Chat(id="chat")
 
-    @reactive.calc
-    def current_agent():
-        provider = sidebar_values["provider"]()
-        model = sidebar_values["model"]()
-
-        req(provider, model)  # Require both provider and model to be truthy
-
-        return chatlas.ChatAuto(
-            provider=provider,
-            model=model,
-            system_prompt="""
-                You are TJBot, a helpful AI assistant created by TJ.
-                You are knowledgeable, friendly, and concise in your responses.
-            """,
-        )
-
     @chat.on_user_submit
     async def chat_ui_respond(user_input: str):
-        agent = current_agent()
-        response = await agent.stream_async(user_input)
+        req(agent())
+        response = await agent().stream_async(user_input)
         await chat.append_message_stream(response)
 
 

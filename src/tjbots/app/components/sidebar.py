@@ -1,4 +1,4 @@
-from shiny import module, reactive, render, req, ui
+from shiny import module, render, req, ui
 
 MODEL_PROVIDER_CHOICES = {
     "anthropic": "Anthropic",
@@ -50,7 +50,7 @@ MODEL_CHOICES = {
 def sidebar_ui():
     return ui.sidebar(
         ui.input_select(
-            id="selected_model_provider",
+            id="selected_provider",
             label="Model Provider",
             choices=MODEL_PROVIDER_CHOICES,
         ),
@@ -63,8 +63,8 @@ def sidebar_ui():
 def sidebar_server(input, output, session):
     @render.ui
     def model_selector():
-        req(input.selected_model_provider())
-        model_choices = MODEL_CHOICES[input.selected_model_provider()]
+        req(input.selected_provider())
+        model_choices = MODEL_CHOICES[input.selected_provider()]
 
         return ui.input_select(
             id="selected_model",
@@ -73,9 +73,4 @@ def sidebar_server(input, output, session):
             selected=model_choices["default"],
         )
 
-    return {
-        "provider": reactive.calc(lambda: input.selected_model_provider()),
-        "model": reactive.calc(
-            lambda: getattr(input, "selected_model", lambda: None)()
-        ),
-    }
+    return (input.selected_provider, input.selected_model)
