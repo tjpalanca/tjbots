@@ -1,0 +1,10 @@
+# Model Selection 
+
+- In the sidebar, there is the ability to choose:
+    - provider (Anthropic, Google, etc)
+    - model within those providers (Sonnet, GPT-4.1, etc)
+        - `chatlas` provides a `list_models()` method to enable this
+    - maybe some other parameters common to all providers:
+        - `chatlas` provides a `set_model_params()` method to configure model-specific parameters.
+        - temperature, max_tokens, top_p, and stop_sequences are the most common
+        - these are not commonly tweaked, so we'll just leave it for another issue.
