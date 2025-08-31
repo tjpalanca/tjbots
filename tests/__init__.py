@@ -1,1 +1,1 @@
-# Tests package
+# TJBots tests package
