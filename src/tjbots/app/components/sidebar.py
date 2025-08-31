@@ -1,7 +1,49 @@
-import chatlas
 from shiny import module, reactive, render, req, ui
 
-from tjbots.config import PackageConfig
+MODEL_PROVIDER_CHOICES = {
+    "anthropic": "Anthropic",
+    "google": "Google",
+    "openai": "OpenAI",
+}
+
+MODEL_CHOICES = {
+    "anthropic": {
+        "default": "claude-sonnet-4-20250514",
+        "choices": {
+            "claude-opus-4-1-20250805": "Claude Opus 4.1",
+            "claude-sonnet-4-20250514": "Claude Sonnet 4",
+            "claude-opus-4-20250514": "Claude Opus 4",
+            "claude-3-opus-20240229": "Claude Opus 3",
+            "claude-3-7-sonnet-20250219": "Claude Sonnet 3.7",
+            "claude-3-5-sonnet-20241022": "Claude Sonnet 3.5",
+            "claude-3-5-haiku-20241022": "Claude Haiku 3.5",
+            "claude-3-haiku-20240307": "Claude Haiku 3",
+        },
+    },
+    "google": {
+        "default": "gemini-2.5-flash",
+        "choices": {
+            "gemini-2.5-pro": "Gemini 2.5 Pro",
+            "gemini-2.5-flash": "Gemini 2.5 Flash",
+            "gemini-2.5-flash-lite": "Gemini 2.5 Flash Lite",
+            "gemini-2.0-flash": "Gemini 2.0 Flash",
+            "gemini-2.0-flash-lite": "Gemini 2.0 Flash Lite",
+            "gemini-1.5-pro": "Gemini 1.5 Pro",
+            "gemini-1.5-flash": "Gemini 1.5 Flash",
+        },
+    },
+    "openai": {
+        "default": "gpt-5",
+        "choices": {
+            "gpt-5": "GPT-5",
+            "gpt-5-mini": "GPT-5 mini",
+            "gpt-5-nano": "GPT-5 nano",
+            "gpt-4.1": "GPT 4.1",
+            "gpt-4.1-mini": "GPT 4.1 mini",
+            "gpt-4.1-nano": "GPT 4.1 nano",
+        },
+    },
+}
 
 
 @module.ui
@@ -10,7 +52,7 @@ def sidebar_ui():
         ui.input_select(
             id="selected_model_provider",
             label="Model Provider",
-            choices={"anthropic": "Anthropic", "google": "Google", "openai": "OpenAI"},
+            choices=MODEL_PROVIDER_CHOICES,
         ),
         ui.output_ui("model_selector"),
         open="desktop",
@@ -19,31 +61,17 @@ def sidebar_ui():
 
 @module.server
 def sidebar_server(input, output, session):
-    # Setup environment variables from config - happens automatically on instantiation
-    PackageConfig()
-
-    @reactive.calc
-    def available_models():
-        provider = input.selected_model_provider()
-        req(provider)  # Require provider to be truthy
-
-        # Try to get models from API - no fallbacks
-        chat_instance = chatlas.ChatAuto(provider=provider)
-        models_list = chat_instance.list_models()
-        # Convert list of dicts to choices dict: {id: name}
-        return {model["id"]: model.get("name", model["id"]) for model in models_list}
-
     @render.ui
     def model_selector():
-        models = available_models()
-        req(models)  # Require models to be truthy
-
-        # Select first model as default
-        default_model = list(models.keys())[0] if models else None
+        req(input.selected_model_provider())
+        model_choices = MODEL_CHOICES[input.selected_model_provider()]
 
         return ui.input_select(
-            id="selected_model", label="Model", choices=models, selected=default_model
-        )  # Return reactive values for use in main app
+            id="selected_model",
+            label="Model",
+            choices=model_choices["choices"],
+            selected=model_choices["default"],
+        )
 
     return {
         "provider": reactive.calc(lambda: input.selected_model_provider()),
