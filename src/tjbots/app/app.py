@@ -48,6 +48,9 @@ def app_server(input: Inputs, output: Outputs, session: Session):
     PackageConfig()
     selected_provider, selected_model = sidebar_server("sidebar")
 
+    # Store chat history to preserve across model changes
+    chat_history = reactive.value([])
+
     @reactive.calc
     def system_prompt():
         return """
@@ -59,19 +62,36 @@ def app_server(input: Inputs, output: Outputs, session: Session):
     def agent():
         req(selected_provider(), selected_model())
 
-        return chatlas.ChatAuto(
+        # Create new agent with selected provider and model
+        new_agent = chatlas.ChatAuto(
             provider=selected_provider(),
             model=selected_model(),
             system_prompt=system_prompt(),
         )
+
+        # Restore chat history if available
+        if chat_history.get():
+            new_agent.set_turns(chat_history.get())
+
+        return new_agent
 
     chat = ui.Chat(id="chat")
 
     @chat.on_user_submit
     async def chat_ui_respond(user_input: str):
         req(agent())
+        
+        # Save current chat history before processing new message
+        current_turns = agent().get_turns()
+        if current_turns:
+            chat_history.set(current_turns)
+        
         response = await agent().stream_async(user_input)
         await chat.append_message_stream(response)
+        
+        # Update chat history after processing the message
+        updated_turns = agent().get_turns()
+        chat_history.set(updated_turns)
 
 
 app = App(
