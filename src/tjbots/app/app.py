@@ -4,6 +4,7 @@ Bots Shiny Application
 Test harness for configuring and testing various bot and tool combinations.
 """
 
+from dataclasses import dataclass, field
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -44,34 +45,47 @@ app_ui = ui.page_sidebar(
 )
 
 
+@dataclass
+class Context:
+    turns: list[chatlas.Turn] = field(default_factory=list)
+
+
 def app_server(input: Inputs, output: Outputs, session: Session):
     PackageConfig()
+    context = Context()
     selected_provider, selected_model = sidebar_server("sidebar")
 
     @reactive.calc
-    def system_prompt():
+    def current_system_prompt():
         return """
             You are TJBot, a helpful AI assistant created by TJ.
             You are knowledgeable, friendly, and concise in your responses.
         """
 
     @reactive.calc
-    def agent():
-        req(selected_provider(), selected_model())
+    def current_agent():
+        req(selected_provider(), selected_model(), current_system_prompt())
 
-        return chatlas.ChatAuto(
+        agent = chatlas.ChatAuto(
             provider=selected_provider(),
             model=selected_model(),
-            system_prompt=system_prompt(),
+            system_prompt=current_system_prompt(),
         )
+        agent.set_turns(context.turns)
+        return agent
 
-    chat = ui.Chat(id="chat")
+    chat_ui = ui.Chat(id="chat")
 
-    @chat.on_user_submit
+    @chat_ui.on_user_submit
     async def chat_ui_respond(user_input: str):
-        req(agent())
-        response = await agent().stream_async(user_input)
-        await chat.append_message_stream(response)
+        agent = current_agent()
+        response = await agent.stream_async(user_input)
+        streamed = await chat_ui.append_message_stream(response)
+
+        @reactive.effect
+        @reactive.event(streamed.result)
+        def on_streamed():
+            context.turns = agent.get_turns()
 
 
 app = App(
