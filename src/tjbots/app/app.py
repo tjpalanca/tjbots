@@ -7,9 +7,10 @@ Test harness for configuring and testing various bot and tool combinations.
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from chatlas import ChatAnthropic
-from shiny import App, Inputs, Outputs, Session, ui
+import chatlas
+from shiny import App, Inputs, Outputs, Session, reactive, req, ui
 
+from tjbots.app.components.sidebar import sidebar_server, sidebar_ui
 from tjbots.app.modules.pwa import pwa_ui
 from tjbots.app.modules.reconnect import reconnect_ui
 from tjbots.config import PackageConfig
@@ -23,7 +24,7 @@ assets_dir = app_dir.parent.parent.parent / "assets"
 
 
 app_ui = ui.page_sidebar(
-    ui.sidebar(ui.input_dark_mode(), open="closed"),
+    sidebar_ui("sidebar"),
     pwa_ui(
         "pwa",
         png_logo=assets_dir / "logo" / "tjbots.png",
@@ -44,24 +45,32 @@ app_ui = ui.page_sidebar(
 
 
 def app_server(input: Inputs, output: Outputs, session: Session):
-    chat = ui.Chat(id="chat")
+    PackageConfig()
+    selected_provider, selected_model = sidebar_server("sidebar")
 
-    agent = ChatAnthropic(
-        model="claude-opus-4-1-20250805",
-        system_prompt="""
+    @reactive.calc
+    def system_prompt():
+        return """
             You are TJBot, a helpful AI assistant created by TJ.
             You are knowledgeable, friendly, and concise in your responses.
-        """,
-        api_key=(
-            config.anthropic_api_key.get_secret_value()
-            if config.anthropic_api_key
-            else None
-        ),
-    )
+        """
+
+    @reactive.calc
+    def agent():
+        req(selected_provider(), selected_model())
+
+        return chatlas.ChatAuto(
+            provider=selected_provider(),
+            model=selected_model(),
+            system_prompt=system_prompt(),
+        )
+
+    chat = ui.Chat(id="chat")
 
     @chat.on_user_submit
     async def chat_ui_respond(user_input: str):
-        response = await agent.stream_async(user_input)
+        req(agent())
+        response = await agent().stream_async(user_input)
         await chat.append_message_stream(response)
 
 

@@ -57,7 +57,8 @@
                 // Type checking for shiny
                 "python.analysis.typeCheckingMode": "basic",
                 "python.analysis.diagnosticSeverityOverrides": {
-                    "reportUnusedFunction": "none"
+                    "reportUnusedFunction": "none",
+                    "reportUnusedVariable": "none"
                 },
                 // Use ruff for formatting
                 "[python]": {

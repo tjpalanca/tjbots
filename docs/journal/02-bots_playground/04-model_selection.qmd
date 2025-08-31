@@ -1,0 +1,16 @@
+# Model Selection 
+
+## Adding model selection in the sidebar 
+
+- In the sidebar, there is the ability to choose:
+    - provider (Anthropic, Google, etc)
+    - model within those providers (Sonnet, GPT-4.1, etc)
+        - `chatlas` provides a `list_models()` method to enable this
+    - maybe some other parameters common to all providers:
+        - `chatlas` provides a `set_model_params()` method to configure model-specific parameters.
+        - temperature, max_tokens, top_p, and stop_sequences are the most common
+        - these are not commonly tweaked, so we'll just leave it for another issue.
+- The `list_models()` method was returning a lot of models , so I filtered them to the flagship ones arranged by version first, then cost second.
+- `ChatAuto` worked well, but I had to have `PackageConfig` put the API keys back into the env var to avoid having to switch between different API keys. 
+
+
