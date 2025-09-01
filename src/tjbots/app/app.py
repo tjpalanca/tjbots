@@ -9,8 +9,9 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import chatlas
-from shiny import App, Inputs, Outputs, Session, reactive, req, ui
+from shiny import App, Inputs, Outputs, Session, ui
 
+from tjbots.app.components.chat import chat_server, chat_ui
 from tjbots.app.components.sidebar import sidebar_server, sidebar_ui
 from tjbots.app.modules.pwa import pwa_ui
 from tjbots.app.modules.reconnect import reconnect_ui
@@ -38,7 +39,7 @@ app_ui = ui.page_sidebar(
         description="TJ's adventures with LLMs",
     ),
     reconnect_ui("reconnect"),
-    ui.chat_ui(id="chat"),
+    chat_ui("chat"),
     window_title="TJBots",
     fillable=True,
     fillable_mobile=True,
@@ -54,38 +55,12 @@ def app_server(input: Inputs, output: Outputs, session: Session):
     PackageConfig()
     context = Context()
     selected_provider, selected_model = sidebar_server("sidebar")
-
-    @reactive.calc
-    def current_system_prompt():
-        return """
-            You are TJBot, a helpful AI assistant created by TJ.
-            You are knowledgeable, friendly, and concise in your responses.
-        """
-
-    @reactive.calc
-    def current_agent():
-        req(selected_provider(), selected_model(), current_system_prompt())
-
-        agent = chatlas.ChatAuto(
-            provider=selected_provider(),
-            model=selected_model(),
-            system_prompt=current_system_prompt(),
-        )
-        agent.set_turns(context.turns)
-        return agent
-
-    chat_ui = ui.Chat(id="chat")
-
-    @chat_ui.on_user_submit
-    async def chat_ui_respond(user_input: str):
-        agent = current_agent()
-        response = await agent.stream_async(user_input)
-        streamed = await chat_ui.append_message_stream(response)
-
-        @reactive.effect
-        @reactive.event(streamed.result)
-        def on_streamed():
-            context.turns = agent.get_turns()
+    chat_server(
+        "chat",
+        selected_provider=selected_provider,
+        selected_model=selected_model,
+        context=context,
+    )
 
 
 app = App(
