@@ -58,13 +58,13 @@ def chat_server(input, output, session, selected_provider, selected_model, conte
         agent.set_turns(context.turns)
         return agent
 
-    chat_ui_obj = ui.Chat(id="chat")
+    chat_ui = ui.Chat(id="chat")
 
-    @chat_ui_obj.on_user_submit
+    @chat_ui.on_user_submit
     async def _on_user_submit(user_input: str):
         agent = current_agent()
         response = await agent.stream_async(user_input)
-        streamed = await chat_ui_obj.append_message_stream(response)
+        streamed = await chat_ui.append_message_stream(response)
 
         @reactive.effect
         @reactive.event(streamed.result)
