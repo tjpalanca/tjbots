@@ -46,3 +46,8 @@ quartodoc:
       contents:
         - pwa
         - reconnect
+    - subtitle: Components 
+      package: tjbots.app.components 
+      contents: 
+        - sidebar 
+        - chat
