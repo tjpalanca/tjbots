@@ -9,13 +9,10 @@ from unittest.mock import patch
 
 from tjbots.config import PackageConfig
 
-from .test_utils import MOCK_ENV
-
 
 class TestConfigBasics:
     """Test basic config functionality."""
 
-    @patch.dict(os.environ, MOCK_ENV)
     def test_config_loads_env_vars(self):
         """Test that configuration loads environment variables."""
         config = PackageConfig()
@@ -28,12 +25,7 @@ class TestConfigBasics:
 
     @patch.dict(
         os.environ,
-        {
-            "TJBOTS_ENV_FILE": "/tmp/nonexistent_test_file.env",
-            "ANTHROPIC_API_KEY": "",
-            "OPENAI_API_KEY": "",
-            "GOOGLE_API_KEY": "",
-        },
+        {"TJBOTS_ENV_FILE": "/tmp/nonexistent_test_file.env"},
         clear=True,
     )
     def test_config_without_api_key(self):

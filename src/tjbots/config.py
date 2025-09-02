@@ -1,7 +1,8 @@
 import os
 
 from pydantic import Field, SecretStr, model_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
+from pydantic_settings.sources import DotEnvSettingsSource
 
 
 class PackageConfig(BaseSettings):
@@ -25,9 +26,23 @@ class PackageConfig(BaseSettings):
         json_schema_extra={"set_in_environ": True},
     )
 
-    model_config = SettingsConfigDict(
-        env_file=os.getenv("TJBOTS_ENV_FILE", "/run/secrets/tjbots.env")
-    )
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls,
+        init_settings,
+        env_settings,
+        dotenv_settings,
+        file_secret_settings,
+    ):
+        env_file = os.getenv("TJBOTS_ENV_FILE", "/run/secrets/tjbots.env")
+        dotenv_source = DotEnvSettingsSource(settings_cls, env_file=env_file)
+        return (
+            init_settings,
+            env_settings,
+            dotenv_source,
+            file_secret_settings,
+        )
 
     @model_validator(mode="after")
     def set_environ(self):

@@ -5,8 +5,6 @@ These tests verify basic functionality like app instantiation.
 """
 
 import logging
-import os
-from unittest.mock import patch
 
 import pytest
 import requests
@@ -15,7 +13,6 @@ from shiny import App
 from shiny.pytest import create_app_fixture
 from shiny.run import ShinyAppProc
 
-from ..test_utils import MOCK_ENV
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +41,6 @@ class TestAppBasics:
         page_content = page.content()
         assert error_text not in page_content
 
-    @patch.dict(os.environ, MOCK_ENV)
     def test_app_instantiation(self):
         """Test that the Shiny app can be instantiated without errors."""
         from tjbots.app.app import app

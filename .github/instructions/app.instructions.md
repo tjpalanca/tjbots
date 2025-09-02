@@ -18,5 +18,3 @@ applyTo: "src/tjbots/app/**"
     3. End-to-end testing of the entire application
     4. Docker testing of the built application package
 - For testing levels 2, 3, and 4, we use the standard Shiny testing framework utilising Playwright. Refer to [the documentation](https://shiny.posit.co/py/docs/end-to-end-testing.html) for how to implement this appropriately.
-- Use `test_utils` for common utilities shared across unrelated test modules.
-
