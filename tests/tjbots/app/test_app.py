@@ -13,7 +13,6 @@ from shiny import App
 from shiny.pytest import create_app_fixture
 from shiny.run import ShinyAppProc
 
-
 logger = logging.getLogger(__name__)
 
 app = create_app_fixture("../../src/tjbots/app/app.py")
