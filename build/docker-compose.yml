@@ -27,8 +27,8 @@ services:
     build:
       <<: *build
       labels:
-        org.opencontainers.image.source: ${REPO_URL}
-        org.opencontainers.image.licenses: ${LICENSE}
+        org.opencontainers.image.source: ${REPO_URL-}
+        org.opencontainers.image.licenses: ${LICENSE-}
       tags:
         - ${DOCKER_IMG}:${VERSION}
         - ${DOCKER_IMG}:${LATEST-latest}

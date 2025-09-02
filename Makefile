@@ -37,35 +37,47 @@ deps:
 	uv sync --locked && \
 	uv run playwright install --with-deps
 
-# Docker
+# Sandbox
 
-DOCKER_COMPOSE_ENV := \
+SANDBOX_COMPOSE_ENV := \
 	DOCKER_NAME=$(NAME) \
 	SECRETS_FILE=$(SECRETS_FILE) \
 	VERSION=$(VERSION) \
 	DOCKER_IMG=ghcr.io/tjpalanca/tjbots
 
-DOCKER_COMPOSE := \
-	$(DOCKER_COMPOSE_ENV) \
+SANDBOX_COMPOSE := \
+	$(SANDBOX_COMPOSE_ENV) \
 	docker compose -f build/docker-compose.yml
 
-docker-build: 
+sandbox-build: 
 	$(DOCKER_COMPOSE) build
 
-docker-push: 
+sandbox-push: 
 	$(DOCKER_COMPOSE) push
-
-docker-run: 
+	
+sandbox-run: 
 	$(DOCKER_COMPOSE) up
 
-docker-up: 
+sandbox-up: 
 	$(DOCKER_COMPOSE) up --detach
 
-docker-down: 
+sandbox-down: 
 	$(DOCKER_COMPOSE) down
 
-docker-bash: 
+sandbox-bash: sandbox-up
 	$(DOCKER_COMPOSE) exec $(NAME) /bin/bash
+
+# Production
+
+PRODUCTION_COMPOSE_ENV := \
+	DOCKER_NAME=$(NAME) \
+	SECRETS_FILE=$(SECRETS_FILE) \
+	VERSION=$(VERSION) \
+	DOCKER_IMG=ghcr.io/tjpalanca/tjbots
+
+SANDBOX_COMPOSE := \
+	$(SANDBOX_COMPOSE_ENV) \
+	docker compose -f build/docker-compose.yml
 
 # Building
 
