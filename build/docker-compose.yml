@@ -1,5 +1,7 @@
 services:
   tjbots:
+    profiles: 
+      - run
     container_name: ${DOCKER_NAME}
     image: ${DOCKER_IMG}:${VERSION}
     build: &build
@@ -11,9 +13,9 @@ services:
         target: /run/secrets/tjbots.env
     ports:
       - "8080:8080"
-  tjbots-release:
+  tjbots-build:
     profiles: 
-      - release
+      - build
     build:
       <<: *build
       labels:

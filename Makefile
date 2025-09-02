@@ -76,7 +76,7 @@ DOCKER_BUILD_ENV := \
 DOCKER_BUILD_COMMAND := \
 	cd build && \
 	$(DOCKER_BUILD_ENV) \
-	docker buildx bake --allow=fs.read=..
+	docker buildx bake --allow=fs.read=.. tjbots-build
 
 build-test:
 	$(DOCKER_BUILD_COMMAND)
