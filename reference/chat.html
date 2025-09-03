@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>cicd – TJBots</title>
+<title>chat – TJBots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../assets/logo/tjbots.svg" rel="icon" type="image/svg+xml">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo/tjbots.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -80,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">TJBots</span>
     </a>
   </div>
@@ -94,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../journal/index.html">Developer Journal</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/01-devcontainer.html">Development Process</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/06-cicd.html">Continuous Integration / Deployment</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/index.html">Reference</a></li><li class="breadcrumb-item"><a href="../reference/chat.html">chat</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -108,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../reference/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reference</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -117,31 +152,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reference/app.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/app.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">app</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reference/chat.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/chat.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">chat</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reference/pwa.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/pwa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">pwa</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reference/reconnect.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/reconnect.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">reconnect</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reference/sidebar.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/sidebar.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">sidebar</span></a>
   </div>
 </li>
@@ -149,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../developer/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../developer/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Developing TJBots</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -158,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../developer/pre-commit.html" class="sidebar-item-text sidebar-link">
+  <a href="../developer/pre-commit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-commit Hooks</span></a>
   </div>
 </li>
@@ -166,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../journal/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../journal/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Developer Journal</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -175,7 +210,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../journal/02-bots_playground/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../journal/02-bots_playground/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bots Playground</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -184,25 +219,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/02-bots_playground/01-pwa.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/02-bots_playground/01-pwa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Progressive Web App</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/02-bots_playground/02-deployment.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/02-bots_playground/02-deployment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Deployment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/02-bots_playground/03-reconnection.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/02-bots_playground/03-reconnection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reconnection Behavior</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/02-bots_playground/04-model_selection.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/02-bots_playground/04-model_selection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model Selection</span></a>
   </div>
 </li>
@@ -210,46 +245,46 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Development Process</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/01-devcontainer.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/01-development/01-devcontainer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dev Container</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/02-quartodoc.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/01-development/02-quartodoc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">QuartoDoc</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/03-testing.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/01-development/03-testing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/04-vibe_coding.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/01-development/04-vibe_coding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vibe Coding</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/05-github_copilot_agents.html" class="sidebar-item-text sidebar-link">
+  <a href="../journal/01-development/05-github_copilot_agents.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GitHub Copilot Agents</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../journal/01-development/06-cicd.html" class="sidebar-item-text sidebar-link active">
+  <a href="../journal/01-development/06-cicd.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous Integration / Deployment</span></a>
   </div>
 </li>
@@ -268,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../scenarios/01-grocerybot.html" class="sidebar-item-text sidebar-link">
+  <a href="../scenarios/01-grocerybot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GroceryBot</span></a>
   </div>
 </li>
@@ -284,33 +319,106 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#continuous-integration-deployment" id="toc-continuous-integration-deployment" class="nav-link active" data-scroll-target="#continuous-integration-deployment">Continuous Integration / Deployment</a>
+  <li><a href="#tjbots.app.components.chat" id="toc-tjbots.app.components.chat" class="nav-link active" data-scroll-target="#tjbots.app.components.chat">chat</a>
   <ul class="collapse">
-  <li><a href="#unifying-docker-compose-for-testing-and-deployment" id="toc-unifying-docker-compose-for-testing-and-deployment" class="nav-link" data-scroll-target="#unifying-docker-compose-for-testing-and-deployment">Unifying docker compose for testing and deployment</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <ul class="collapse">
+  <li><a href="#tjbots.app.components.chat.chat_server" id="toc-tjbots.app.components.chat.chat_server" class="nav-link" data-scroll-target="#tjbots.app.components.chat.chat_server">chat_server</a></li>
+  <li><a href="#tjbots.app.components.chat.chat_ui" id="toc-tjbots.app.components.chat.chat_ui" class="nav-link" data-scroll-target="#tjbots.app.components.chat.chat_ui">chat_ui</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../journal/index.html">Developer Journal</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/01-devcontainer.html">Development Process</a></li><li class="breadcrumb-item"><a href="../../journal/01-development/06-cicd.html">Continuous Integration / Deployment</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/index.html">Reference</a></li><li class="breadcrumb-item"><a href="../reference/chat.html">chat</a></li></ol></nav></header>
 
 
 
 
-<section id="continuous-integration-deployment" class="level1">
-<h1>Continuous Integration / Deployment</h1>
-<section id="unifying-docker-compose-for-testing-and-deployment" class="level2">
-<h2 class="anchored" data-anchor-id="unifying-docker-compose-for-testing-and-deployment">Unifying docker compose for testing and deployment</h2>
-<ul>
-<li>Currently we have the <code>docker-compose.yml</code> file in <code>tests/</code> and an unused one in <code>build/</code>.</li>
-<li>First we want the docker-build target to be based on the compose file</li>
-<li>Docker service profiles kind of work for situations where you need to activate/deactivate specific services for testing or deployment, but it does not unify the configuration for testing and deployment.</li>
-<li><a href="https://docs.docker.com/build/bake/compose-file/">Docker docs</a> indicate you can use yaml anchors to separate the release target from the running target</li>
-<li>We can use the <code>tjbots</code> service in docker compose for both building in dev and production because we can specify both the <code>build</code> and <code>image</code> arguments.</li>
-<li>Succesfully implemented!</li>
-</ul>
+<section id="tjbots.app.components.chat" class="level1">
+<h1>chat</h1>
+<p><code>app.components.chat</code></p>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#tjbots.app.components.chat.chat_server">chat_server</a></td>
+<td>Server side for the chat module.</td>
+</tr>
+<tr class="even">
+<td><a href="#tjbots.app.components.chat.chat_ui">chat_ui</a></td>
+<td>Chat UI module.</td>
+</tr>
+</tbody>
+</table>
+<section id="tjbots.app.components.chat.chat_server" class="level3">
+<h3 class="anchored" data-anchor-id="tjbots.app.components.chat.chat_server">chat_server</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>app.components.chat.chat_server(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    output,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    session,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    selected_provider,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    selected_model,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    context,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Server side for the chat module.</p>
+<p>This module encapsulates the system prompt and agent creation logic so the chat-related reactives live with the chat handlers instead of in the main application server. Behavior is unchanged.</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 7%">
+<col style="width: 62%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>selected_provider</td>
+<td></td>
+<td>reactive that returns the currently-selected provider.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>selected_model</td>
+<td></td>
+<td>reactive that returns the currently-selected model.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>context</td>
+<td></td>
+<td>object with a <code>turns</code> attribute used to retain chat history.</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="tjbots.app.components.chat.chat_ui" class="level3">
+<h3 class="anchored" data-anchor-id="tjbots.app.components.chat.chat_ui">chat_ui</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>app.components.chat.chat_ui()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Chat UI module.</p>
+<p>Returns a namespaced chat UI. The module is intended to be called as <code>chat_ui("chat")</code> from the application UI.</p>
 
 
+</section>
 </section>
 </section>
 

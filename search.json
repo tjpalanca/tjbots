@@ -212,7 +212,7 @@
     "href": "journal/02-bots_playground/index.html",
     "title": "Bots Playground",
     "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\n\n\n\n\n\n\n\n\nMobile first\n\n\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nExisting apps will not be model agnostic; they will only support one provider, especially in relation to these open-weight models.\n\nI did try to look for open source ones that allow me to plug in the API keys, but they were only found on desktop, nothing that was consistent across desktop and mobile experiences.\n\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\n\nMain argument against using open-source LLM tools.\n\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\nIt may be that I am just yak-shaving here, but it’s a personal project and it’s supposed to be fun, so I’m going to do it.\n\n\n\n\n\n\n\n\nMobile first Progressive Web App so it can support advanced features like notifications\nSimple and clean; use basic Shiny components that can be easily tested by the built-in Playwright controllers\nBe transparent with everything that happens in the LLM, all interactions should be shown directly in the UI\n\n\n\n\n\n\nOnly add complexity when necessary but don’t create one-way doors.\nMinimise drift between development and production as much as possible.",
     "crumbs": [
       "Developer Journal",
       "Bots Playground"
@@ -223,7 +223,7 @@
     "href": "journal/02-bots_playground/index.html#motivation",
     "title": "Bots Playground",
     "section": "",
-    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nMost providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.",
+    "text": "I want to create a test harness that allows me to quickly test our various levers, including:\n\nLLM model providers (e.g. OpenAI, Anthropic, Google) and models (e.g. GPT-4, Claude 3, Gemini)\nSystem and user prompts\nTools (e.g. web search, code execution, memory, etc.)\nConfiguration (e.g. chain-of-thought)\n\nThe sources of these configurations can come from:\n\nproblems I want to solve\narticles I read about LLMs that give me ideas\n\n\n\n\nExisting apps will not be model agnostic; they will only support one provider, especially in relation to these open-weight models.\n\nI did try to look for open source ones that allow me to plug in the API keys, but they were only found on desktop, nothing that was consistent across desktop and mobile experiences.\n\nMost providers will charge a margin over the raw API cost.\nWe cannot experiment with human-AI interfaces because the interfaces are fixed.\n\nMain argument against using open-source LLM tools.\n\nIt’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.\nIt may be that I am just yak-shaving here, but it’s a personal project and it’s supposed to be fun, so I’m going to do it.",
     "crumbs": [
       "Developer Journal",
       "Bots Playground"
@@ -234,7 +234,7 @@
     "href": "journal/02-bots_playground/index.html#design",
     "title": "Bots Playground",
     "section": "",
-    "text": "Mobile first",
+    "text": "Mobile first Progressive Web App so it can support advanced features like notifications\nSimple and clean; use basic Shiny components that can be easily tested by the built-in Playwright controllers\nBe transparent with everything that happens in the LLM, all interactions should be shown directly in the UI",
     "crumbs": [
       "Developer Journal",
       "Bots Playground"
@@ -296,25 +296,36 @@
     ]
   },
   {
-    "objectID": "reference/pwa.html",
-    "href": "reference/pwa.html",
-    "title": "pwa",
+    "objectID": "reference/sidebar.html",
+    "href": "reference/sidebar.html",
+    "title": "sidebar",
     "section": "",
-    "text": "app.modules.pwa\nProgressive Web App (PWA) module for Shiny applications\n\n\n\n\n\nName\nDescription\n\n\n\n\npwa_ui\nSet up PWA assets and return file paths for use in UI components.\n\n\n\n\n\napp.modules.pwa.pwa_ui(\n    svg_logo,\n    png_logo,\n    www_dir,\n    app_name,\n    start_url,\n    background_color,\n    theme_color,\n    description,\n    app_short_name=None,\n    display='standalone',\n    status_bar='default',\n)\nSet up PWA assets and return file paths for use in UI components.\nCreates a manifest.json and copies logo files to a static directory.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsvg_logo\nPath\nPath to SVG logo file to copy.\nrequired\n\n\npng_logo\nPath\nPath to PNG logo file to copy.\nrequired\n\n\nwww_dir\nPath\nTarget directory for web assets.\nrequired\n\n\napp_name\nstr\nName of the application for the PWA manifest.\nrequired\n\n\nstart_url\nstr\nThe URL that loads when the PWA is launched.\nrequired\n\n\nbackground_color\nstr\nBackground color for the PWA splash screen.\nrequired\n\n\ntheme_color\nstr\nTheme color for the PWA UI elements.\nrequired\n\n\ndescription\nstr\nDescription of the PWA.\nrequired\n\n\napp_short_name\nstr | None\nShort name for the PWA manifest. Defaults to app_name if not provided.\nNone\n\n\ndisplay\nstr\nDisplay mode for the PWA (standalone, fullscreen, minimal-ui, browser).\n'standalone'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nHTMLDependency\nShiny UI head content for activating the PWA",
+    "text": "sidebar\napp.components.sidebar\n\n\n\n\nReuseCC BY 4.0",
     "crumbs": [
       "Reference",
-      "pwa"
+      "sidebar"
     ]
   },
   {
-    "objectID": "reference/pwa.html#functions",
-    "href": "reference/pwa.html#functions",
-    "title": "pwa",
+    "objectID": "reference/chat.html",
+    "href": "reference/chat.html",
+    "title": "chat",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\npwa_ui\nSet up PWA assets and return file paths for use in UI components.\n\n\n\n\n\napp.modules.pwa.pwa_ui(\n    svg_logo,\n    png_logo,\n    www_dir,\n    app_name,\n    start_url,\n    background_color,\n    theme_color,\n    description,\n    app_short_name=None,\n    display='standalone',\n    status_bar='default',\n)\nSet up PWA assets and return file paths for use in UI components.\nCreates a manifest.json and copies logo files to a static directory.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsvg_logo\nPath\nPath to SVG logo file to copy.\nrequired\n\n\npng_logo\nPath\nPath to PNG logo file to copy.\nrequired\n\n\nwww_dir\nPath\nTarget directory for web assets.\nrequired\n\n\napp_name\nstr\nName of the application for the PWA manifest.\nrequired\n\n\nstart_url\nstr\nThe URL that loads when the PWA is launched.\nrequired\n\n\nbackground_color\nstr\nBackground color for the PWA splash screen.\nrequired\n\n\ntheme_color\nstr\nTheme color for the PWA UI elements.\nrequired\n\n\ndescription\nstr\nDescription of the PWA.\nrequired\n\n\napp_short_name\nstr | None\nShort name for the PWA manifest. Defaults to app_name if not provided.\nNone\n\n\ndisplay\nstr\nDisplay mode for the PWA (standalone, fullscreen, minimal-ui, browser).\n'standalone'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nHTMLDependency\nShiny UI head content for activating the PWA",
+    "text": "app.components.chat\n\n\n\n\n\nName\nDescription\n\n\n\n\nchat_server\nServer side for the chat module.\n\n\nchat_ui\nChat UI module.\n\n\n\n\n\napp.components.chat.chat_server(\n    input,\n    output,\n    session,\n    selected_provider,\n    selected_model,\n    context,\n)\nServer side for the chat module.\nThis module encapsulates the system prompt and agent creation logic so the chat-related reactives live with the chat handlers instead of in the main application server. Behavior is unchanged.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nselected_provider\n\nreactive that returns the currently-selected provider.\nrequired\n\n\nselected_model\n\nreactive that returns the currently-selected model.\nrequired\n\n\ncontext\n\nobject with a turns attribute used to retain chat history.\nrequired\n\n\n\n\n\n\n\napp.components.chat.chat_ui()\nChat UI module.\nReturns a namespaced chat UI. The module is intended to be called as chat_ui(\"chat\") from the application UI.",
     "crumbs": [
       "Reference",
-      "pwa"
+      "chat"
+    ]
+  },
+  {
+    "objectID": "reference/chat.html#functions",
+    "href": "reference/chat.html#functions",
+    "title": "chat",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nchat_server\nServer side for the chat module.\n\n\nchat_ui\nChat UI module.\n\n\n\n\n\napp.components.chat.chat_server(\n    input,\n    output,\n    session,\n    selected_provider,\n    selected_model,\n    context,\n)\nServer side for the chat module.\nThis module encapsulates the system prompt and agent creation logic so the chat-related reactives live with the chat handlers instead of in the main application server. Behavior is unchanged.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nselected_provider\n\nreactive that returns the currently-selected provider.\nrequired\n\n\nselected_model\n\nreactive that returns the currently-selected model.\nrequired\n\n\ncontext\n\nobject with a turns attribute used to retain chat history.\nrequired\n\n\n\n\n\n\n\napp.components.chat.chat_ui()\nChat UI module.\nReturns a namespaced chat UI. The module is intended to be called as chat_ui(\"chat\") from the application UI.",
+    "crumbs": [
+      "Reference",
+      "chat"
     ]
   },
   {
@@ -344,7 +355,7 @@
     "href": "reference/index.html",
     "title": "Reference",
     "section": "",
-    "text": "Chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application\n\n\n\n\n\n\n\n\npwa\nProgressive Web App (PWA) module for Shiny applications\n\n\nreconnect\nShiny module for maintaining connections",
+    "text": "Chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application\n\n\n\n\n\n\n\n\npwa\nProgressive Web App (PWA) module for Shiny applications\n\n\nreconnect\nShiny module for maintaining connections\n\n\n\n\n\n\n\n\n\nsidebar\n\n\n\nchat",
     "crumbs": [
       "Reference"
     ]
@@ -354,9 +365,31 @@
     "href": "reference/index.html#bots-playground",
     "title": "Reference",
     "section": "",
-    "text": "Chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application\n\n\n\n\n\n\n\n\npwa\nProgressive Web App (PWA) module for Shiny applications\n\n\nreconnect\nShiny module for maintaining connections",
+    "text": "Chatbot application that facilitates testing of various combinations of bots, tools, and other configuration.\n\n\n\napp\nBots Shiny Application\n\n\n\n\n\n\n\n\npwa\nProgressive Web App (PWA) module for Shiny applications\n\n\nreconnect\nShiny module for maintaining connections\n\n\n\n\n\n\n\n\n\nsidebar\n\n\n\nchat",
     "crumbs": [
       "Reference"
+    ]
+  },
+  {
+    "objectID": "reference/pwa.html",
+    "href": "reference/pwa.html",
+    "title": "pwa",
+    "section": "",
+    "text": "app.modules.pwa\nProgressive Web App (PWA) module for Shiny applications\n\n\n\n\n\nName\nDescription\n\n\n\n\npwa_ui\nSet up PWA assets and return file paths for use in UI components.\n\n\n\n\n\napp.modules.pwa.pwa_ui(\n    svg_logo,\n    png_logo,\n    www_dir,\n    app_name,\n    start_url,\n    background_color,\n    theme_color,\n    description,\n    app_short_name=None,\n    display='standalone',\n    status_bar='default',\n)\nSet up PWA assets and return file paths for use in UI components.\nCreates a manifest.json and copies logo files to a static directory.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsvg_logo\nPath\nPath to SVG logo file to copy.\nrequired\n\n\npng_logo\nPath\nPath to PNG logo file to copy.\nrequired\n\n\nwww_dir\nPath\nTarget directory for web assets.\nrequired\n\n\napp_name\nstr\nName of the application for the PWA manifest.\nrequired\n\n\nstart_url\nstr\nThe URL that loads when the PWA is launched.\nrequired\n\n\nbackground_color\nstr\nBackground color for the PWA splash screen.\nrequired\n\n\ntheme_color\nstr\nTheme color for the PWA UI elements.\nrequired\n\n\ndescription\nstr\nDescription of the PWA.\nrequired\n\n\napp_short_name\nstr | None\nShort name for the PWA manifest. Defaults to app_name if not provided.\nNone\n\n\ndisplay\nstr\nDisplay mode for the PWA (standalone, fullscreen, minimal-ui, browser).\n'standalone'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nHTMLDependency\nShiny UI head content for activating the PWA",
+    "crumbs": [
+      "Reference",
+      "pwa"
+    ]
+  },
+  {
+    "objectID": "reference/pwa.html#functions",
+    "href": "reference/pwa.html#functions",
+    "title": "pwa",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\npwa_ui\nSet up PWA assets and return file paths for use in UI components.\n\n\n\n\n\napp.modules.pwa.pwa_ui(\n    svg_logo,\n    png_logo,\n    www_dir,\n    app_name,\n    start_url,\n    background_color,\n    theme_color,\n    description,\n    app_short_name=None,\n    display='standalone',\n    status_bar='default',\n)\nSet up PWA assets and return file paths for use in UI components.\nCreates a manifest.json and copies logo files to a static directory.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsvg_logo\nPath\nPath to SVG logo file to copy.\nrequired\n\n\npng_logo\nPath\nPath to PNG logo file to copy.\nrequired\n\n\nwww_dir\nPath\nTarget directory for web assets.\nrequired\n\n\napp_name\nstr\nName of the application for the PWA manifest.\nrequired\n\n\nstart_url\nstr\nThe URL that loads when the PWA is launched.\nrequired\n\n\nbackground_color\nstr\nBackground color for the PWA splash screen.\nrequired\n\n\ntheme_color\nstr\nTheme color for the PWA UI elements.\nrequired\n\n\ndescription\nstr\nDescription of the PWA.\nrequired\n\n\napp_short_name\nstr | None\nShort name for the PWA manifest. Defaults to app_name if not provided.\nNone\n\n\ndisplay\nstr\nDisplay mode for the PWA (standalone, fullscreen, minimal-ui, browser).\n'standalone'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nHTMLDependency\nShiny UI head content for activating the PWA",
+    "crumbs": [
+      "Reference",
+      "pwa"
     ]
   },
   {

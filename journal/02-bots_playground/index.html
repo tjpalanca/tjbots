@@ -123,6 +123,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../reference/chat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">chat</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../reference/pwa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">pwa</span></a>
   </div>
@@ -131,6 +137,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../reference/reconnect.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">reconnect</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../reference/sidebar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sidebar</span></a>
   </div>
 </li>
       </ul>
@@ -282,10 +294,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User interface</a></li>
   </ul></li>
-  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
-  <ul class="collapse">
-  <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles">Principles</a></li>
-  </ul></li>
+  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -315,10 +324,17 @@ ul.task-list li input[type="checkbox"] {
 <section id="couldnt-we-just-use-the-existing-apps" class="level3">
 <h3 class="anchored" data-anchor-id="couldnt-we-just-use-the-existing-apps">Couldn’t we just use the existing apps?</h3>
 <ul>
-<li>Most providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.</li>
+<li>Existing apps will not be model agnostic; they will only support one provider, especially in relation to these open-weight models.
+<ul>
+<li>I did try to look for open source ones that allow me to plug in the API keys, but they were only found on desktop, nothing that was consistent across desktop and mobile experiences.</li>
+</ul></li>
 <li>Most providers will charge a margin over the raw API cost.</li>
-<li>We cannot experiment with human-AI interfaces because the interfaces are fixed.</li>
+<li>We cannot experiment with human-AI interfaces because the interfaces are fixed.
+<ul>
+<li>Main argument against using open-source LLM tools.</li>
+</ul></li>
 <li>It’s harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.</li>
+<li>It may be that I am just yak-shaving here, but it’s a personal project and it’s supposed to be fun, so I’m going to do it.</li>
 </ul>
 </section>
 </section>
@@ -327,21 +343,20 @@ ul.task-list li input[type="checkbox"] {
 <section id="user-interface" class="level3">
 <h3 class="anchored" data-anchor-id="user-interface">User interface</h3>
 <ul>
-<li>Mobile first</li>
+<li>Mobile first Progressive Web App so it can support advanced features like notifications</li>
+<li>Simple and clean; use basic Shiny components that can be easily tested by the built-in Playwright controllers</li>
+<li>Be transparent with everything that happens in the LLM, all interactions should be shown directly in the UI</li>
 </ul>
 </section>
 </section>
 <section id="deployment" class="level2">
 <h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
-<section id="principles" class="level3">
-<h3 class="anchored" data-anchor-id="principles">Principles</h3>
 <ul>
 <li>Only add complexity when necessary but don’t create one-way doors.</li>
 <li>Minimise drift between development and production as much as possible.</li>
 </ul>
 
 
-</section>
 </section>
 </section>
 
