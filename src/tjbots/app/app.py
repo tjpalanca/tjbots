@@ -4,12 +4,14 @@ Bots Shiny Application
 Test harness for configuring and testing various bot and tool combinations.
 """
 
+from dataclasses import dataclass, field
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import chatlas
-from shiny import App, Inputs, Outputs, Session, reactive, req, ui
+from shiny import App, Inputs, Outputs, Session, ui
 
+from tjbots.app.components.chat import chat_server, chat_ui
 from tjbots.app.components.sidebar import sidebar_server, sidebar_ui
 from tjbots.app.modules.pwa import pwa_ui
 from tjbots.app.modules.reconnect import reconnect_ui
@@ -37,41 +39,28 @@ app_ui = ui.page_sidebar(
         description="TJ's adventures with LLMs",
     ),
     reconnect_ui("reconnect"),
-    ui.chat_ui(id="chat"),
+    chat_ui("chat"),
     window_title="TJBots",
     fillable=True,
     fillable_mobile=True,
 )
 
 
+@dataclass
+class Context:
+    turns: list[chatlas.Turn] = field(default_factory=list)
+
+
 def app_server(input: Inputs, output: Outputs, session: Session):
     PackageConfig()
+    context = Context()
     selected_provider, selected_model = sidebar_server("sidebar")
-
-    @reactive.calc
-    def system_prompt():
-        return """
-            You are TJBot, a helpful AI assistant created by TJ.
-            You are knowledgeable, friendly, and concise in your responses.
-        """
-
-    @reactive.calc
-    def agent():
-        req(selected_provider(), selected_model())
-
-        return chatlas.ChatAuto(
-            provider=selected_provider(),
-            model=selected_model(),
-            system_prompt=system_prompt(),
-        )
-
-    chat = ui.Chat(id="chat")
-
-    @chat.on_user_submit
-    async def chat_ui_respond(user_input: str):
-        req(agent())
-        response = await agent().stream_async(user_input)
-        await chat.append_message_stream(response)
+    chat_server(
+        "chat",
+        selected_provider=selected_provider,
+        selected_model=selected_model,
+        context=context,
+    )
 
 
 app = App(

@@ -1,1 +1,0 @@
-# TJBots tests package

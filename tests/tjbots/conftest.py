@@ -11,6 +11,17 @@ import pytest
 
 
 @pytest.fixture(scope="session", autouse=True)
+def tjbots_env_file(pytestconfig):
+    """Point TJBots to use the staging env file for tests.
+
+    This ensures PackageConfig loads keys from ``env/staging.env`` by default.
+    """
+    root = str(pytestconfig.rootdir)
+    staging_env_path = os.path.join(root, "env", "staging.env")
+    os.environ.setdefault("TJBOTS_ENV_FILE", staging_env_path)
+
+
+@pytest.fixture(scope="session", autouse=True)
 def docker_compose_env(pytestconfig):
     """Set environment variables required by the main docker-compose.yml file."""
     # Set default values for testing

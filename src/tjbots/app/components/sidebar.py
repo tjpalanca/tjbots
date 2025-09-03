@@ -33,7 +33,7 @@ MODEL_CHOICES = {
         },
     },
     "openai": {
-        "default": "gpt-5",
+        "default": "gpt-5-mini",
         "choices": {
             "gpt-5": "GPT-5",
             "gpt-5-mini": "GPT-5 mini",

@@ -16,20 +16,23 @@ The sources of these configurations can come from:
 
 ### Couldn't we just use the existing apps?
 
--   Most providers will not be model agnostic, they will only support one provider, especially in relation to these open-weight models.
+-   Existing apps will not be model agnostic; they will only support one provider, especially in relation to these open-weight models.
+    -   I did try to look for open source ones that allow me to plug in the API keys, but they were only found on desktop, nothing that was consistent across desktop and mobile experiences.
 -   Most providers will charge a margin over the raw API cost.
 -   We cannot experiment with human-AI interfaces because the interfaces are fixed.
+    -   Main argument against using open-source LLM tools.
 -   It's harder to compose more complex model configurations and to add tools via MCP servers creates additional overhead.
+-   It may be that I am just yak-shaving here, but it's a personal project and it's supposed to be fun, so I'm going to do it.
 
 ## Design
 
 ### User interface
 
--   Mobile first
+-   Mobile first Progressive Web App so it can support advanced features like notifications
+-   Simple and clean; use basic Shiny components that can be easily tested by the built-in Playwright controllers
+-   Be transparent with everything that happens in the LLM, all interactions should be shown directly in the UI
 
 ## Deployment
-
-### Principles
 
 -   Only add complexity when necessary but don't create one-way doors.
 -   Minimise drift between development and production as much as possible.
