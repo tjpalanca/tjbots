@@ -37,46 +37,45 @@ deps:
 	uv sync --locked && \
 	uv run playwright install --with-deps
 
+# Docker 
+
+DOCKER_IMG := ghcr.io/tjpalanca/tjbots
+DOCKER_ENV := \
+	DOCKER_NAME=$(NAME) \
+	VERSION=$(VERSION) \
+	DOCKER_IMG=$(DOCKER_IMG)
+
 # Sandbox
 
-SANDBOX_COMPOSE_ENV := \
-	DOCKER_NAME=$(NAME) \
-	SECRETS_FILE=$(SECRETS_FILE) \
-	VERSION=$(VERSION) \
-	DOCKER_IMG=ghcr.io/tjpalanca/tjbots
-
 SANDBOX_COMPOSE := \
-	$(SANDBOX_COMPOSE_ENV) \
+    $(DOCKER_ENV) \
+	SECRETS_FILE=$(SECRETS_FILE) \
 	docker compose -f build/docker-compose.yml
 
-sandbox-build: 
-	$(DOCKER_COMPOSE) build
+sandbox-build:
+	$(SANDBOX_COMPOSE) build
 
 sandbox-push: 
-	$(DOCKER_COMPOSE) push
+	$(SANDBOX_COMPOSE) push
 
 sandbox-run: 
-	$(DOCKER_COMPOSE) up
+	$(SANDBOX_COMPOSE) up
 
 sandbox-up: 
-	$(DOCKER_COMPOSE) up --detach
+	$(SANDBOX_COMPOSE) up --detach
 
 sandbox-down: 
-	$(DOCKER_COMPOSE) down
+	$(SANDBOX_COMPOSE) down
 
 sandbox-bash: sandbox-up
-	$(DOCKER_COMPOSE) exec $(NAME) /bin/bash
+	$(SANDBOX_COMPOSE) exec app /bin/bash
 
 # Production
 
 PRODUCTION_SECRETS_FILE := $(PWD)/.env
-PRODUCTION_COMPOSE_ENV := \
-	DOCKER_NAME=$(NAME) \
-	SECRETS_FILE=$(PRODUCTION_SECRETS_FILE) \
-	VERSION=$(VERSION) \
-	DOCKER_IMG=ghcr.io/tjpalanca/tjbots
 PRODUCTION_COMPOSE := \
-	$(PRODUCTION_COMPOSE_ENV) \
+	$(DOCKER_ENV) \
+	SECRETS_FILE=$(PRODUCTION_SECRETS_FILE) \
 	docker compose -f build/docker-compose.yml --profile production -p $(NAME)
 
 production-setup: 
@@ -94,20 +93,20 @@ production-bash:
 
 # Building
 
-DOCKER_BUILD_ENV := \
-	$(DOCKER_COMPOSE_ENV) \
+BUILD_ENV := \
+	$(DOCKER_ENV) \
 	REPO_URL=$(REPO_URL) \
 	LICENSE=$(LICENSE) 
-DOCKER_BUILD_COMMAND := \
+BUILD_COMMAND := \
 	cd build && \
-	$(DOCKER_BUILD_ENV) \
+	$(BUILD_ENV) \
 	docker buildx bake --allow=fs.read=.. build
 
 build-test:
-	$(DOCKER_BUILD_COMMAND)
+	$(BUILD_COMMAND)
 
 build-publish:
-	$(DOCKER_BUILD_COMMAND) --push
+	$(BUILD_COMMAND) --push
 
 # Testing
 
