@@ -1,24 +1,32 @@
 services:
-  tjbots:
-    container_name: ${DOCKER_NAME}
+  app:
+    container_name: ${DOCKER_NAME}-app
     image: ${DOCKER_IMG}:${VERSION}
+    restart: always 
     build: &build
       context: ..
       dockerfile: build/Dockerfile
-    volumes:
-      - type: bind
-        source: ${SECRETS_FILE-/run/secrets/tjbots.env}
-        target: /run/secrets/tjbots.env
+    secrets:
+      - tjbots.env
     ports:
       - "8080:8080"
-  tjbots-release:
+  watchtower:
     profiles: 
-      - release
+      - production
+    image: containrrr/watchtower:latest
+    container_name: ${DOCKER_NAME}-watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: ${DOCKER_NAME}-app --interval ${WATCHTOWER_INTERVAL:-300} --cleanup
+  build:
+    profiles: 
+      - build
     build:
       <<: *build
       labels:
-        org.opencontainers.image.source: ${REPO_URL}
-        org.opencontainers.image.licenses: ${LICENSE}
+        org.opencontainers.image.source: ${REPO_URL-}
+        org.opencontainers.image.licenses: ${LICENSE-}
       tags:
         - ${DOCKER_IMG}:${VERSION}
         - ${DOCKER_IMG}:${LATEST-latest}
@@ -30,3 +38,7 @@ services:
         platforms: 
           - linux/amd64 
           - linux/arm64
+  
+secrets: 
+  tjbots.env:
+    file: ${SECRETS_FILE-/run/secrets/tjbots.env}

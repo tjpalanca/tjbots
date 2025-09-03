@@ -84,7 +84,7 @@
                             "--api-key",
                             "$CONTEXT7_API_KEY"
                         ],
-                        "envFile": "/run/secrets/dev.env"
+                        "envFile": "/run/secrets/devcontainer.env"
                     },
                     "github": {
                         "type": "http",
