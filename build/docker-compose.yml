@@ -1,15 +1,13 @@
 services:
-  tjbots:
-    container_name: ${DOCKER_NAME}
+  app:
+    container_name: ${DOCKER_NAME}-app
     image: ${DOCKER_IMG}:${VERSION}
     restart: always 
     build: &build
       context: ..
       dockerfile: build/Dockerfile
-    volumes:
-      - type: bind
-        source: ${SECRETS_FILE-/run/secrets/tjbots.env}
-        target: /run/secrets/tjbots.env
+    secrets:
+      - tjbots.env
     ports:
       - "8080:8080"
   watchtower:
@@ -20,8 +18,8 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: ${DOCKER_NAME} --interval 30 --cleanup
-  tjbots-build:
+    command: ${DOCKER_NAME}-app --interval 30 --cleanup
+  build:
     profiles: 
       - build
     build:
@@ -40,3 +38,7 @@ services:
         platforms: 
           - linux/amd64 
           - linux/arm64
+  
+secrets: 
+  tjbots.env:
+    file: ${SECRETS_FILE-/run/secrets/tjbots.env}

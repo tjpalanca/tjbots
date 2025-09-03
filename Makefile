@@ -54,7 +54,7 @@ sandbox-build:
 
 sandbox-push: 
 	$(DOCKER_COMPOSE) push
-	
+
 sandbox-run: 
 	$(DOCKER_COMPOSE) up
 
@@ -69,15 +69,28 @@ sandbox-bash: sandbox-up
 
 # Production
 
+PRODUCTION_SECRETS_FILE := $(PWD)/.env
 PRODUCTION_COMPOSE_ENV := \
 	DOCKER_NAME=$(NAME) \
-	SECRETS_FILE=$(SECRETS_FILE) \
+	SECRETS_FILE=$(PRODUCTION_SECRETS_FILE) \
 	VERSION=$(VERSION) \
 	DOCKER_IMG=ghcr.io/tjpalanca/tjbots
+PRODUCTION_COMPOSE := \
+	$(PRODUCTION_COMPOSE_ENV) \
+	docker compose -f build/docker-compose.yml --profile production -p $(NAME)
 
-SANDBOX_COMPOSE := \
-	$(SANDBOX_COMPOSE_ENV) \
-	docker compose -f build/docker-compose.yml
+production-setup: 
+	eval $$(op signin) && \
+	op inject -i  env/production.env -o $(PRODUCTION_SECRETS_FILE) --force 
+
+production-up:
+	$(PRODUCTION_COMPOSE) up --detach
+ 
+production-down:
+	$(PRODUCTION_COMPOSE) down
+
+production-bash: 
+	$(PRODUCTION_COMPOSE) exec app /bin/bash
 
 # Building
 
@@ -88,7 +101,7 @@ DOCKER_BUILD_ENV := \
 DOCKER_BUILD_COMMAND := \
 	cd build && \
 	$(DOCKER_BUILD_ENV) \
-	docker buildx bake --allow=fs.read=.. tjbots-build
+	docker buildx bake --allow=fs.read=.. build
 
 build-test:
 	$(DOCKER_BUILD_COMMAND)
