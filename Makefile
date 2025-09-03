@@ -24,7 +24,7 @@ create:
 	$(MAKE) pre-commit-install 
 
 start:
-	op inject -f -i env/dev.env -o $(SECRETS_DIR)/dev.env && \
+	op inject -f -i .devcontainer/devcontainer.env -o $(SECRETS_DIR)/devcontainer.env && \
 	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
 	op read "op://Development/Docker GitHub PAT/credential" | \
 	docker login ghcr.io -u tjpalanca --password-stdin
@@ -37,52 +37,76 @@ deps:
 	uv sync --locked && \
 	uv run playwright install --with-deps
 
-# Docker
+# Docker 
 
-DOCKER_COMPOSE_ENV := \
+DOCKER_IMG := ghcr.io/tjpalanca/tjbots
+DOCKER_ENV := \
 	DOCKER_NAME=$(NAME) \
-	SECRETS_FILE=$(SECRETS_FILE) \
 	VERSION=$(VERSION) \
-	DOCKER_IMG=ghcr.io/tjpalanca/tjbots
+	DOCKER_IMG=$(DOCKER_IMG)
 
-DOCKER_COMPOSE := \
-	$(DOCKER_COMPOSE_ENV) \
+# Sandbox
+
+SANDBOX_COMPOSE := \
+    $(DOCKER_ENV) \
+	SECRETS_FILE=$(SECRETS_FILE) \
 	docker compose -f build/docker-compose.yml
 
-docker-build: 
-	$(DOCKER_COMPOSE) build
+sandbox-build:
+	$(SANDBOX_COMPOSE) build
 
-docker-push: 
-	$(DOCKER_COMPOSE) push
+sandbox-push: 
+	$(SANDBOX_COMPOSE) push
 
-docker-run: 
-	$(DOCKER_COMPOSE) up
+sandbox-run: 
+	$(SANDBOX_COMPOSE) up
 
-docker-up: 
-	$(DOCKER_COMPOSE) up --detach
+sandbox-up: 
+	$(SANDBOX_COMPOSE) up --detach
 
-docker-down: 
-	$(DOCKER_COMPOSE) down
+sandbox-down: 
+	$(SANDBOX_COMPOSE) down
 
-docker-bash: 
-	$(DOCKER_COMPOSE) exec $(NAME) /bin/bash
+sandbox-bash: sandbox-up
+	$(SANDBOX_COMPOSE) exec app /bin/bash
+
+# Production
+
+PRODUCTION_SECRETS_FILE := $(PWD)/.env
+PRODUCTION_COMPOSE := \
+	$(DOCKER_ENV) \
+	SECRETS_FILE=$(PRODUCTION_SECRETS_FILE) \
+	docker compose -f build/docker-compose.yml --profile production -p $(NAME)
+
+production-setup: 
+	eval $$(op signin) && \
+	op inject -i  env/production.env -o $(PRODUCTION_SECRETS_FILE) --force 
+
+production-up:
+	$(PRODUCTION_COMPOSE) up --detach
+ 
+production-down:
+	$(PRODUCTION_COMPOSE) down
+
+production-bash: 
+	$(PRODUCTION_COMPOSE) exec app /bin/bash
 
 # Building
 
-DOCKER_BUILD_ENV := \
-	$(DOCKER_COMPOSE_ENV) \
+BUILD_ENV := \
+	$(DOCKER_ENV) \
 	REPO_URL=$(REPO_URL) \
 	LICENSE=$(LICENSE) 
-DOCKER_BUILD_COMMAND := \
+BUILD_COMMAND := \
 	cd build && \
-	$(DOCKER_BUILD_ENV) \
-	docker buildx bake --allow=fs.read=..
+	$(BUILD_ENV) \
+	docker buildx bake --allow=fs.read=.. build
 
 build-test:
-	$(DOCKER_BUILD_COMMAND)
+	$(BUILD_COMMAND)
 
 build-publish:
-	$(DOCKER_BUILD_COMMAND) --push
+	$(BUILD_COMMAND) --push
 
 # Testing
 

@@ -22,13 +22,14 @@ def tjbots_env_file(pytestconfig):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def docker_compose_env():
+def docker_compose_env(pytestconfig):
     """Set environment variables required by the main docker-compose.yml file."""
     # Set default values for testing
     test_env = {
-        "DOCKER_NAME": "tjbots-test",
-        "DOCKER_IMG": "tjbots-test",
+        "DOCKER_NAME": "tjbots",
+        "DOCKER_IMG": "tjbots",
         "VERSION": "test",
+        "SECRETS_FILE": os.path.join(str(pytestconfig.rootdir), "env", "test.env")
     }
 
     for key, value in test_env.items():

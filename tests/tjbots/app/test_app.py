@@ -57,7 +57,7 @@ class TestAppBasics:
     def tjbots_docker_service(self, docker_ip, docker_services) -> str:
         """Return the URL for the tjbots Docker service."""
         logger.info("Starting tjbots testing service...")
-        port = docker_services.port_for("tjbots", 8080)
+        port = docker_services.port_for("app", 8080)
         url = f"http://{docker_ip}:{port}"
         docker_services.wait_until_responsive(
             timeout=60.0, pause=2, check=lambda: is_responsive(url)
