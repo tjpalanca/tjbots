@@ -12,13 +12,13 @@ import pytest
 
 @pytest.fixture(scope="session", autouse=True)
 def tjbots_env_file(pytestconfig):
-    """Point TJBots to use the staging env file for tests.
+    """Point TJBots to use the testing env file for tests.
 
-    This ensures PackageConfig loads keys from ``env/staging.env`` by default.
+    This ensures PackageConfig loads keys from `envs/testing.env` by default.
     """
     root = str(pytestconfig.rootdir)
-    staging_env_path = os.path.join(root, "env", "staging.env")
-    os.environ.setdefault("TJBOTS_ENV_FILE", staging_env_path)
+    testing_env_path = os.path.join(root, "envs", "testing.env")
+    os.environ.setdefault("TJBOTS_ENV_FILE", testing_env_path)
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -29,7 +29,7 @@ def docker_compose_env(pytestconfig):
         "DOCKER_NAME": "tjbots",
         "DOCKER_IMG": "tjbots",
         "VERSION": "test",
-        "SECRETS_FILE": os.path.join(str(pytestconfig.rootdir), "env", "test.env")
+        "SECRETS_FILE": os.path.join(str(pytestconfig.rootdir), "envs", "testing.env"),
     }
 
     for key, value in test_env.items():

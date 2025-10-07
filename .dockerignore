@@ -1,5 +1,5 @@
 .devcontainer/
 .github/
-env/
+envs/
 __pycache__
 .env

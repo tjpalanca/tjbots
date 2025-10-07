@@ -25,7 +25,7 @@ create:
 
 start:
 	op inject -f -i .devcontainer/devcontainer.env -o $(SECRETS_DIR)/devcontainer.env && \
-	op inject -f -i env/$(ENV).env -o $(SECRETS_FILE) && \
+	op inject -f -i envs/$(ENV).env -o $(SECRETS_FILE) && \
 	op read "op://Development/Docker GitHub PAT/credential" | \
 	docker login ghcr.io -u tjpalanca --password-stdin
 
@@ -80,7 +80,7 @@ PRODUCTION_COMPOSE := \
 
 production-setup: 
 	eval $$(op signin) && \
-	op inject -i  env/production.env -o $(PRODUCTION_SECRETS_FILE) --force 
+	op inject -i  envs/production.env -o $(PRODUCTION_SECRETS_FILE) --force 
 
 production-up:
 	$(PRODUCTION_COMPOSE) up --detach
